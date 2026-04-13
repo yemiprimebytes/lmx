@@ -1,0 +1,10 @@
+# PRECAUTION: avoid production dependencies that aren't in development
+
+-r base.txt
+
+gunicorn
+
+# Django
+# ------------------------------------------------------------------------------
+django-storages[boto3]
+django-anymail[amazon_ses]

@@ -1,0 +1,7 @@
+-r base.txt
+
+# Code quality
+# ------------------------------------------------------------------------------
+black
+factory-boy
+django-extensions
