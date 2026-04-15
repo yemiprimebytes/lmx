@@ -8,12 +8,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'S#perS3crEt_007-r_)z%&rpl$#@b0t!lg89t$+@v0q%-!jlejf2@uw-y&4_kv-!9'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = config("DEBUG", default=True, cast=bool)
 DEBUG = True
-
-# ALLOWED_HOSTS = ['167.99.182.194', 'localhost', 'blackboard.citpm.org', config('SERVER', default='127.0.0.1')] 
-# CSRF_TRUSTED_ORIGINS = ['https://167.99.182.194', 'http://localhost', 'https://blackboard.citpm.org'] 
 
 ALLOWED_HOSTS = ['66.94.98.179', 'localhost', 'blackboard.primebytes.ca', '127.0.0.1']
 CSRF_TRUSTED_ORIGINS = ['https://66.94.98.179', 'http://localhost', 'https://blackboard.primebytes.ca']
@@ -123,19 +118,9 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-# Internationalization
-# https://docs.djangoproject.com/en/2.2/topics/i18n/
-
-
-def gettext(s):
-    return s
-
-
 LANGUAGES = (
-    ("en", gettext("English")),
-    ("fr", gettext("French")),
-    ("es", gettext("Spanish")),
-    ("ru", gettext("Russia")),
+    ("en", "English"),
+    ("fr", "French"),
 )
 
 LOCALE_PATHS = (os.path.join(BASE_DIR, "locale"),)
@@ -151,9 +136,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 # https://docs.djangoproject.com/en/dev/ref/settings/#static-url
 STATIC_URL = "/static/"
@@ -216,7 +198,7 @@ LOGGING = {
     'handlers': {
         'file': {
             'class': 'logging.FileHandler',
-            'filename': os.path.join(BASE_DIR,'logs/blackboard.log'),
+            'filename': os.path.join(BASE_DIR,'logs/lmx.log'),
             'formatter':'verbose'
         },
     },
