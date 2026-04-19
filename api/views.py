@@ -1,4 +1,4 @@
-from rest_framework import generics, permissions, status
+from rest_framework import generics, permissions, status, viewsets
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializers import * 
@@ -6,19 +6,24 @@ from knox.models import AuthToken
 import random
 from django.core.mail import send_mail
 from django.core.cache import cache 
+from .permissions import *
+from core.models import NewsAndEvents
+from course.models import *
 
 
-class RegisterAPI(generics.GenericAPIView):
-    serializer_class = RegisterSerializer
+class RegisterView(generics.CreateAPIView):
+    serializer_class = RegistrationSerializer
+    permission_classes = [] # Allow public registration
 
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        user = serializer.save()
-        return Response({
-            "user": UserSerializer(user, context=self.get_serializer_context()).data,
-            "token": AuthToken.objects.create(user)[1]
-        }, status=status.HTTP_201_CREATED)
+        if serializer.is_valid():
+            user = serializer.save()
+            return Response({
+                "user": UserSerializer(user).data,
+                "token": AuthToken.objects.create(user)[1]
+            }, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class LoginAPI(generics.GenericAPIView):
@@ -60,7 +65,8 @@ class UserAPI(generics.RetrieveAPIView):
 
     def get_object(self):
         return self.request.user
-    
+
+
 class ForgotPasswordView(APIView):
     def post(self, request):
         serializer = ForgotPasswordSerializer(data=request.data)
@@ -83,6 +89,7 @@ class ForgotPasswordView(APIView):
             return Response({"message": "OTP sent to your email."}, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
 class ResetPasswordConfirmView(APIView):
     def post(self, request):
         serializer = ResetPasswordConfirmSerializer(data=request.data)
@@ -99,3 +106,46 @@ class ResetPasswordConfirmView(APIView):
             
             return Response({"message": "Password reset successful."}, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+
+# Create/Update/Delete must be for certain class of users 
+# Teachers, Admin only. 
+# Add to code.
+class NewsAndEventsViewSet(viewsets.ModelViewSet):
+    queryset = NewsAndEvents.objects.all().order_by('-upload_time')
+    serializer_class = NewsAndEventsSerializer
+    
+    # Optional: Set permissions. 
+    # Allow anyone to Read, but only authenticated users to Create/Update/Delete
+    def get_permissions(self):
+        if self.action in ['list', 'retrieve']:
+            return [permissions.AllowAny()]
+        return [permissions.IsAdminOrLecturer]
+
+# Programs & Courses Views
+class ProgramViewSet(viewsets.ModelViewSet):
+    queryset = Program.objects.all()
+    serializer_class = ProgramSerializer
+    # Apply the custom permission class [cite: 65]
+    permission_classes = [IsSuperUserOrReadOnly] 
+
+
+# Courses 
+class CourseViewSet(viewsets.ModelViewSet):
+    queryset = Course.objects.all()
+    serializer_class = CourseSerializer
+    permission_classes = [IsSuperUserOrReadOnly]
+    lookup_field = 'slug'  # Uses slug instead of ID for detailed retrieval 
+
+class CourseAllocationViewSet(viewsets.ModelViewSet):
+    queryset = CourseAllocation.objects.all()
+    serializer_class = CourseAllocationSerializer
+    permission_classes = [IsSuperUserOrReadOnly]
+
+
+# Quizzes Views
+class QuizViewSet(viewsets.ModelViewSet):
+    queryset = Quiz.objects.all().order_by('-timestamp')
+    serializer_class = QuizSerializer
+    permission_classes = [IsLecturerOrReadOnly]
+    lookup_field = 'slug'

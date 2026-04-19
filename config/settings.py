@@ -236,8 +236,8 @@ LOGGING = {
 # WhiteNoise configuration
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
-STUDENT_ID_PREFIX = "STUDENT_ID_PREFIX"
-LECTURER_ID_PREFIX = "LECTURER_ID_PREFIX" 
+STUDENT_ID_PREFIX = "stu"
+LECTURER_ID_PREFIX = "lec" 
 
 
 # Constants
@@ -275,6 +275,6 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'primebytes.solutions@gmail.com'
-EMAIL_FROM_ADDRESS="Blackboard primebytes.solutions@gmail.com"
-EMAIL_HOST_PASSWORD = 'sjecqfghetgvndnm'
+EMAIL_FROM_ADDRESS="Twixt Education <primebytes.solutions@gmail.com>"
+EMAIL_HOST_PASSWORD = 'ycmtchpcfzebovzs'
 EMAIL_ADMIN = 'no-reply@primebytes.ca'

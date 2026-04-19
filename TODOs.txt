@@ -1,3 +1,59 @@
 API Endpoint Generation
 
-- 
+- Test the NewsAndEvents Endpoints very well. 
+
+Registration JSON schema
+
+- Student 
+{
+    "username": "student_jdoe",
+    "password": "password123",
+    "email": "tablebubble@gmail.com",
+    "first_name": "John",
+    "last_name": "Doe",
+    "is_student": true,
+    "level": "Bachelor",
+    "program": 1 
+}
+
+- Parent 
+{
+    "username": "parent_doe",
+    "password": "password123",
+    "is_parent": true,
+    "relation_ship": "Father",
+    "student_id": 5 
+}
+
+- Department Head Registration
+{
+    "username": "head_science",
+    "password": "password123",
+    "is_dep_head": true,
+    "program": 2
+}
+
+- Lecturer
+-- Working payload.
+{
+    "username": "lecturer_smith",
+    "password": "password123",
+    "email": "tablebubble@gmail.com",
+    "phone": "6476316944",
+    "is_lecturer": true,
+    "gender":"M",
+    "first_name": "Jane",
+    "last_name": "Smith"
+}
+
+{
+    "username": "lecturer_smith",
+    "password": "password123",
+    "email": "tablebubble@gmail.com",
+    "phoneu_number": "6476316944",
+    "is_lecturer": true,
+    "gender":"Male",
+    "first_name": "Jane",
+    "last_name": "Smith"
+}
+
