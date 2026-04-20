@@ -7,7 +7,7 @@ from django.core.cache import cache
 from core.models import NewsAndEvents
 from course.models import *
 from quiz.models import *
-
+ 
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
