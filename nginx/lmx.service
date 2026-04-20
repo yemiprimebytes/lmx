@@ -1,0 +1,17 @@
+[Unit]
+Description=LMx daemon
+Requires=lmx.socket
+After=network.target
+
+[Service]
+User=django
+Group=www-data
+WorkingDirectory=/home/django/lmx/
+ExecStart=/home/django/lmx/env/bin/gunicorn \
+          --access-logfile - \
+          --workers 3 \
+          --bind unix:/run/gunicorn/lmx.sock \
+          config.wsgi:application
+
+[Install]
+WantedBy=multi-user.target

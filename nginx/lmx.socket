@@ -1,0 +1,11 @@
+[Unit] 
+Description=LMx socket 
+
+[Socket] 
+ListenStream=/run/gunicorn/lmx.sock 
+
+[Install] 
+WantedBy=sockets.target 
+
+; Note: Create this file in /etc/systemd/system/ 
+; sudo nano /etc/systemd/system/bytesbox.socket 
