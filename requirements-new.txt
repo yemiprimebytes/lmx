@@ -24,6 +24,7 @@ factory_boy==3.3.3
 Faker==40.11.1
 freetype-py==2.5.1
 gopay==2.0.1
+gunicorn==25.3.0
 html5lib==1.1
 idna==3.11
 lxml==6.0.2
