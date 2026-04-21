@@ -10,8 +10,8 @@ SECRET_KEY = 'S#perS3crEt_007-r_)z%&rpl$#@b0t!lg89t$+@v0q%-!jlejf2@uw-y&4_kv-!9'
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['66.94.98.179', 'localhost', 'blackboard.primebytes.ca', '127.0.0.1']
-CSRF_TRUSTED_ORIGINS = ['https://66.94.98.179', 'http://localhost', 'https://blackboard.primebytes.ca']
+ALLOWED_HOSTS = ['66.94.98.179', 'localhost', 'twixt.primebytes.ca', '127.0.0.1']
+CSRF_TRUSTED_ORIGINS = ['https://66.94.98.179', 'http://localhost', 'https://twixt.primebytes.ca']
 
 # change the default user models to our custom model
 AUTH_USER_MODEL = "accounts.User"
