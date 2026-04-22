@@ -254,3 +254,25 @@ class CourseOffer(models.Model):
 
     def __str__(self):
         return str(self.dep_head)
+
+
+# Upgrade added by mans.
+# Course Annoucements per course, only by Teachers/Lecturers.
+class CourseAnnouncement(models.Model):
+    course = models.ForeignKey(Course, on_delete=models.DO_NOTHING)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING)
+    content = models.TextField()
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return str(self.course)
+
+# This is for general discussion by class mates, but teachers/lecturers are allowed to chip in. 
+class CourseDiscussion(models.Model):
+    course = models.ForeignKey(Course, on_delete=models.DO_NOTHING)
+    sender = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING)
+    content = models.TextField()
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.title

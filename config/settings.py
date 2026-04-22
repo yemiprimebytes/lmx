@@ -224,7 +224,7 @@ LOGGING = {
             'handlers': ['file'],
             'propagate': True,
         },
-        'blackboard': { # use this in production
+        'lmx': { # use this in production
             'level': 'DEBUG',
             'handlers': ['file'],
             'propagate': True,

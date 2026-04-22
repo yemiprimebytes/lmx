@@ -47,7 +47,7 @@ class LogoutAPI(APIView):
     def post(self, request):
         try:
             # Delete the token associated with the current user
-            request.user.auth_token.delete()
+            request._auth.delete()
             return Response(
                 {"message": "Successfully logged out."}, 
                 status=status.HTTP_200_OK
@@ -120,7 +120,7 @@ class NewsAndEventsViewSet(viewsets.ModelViewSet):
     def get_permissions(self):
         if self.action in ['list', 'retrieve']:
             return [permissions.AllowAny()]
-        return [permissions.IsAdminOrLecturer]
+        return [IsAdminOrLecturer()]
 
 # Programs & Courses Views
 class ProgramViewSet(viewsets.ModelViewSet):
@@ -149,3 +149,22 @@ class QuizViewSet(viewsets.ModelViewSet):
     serializer_class = QuizSerializer
     permission_classes = [IsLecturerOrReadOnly]
     lookup_field = 'slug'
+
+# CourseAnnouncements/ News
+class CourseAnnouncementViewSet(viewsets.ModelViewSet):
+    serializer_class = CourseAnnouncementSerializer
+    permission_classes = [IsLecturerOrReadOnly]
+
+    def perform_create(self, serializer):
+        # Automatically set the current user as the announcement creator
+        serializer.save(user=self.request.user)
+
+
+class CourseDiscussionViewSet(viewsets.ModelViewSet):
+    queryset = CourseDiscussion.objects.all().order_by('timestamp')
+    serializer_class = CourseDiscussionSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def perform_create(self, serializer):
+        # Automatically set the sender to the logged-in user
+        serializer.save(sender=self.request.user)

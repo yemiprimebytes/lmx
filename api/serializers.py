@@ -150,3 +150,19 @@ class QuizSerializer(serializers.ModelSerializer):
         model = Quiz
         fields = '__all__'
         read_only_fields = ('slug', 'timestamp')
+
+class CourseAnnouncementSerializer(serializers.ModelSerializer):
+    # User is read-only because we set it automatically from the request
+    user = serializers.StringRelatedField(read_only=True)
+    
+    class Meta:
+        model = CourseAnnouncement
+        fields = ['id', 'course', 'user', 'content', 'timestamp']
+
+class CourseDiscussionSerializer(serializers.ModelSerializer):
+    sender_name = serializers.ReadOnlyField(source='sender.get_full_name')
+
+    class Meta:
+        model = CourseDiscussion
+        fields = ['id', 'course', 'sender', 'sender_name', 'content', 'timestamp']
+        read_only_fields = ['sender', 'timestamp']

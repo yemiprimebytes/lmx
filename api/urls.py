@@ -9,6 +9,8 @@ router.register(r'programs', ProgramViewSet, basename='programs')
 router.register(r'courses', CourseViewSet, basename='courses')
 router.register(r'course-allocations', CourseAllocationViewSet, basename='course-allocations')
 router.register(r'quizzes', QuizViewSet, basename='quizzes')
+router.register(r'course-announcements', CourseAnnouncementViewSet, basename='course-announcements')
+router.register(r'discussions', CourseDiscussionViewSet, basename='course-discussions')
 
 urlpatterns = [
     # User Story
