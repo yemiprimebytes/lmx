@@ -139,12 +139,17 @@ USE_TZ = True
 
 # https://docs.djangoproject.com/en/dev/ref/settings/#static-url
 STATIC_URL = "/static/"
+
+STATICEDU = "/static/edudash/" 
+
 # https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#std:setting-STATICFILES_DIRS
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
+    os.path.join(BASE_DIR, "static/edudash"),
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#static-root
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+
 # https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#staticfiles-finders
 STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.FileSystemFinder",

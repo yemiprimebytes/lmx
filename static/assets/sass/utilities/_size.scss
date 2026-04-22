@@ -1,0 +1,25 @@
+// width height
+@each $property, $value in $spaces {
+    .w-#{$property} {
+      width: $value !important;
+    }
+}
+
+@each $property, $value in $spaces {
+    .h-#{$property} {
+      height: $value !important;
+    }
+}
+
+.max-h-unset {
+    max-height: unset !important;
+}
+
+.max-w {
+  &-unset {
+    max-width: unset !important;
+  }
+  &-772 {
+    max-width: 772px;
+  }
+}

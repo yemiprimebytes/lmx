@@ -1,0 +1,24 @@
+<div class="breadcrumb d-flex flex-wrap align-items-center justify-content-between gap-3 mb-24">
+    <div class="">
+        {% if description %}
+        <h6 class="fw-semibold mb-0">{{ title }}</h6>
+        <p class="text-neutral-600 mt-4 mb-0">{{ description }}</p>
+        {% else %}
+        <h1 class="fw-semibold mb-4 h6 text-primary-light">{{ title }}</h1>
+        <div class="">
+            <a href="index.html" class="text-secondary-light hover-text-primary hover-underline">Dashboard</a>
+            {% if parent_text %}
+            <a href="{{ parent_link|default:'javascript:void(0)' }}"
+                class="text-secondary-light hover-text-primary hover-underline"> / {{ parent_text }}</a>
+            {% endif %}
+            <span class="text-secondary-light">/ {{ active_page|default:title }}</span>
+        </div>
+        {% endif %}
+    </div>
+    {% if button_text and button_link %}
+    <a href="{{ button_link }}" class="btn btn-primary-600 d-flex align-items-center gap-6">
+        <span class="d-flex text-md"><i class="ri-add-large-line"></i></span>
+        {{ button_text }}
+    </a>
+    {% endif %}
+</div>

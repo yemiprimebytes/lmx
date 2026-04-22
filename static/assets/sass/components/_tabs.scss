@@ -1,0 +1,13 @@
+/* Tabs Css Start */
+.nav-pills {
+    .nav-link {
+        &.active {
+            background-color: var(--main-600) !important;
+            color: hsl(var(--white)) !important;
+            &:hover {
+                background-color: var(--main-800) !important;
+            }
+        }
+    }
+}
+/* Tabs Css End */

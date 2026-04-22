@@ -1,0 +1,75 @@
+/* ===================================== Banner Css Start ================================ */
+.banner {
+    background-image: url('../images/bg/gradient-bg.png');
+    &__inner {
+        padding-top: 96px;
+    }
+    .slick-slide {
+        transition: .4s linear;
+        &.slick-current.slick-active {
+            transform: scale(1.2);
+            transform-origin: bottom;
+            z-index: 10;
+        }
+    }
+    .slick-initialized.slick-slider .slick-track {
+        padding-top: clampCal(80, 160);
+    }
+    .slick-list.draggable {
+        padding: 0 !important;
+    }
+}
+
+.tech-icon {
+    position: absolute;
+    z-index: -1;
+    &.one {
+        left: 14%;
+        top: 154px;
+        animation-delay: 1s;
+    }
+    &.two {
+        top: 72%;
+        left: 25%;
+        animation-delay: 1.5s;
+    }
+    &.three {
+        top: 72%;
+        right: 25%;
+        animation-delay: 2.2s;
+    }
+    &.four {
+        top: 100px;
+        right: 12%;
+        animation-delay: 2.8s;
+    }
+}
+
+.animation-updown {
+    animation: upDown 4s linear infinite;
+}
+
+.animation-rotation {
+    animation: roatation 8s linear infinite;
+}
+
+.animation-scalation {
+    animation: scalation 8s linear infinite;
+}
+
+.animation-walking {
+    animation: walking 10s linear infinite;
+}
+
+@keyframes upDown {
+    0% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-30px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
+/* ===================================== Banner Css End ================================ */

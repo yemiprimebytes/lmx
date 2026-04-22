@@ -1,0 +1,20 @@
+.testimonials {
+    &::before {
+        position: absolute;
+        content: "";
+        width: 470px;
+        height: 980px;
+        transform: rotate(54deg);
+        border-radius: 980px;
+        opacity: 0.3;
+        background: #CCB6FF;
+        filter: blur(250px);
+        z-index: -1;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
+.testimonials-slider {
+    margin: -16px;
+}

@@ -1,0 +1,76 @@
+/* ================================ Counter Section Css Start ====================================== */
+.counter {
+    margin-top: 120px;
+    @include md-screen {
+        margin-top: 80px;
+    }
+    @media (min-width: 1200px) {
+        margin-top: -87px;
+        position: relative;
+        z-index: 2;
+    }
+}
+
+.counter-item-wrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(184px, 1fr));
+    box-shadow: 0px 8px 24px 0px rgba(0, 0, 0, 0.08);
+    @include sm-screen {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+.counter-item {
+    transition: .2s linear;
+    &:nth-child(4n + 1) {
+        background: linear-gradient(270deg, rgba(212, 225, 255, 0.15) 1.1%, rgba(72, 127, 255, 0.15) 98.9%);
+    }
+    &:nth-child(4n + 2) {
+        background: linear-gradient(270deg, rgba(253, 226, 193, 0.13) 0%, rgba(255, 159, 41, 0.13) 100%);
+    }
+    &:nth-child(4n + 3) {
+        background: linear-gradient(270deg, rgba(220, 177, 253, 0.13) 0%, rgba(140, 1, 249, 0.13) 100%);
+    }
+    &:nth-child(4n + 4) {
+        background: linear-gradient(270deg, rgba(199, 255, 217, 0.13) 0%, rgba(16, 139, 56, 0.13) 100%);
+    }
+    &:hover {
+        .counter-item__icon {
+            animation: 1s wobble linear;
+            -webkit-transform-origin: 50% 100%;
+        }
+    }
+    &__text {
+        @include msm-screen {
+            font-size: rem(14px) !important;
+        }
+        @include xsm-screen {
+            font-size: rem(12px) !important;
+        }
+    }
+}
+
+
+@keyframes wobble {
+    0% {
+      transform: none;
+    }
+    15% {
+      transform: translate3d(-25%, 0, 0) rotate3d(0, 0, 1, -5deg);
+    }
+    30% {
+      transform: translate3d(20%, 0, 0) rotate3d(0, 0, 1, 3deg);
+    }
+    45% {
+      transform: translate3d(-15%, 0, 0) rotate3d(0, 0, 1, -3deg);
+    }
+    60% {
+      transform: translate3d(10%, 0, 0) rotate3d(0, 0, 1, 2deg);
+    }
+    75% {
+      transform: translate3d(-5%, 0, 0) rotate3d(0, 0, 1, -1deg);
+    }
+    100% {
+      transform: none;
+    }
+  }
+/* ================================ Counter Section Css End ====================================== */

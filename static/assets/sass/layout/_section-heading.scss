@@ -1,0 +1,30 @@
+
+/* ====================== Section Heading ==================== */
+.section-heading {
+  text-align: center;
+  margin-block-end: clampCal(32, 56);
+  max-width: 700px;
+  margin-inline-start: auto;
+  margin-inline-end: auto;
+  z-index: 1;
+  position: relative;
+  &__title {
+    font-size: 184px;
+    line-height: .75;
+    text-align: center;
+    opacity: 0.4;
+    background: linear-gradient(180deg, #266FFE 0%, rgba(38, 111, 254, 0.00) 81.96%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: -44px !important;
+    z-index: -1;
+    position: relative;
+}
+  p {
+    max-width: 678px;
+    margin-inline-start: auto;
+    margin-inline-end: auto;
+  }
+}
+/* ====================== Section Heading En d==================== */

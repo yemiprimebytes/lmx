@@ -1,0 +1,79 @@
+/* ================================== Feature Section Start =================================== */
+.feature-item {
+    padding: clampCal(24, 50) 16px;
+    border: 1px solid transparent;
+    transition: .2s linear;
+    &:hover {
+        border: 1px solid var(--main-600) !important;         
+        .feature-item__icon img{
+          animation: tada 1s ease infinite;
+        }
+    }
+    &__text {
+        @include sm-screen {
+            font-size: rem(13px) !important;
+        }
+    }
+}
+
+
+@-webkit-keyframes tada {
+  0% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+
+  10%, 20% {
+    -webkit-transform: scale(0.9) rotate(-3deg);
+    transform: scale(0.9) rotate(-3deg);
+  }
+
+  30%, 50%, 70%, 90% {
+    -webkit-transform: scale(1.1) rotate(3deg);
+    transform: scale(1.1) rotate(3deg);
+  }
+
+  40%, 60%, 80% {
+    -webkit-transform: scale(1.1) rotate(-3deg);
+    transform: scale(1.1) rotate(-3deg);
+  }
+
+  100% {
+    -webkit-transform: scale(1) rotate(0);
+    transform: scale(1) rotate(0);
+  }
+}
+
+@keyframes tada {
+  0% {
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
+  }
+
+  10%, 20% {
+    -webkit-transform: scale(0.9) rotate(-3deg);
+    -ms-transform: scale(0.9) rotate(-3deg);
+    transform: scale(0.9) rotate(-3deg);
+  }
+
+  30%, 50%, 70%, 90% {
+    -webkit-transform: scale(1.2) rotate(3deg);
+    -ms-transform: scale(1.2) rotate(3deg);
+    transform: scale(1.2) rotate(3deg);
+  }
+
+  40%, 60%, 80% {
+    -webkit-transform: scale(1.2) rotate(-3deg);
+    -ms-transform: scale(1.2) rotate(-3deg);
+    transform: scale(1.2) rotate(-3deg);
+  }
+
+  100% {
+    -webkit-transform: scale(1) rotate(0);
+    -ms-transform: scale(1) rotate(0);
+    transform: scale(1) rotate(0);
+  }
+}
+
+/* ================================== Feature Section End =================================== */

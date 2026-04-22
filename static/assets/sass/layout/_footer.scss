@@ -1,0 +1,10 @@
+/* ========================= Footer Css Start ============================== */
+.footer {
+    background-color: hsl(var(--heading-color));
+    &-content {
+        max-width: 724px;
+        margin: 0 auto;
+        text-align: center;
+    }
+}
+/* ========================= Footer Css End ============================== */

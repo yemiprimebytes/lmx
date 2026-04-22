@@ -1,0 +1,63 @@
+// background
+@each $color, $shades in $colors {
+    @each $shade, $value in $shades {
+      .bg-#{$color}-#{$shade} {
+        background-color: var(--#{$color}-#{$shade}) !important;
+      }
+    }
+}
+
+// hover background
+@each $color, $shades in $colors {
+    @each $shade, $value in $shades {
+      .hover-bg-#{$color}-#{$shade} {
+        &:hover {
+            background-color: var(--#{$color}-#{$shade}) !important;
+        }
+      }
+    }
+  }
+
+.gradient {
+  &-1 {
+    background: linear-gradient(52deg, #544BFF 14.87%, #E44EFF 86.11%);
+  }
+  &-2 {
+    background: linear-gradient(60deg, #2163FE 14.24%, #5AE1FF 86.64%);
+  }
+  &-3 {
+    background: linear-gradient(60deg, #FF460C 14.24%, #FDAC0E 86.64%);
+  }
+  &-4 {
+    background: linear-gradient(51deg, #24CF75 15.86%, #B8DB1D 84.49%);
+  }
+  &-5 {
+    background: linear-gradient(60deg, #D328A8 14.24%, #FF8FFF 86.64%);
+  }
+}
+.bg-gradient {
+  &-1 {
+    background: linear-gradient(96deg, #F2F1FF 5.02%, #FDF1FF 95.41%);
+  }
+  &-2 {
+    background: linear-gradient(247deg, rgba(87, 218, 255, 0.10) 0.99%, rgba(0, 80, 255, 0.10) 97.77%);
+  }
+  &-3 {
+    background: linear-gradient(247deg, rgba(255, 197, 69, 0.10) 0.99%, rgba(255, 74, 13, 0.10) 97.77%);
+  }
+  &-4 {
+    background: linear-gradient(270deg, rgba(184, 219, 29, 0.12) 0%, rgba(38, 207, 116, 0.12) 100%);
+  }
+  &-5 {
+    background: linear-gradient(270deg, rgba(253, 190, 251, 0.10) 0%, rgba(214, 51, 174, 0.10) 100%);
+  }
+}
+
+
+.bg-blue-color {
+    background-color: #090346 !important;
+}
+
+.bg-white-color {
+    background-color: #fff !important;
+}

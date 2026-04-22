@@ -1,0 +1,118 @@
+{% extends "dashboard/base.html" %}
+{% load static %}
+
+{% block layout %}
+<div class="overlay bg-black bg-opacity-50 w-100 h-100 position-fixed z-9 visibility-hidden opacity-0 duration-300">
+</div>
+
+<div class="d-lg-flex bg-white">
+    <!-- Left Image -->
+    <div class="w-50 d-lg-block d-none overflow-hidden d-flex">
+        <img src="{% static 'assets/images/thumbs/login-img.png' %}" alt="Register Image"
+            class="w-100 h-100 object-fit-cover">
+    </div>
+
+    <!-- Right Form -->
+    <div class="lg-w-50 px-24 py-40 d-flex justify-content-center align-items-center">
+        <div class="max-w-540-px mx-auto w-100">
+
+            <a href="index.html">
+                <img src="{% static 'assets/images/logo.png' %}" alt="Logo">
+            </a>
+
+            <div class="mt-48 mb-32">
+                <h1 class="h6 fw-bold text-primary-light">Create Your Account ðŸš€</h1>
+                <p class="text-sm text-secondary-light">
+                    Fill in the details to get started
+                </p>
+            </div>
+
+            <form action="#" class="d-flex flex-column gap-24">
+
+                <!-- Full Name -->
+                <div>
+                    <label class="text-sm fw-semibold text-primary-light mb-8">
+                        Full Name <span class="text-danger-600">*</span>
+                    </label>
+                    <input type="text" class="form-control" placeholder="Enter your full name">
+                </div>
+
+                <!-- Email -->
+                <div>
+                    <label class="text-sm fw-semibold text-primary-light mb-8">
+                        Email Address <span class="text-danger-600">*</span>
+                    </label>
+                    <input type="email" class="form-control" placeholder="Enter your email">
+                </div>
+
+                <!-- Password -->
+                <div>
+                    <label for="password" class="text-sm fw-semibold text-primary-light d-inline-block mb-8">
+                        Password
+                        <span class="text-danger-600">*</span>
+                    </label>
+                    <div class="position-relative">
+                        <input type="password" id="password" class="form-control" placeholder="Enter your password"
+                            required>
+                        <button type="button"
+                            class="toggle-password btn p-0 border-0 bg-transparent position-absolute end-0 top-50 translate-middle-y me-16 text-secondary-light cursor-pointer ri-eye-line"
+                            data-toggle="#password" aria-label="Toggle password visibility">
+                        </button>
+                    </div>
+                </div>
+                <!-- Confirm Password -->
+                <div>
+                    <label for="password" class="text-sm fw-semibold text-primary-light d-inline-block mb-8">
+                        Password
+                        <span class="text-danger-600">*</span>
+                    </label>
+                    <div class="position-relative">
+                        <input type="password" id="confirmPassword" class="form-control"
+                            placeholder="Enter your password" required>
+                        <button type="button"
+                            class="toggle-password btn p-0 border-0 bg-transparent position-absolute end-0 top-50 translate-middle-y me-16 text-secondary-light cursor-pointer ri-eye-line"
+                            data-toggle="#confirmPassword" aria-label="Toggle password visibility">
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Role Select -->
+                <div>
+                    <label class="text-sm fw-semibold text-primary-light mb-8">
+                        Select Role
+                    </label>
+                    <select class="form-select">
+                        <option value="">Choose your role</option>
+                        <option>Student</option>
+                        <option>Teacher</option>
+                        <option>Guardian</option>
+                        <option>Admin</option>
+                    </select>
+                </div>
+
+                <!-- Terms -->
+                <div class="form-check style-check d-flex align-items-center">
+                    <input class="form-check-input border border-neutral-400" type="checkbox" value="" id="remeber">
+                    <label class="form-check-label" for="remeber"> I agree to the <a href="#"
+                            class="text-primary-600 text-decoration-underline">Terms & Conditions</a> </label>
+                </div>
+
+                <!-- Submit -->
+                <button class="btn btn-primary-600 w-100 py-16 radius-8 text-sm fw-semibold">
+                    Create Account
+                </button>
+
+            </form>
+
+            <!-- Login Link -->
+            <div class="mt-24 text-center text-sm">
+                Already have an account?
+                <a href="login.html" class="text-primary-600 fw-semibold text-decoration-underline">
+                    Log In
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

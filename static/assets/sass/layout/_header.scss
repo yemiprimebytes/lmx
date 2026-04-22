@@ -1,0 +1,73 @@
+/* ============= Header Start Here ======================= */
+.header {
+    transition: .2s linear;
+    background-color: hsl(var(--white));
+    padding: 16px 0;
+    box-shadow: 0px 4px 24px -5px rgba(0, 0, 0, 0.04);
+    &.fixed-header {
+        position: sticky;
+        inset-inline-start: 0;
+        inset-block-start: 0;
+        inset-inline-end: 0;
+        width: 100%;
+        z-index: 9;
+        backdrop-filter: blur(24px);
+        animation: slideDown 0.35s ease-out;    
+        box-shadow: 0 5px 16px rgba(0, 0, 0, 0.1);
+        @include md-screen {
+            inset-block-start: -1px;
+        }
+    }
+}
+@keyframes slideDown {
+    from {
+      transform: translateY(-100%);
+    }
+    to {
+      transform: translateY(0);
+    }
+}
+
+.logo {
+    img {
+        max-width: 200px;
+    }
+}
+
+/* Header Menu and Submenu Css Start */
+.nav-menu {
+    gap: 4px;
+    &__item {
+        &.activePage {
+            > a {
+                color: hsl(var(--main));
+                &::before {
+                    color: hsl(var(--main));
+                }
+            }
+        }
+        &:hover {
+            > a {
+                color: hsl(var(--heading-color));
+                @media (min-width: 992px) {
+                    color: hsl(var(--main));
+                }
+            }
+        }
+    }
+    &__link {
+        color: hsl(var(--heading-color)) !important;
+        font-weight: 500;
+        width: 100%;
+        padding: 6px 16px;
+        transition: .2s;
+        
+        @media (min-width: 992px) {
+            border-radius: 8px;
+            &:hover, &.active {
+                background-color: var(--gray-100);
+            }
+        }
+    }   
+}
+/* ================================= Header Css End =========================== */

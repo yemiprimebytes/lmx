@@ -34,7 +34,7 @@ def dashboard_view(request):
         "females_count": gender_count["F"],
         "logs": logs,
     }
-    return render(request, "core/dashboard.html", context)
+    return render(request, "edudash/index-2.html", context)
 
 
 @login_required

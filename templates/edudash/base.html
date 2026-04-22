@@ -1,0 +1,81 @@
+{% load static %}
+<!-- meta tags and other links -->
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description"
+        content="Modern Education Admin Dashboard for schools, colleges, universities, and eLearning platforms. Includes student and course management, attendance, exams, payments, analytics, and a fully responsive clean UI—ideal for LMS, coaching centers, and academic admin systems.">
+    <meta name="keywords"
+        content="Education Admin Dashboard, School Admin Panel, College Dashboard, University Dashboard, LMS Dashboard, eLearning Admin Template, Student Management System, Course Management, Education Template, Study Dashboard, Online Learning Dashboard, Academic Admin Panel, Bootstrap Dashboard, React Education Dashboard, Next.js Education Template">
+    <meta name="robots" content="INDEX,FOLLOW">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Title -->
+    <title>Edudash - School, College & LMS Admin Dashboard Template | Django</title>
+    <link rel="icon" type="image/png" href="{% static 'assets/images/favicon.png' %}" sizes="16x16">
+    <!-- remix icon font css  -->
+    <link rel="stylesheet" href="{% static 'assets/css/remixicon.css' %}">
+    <!-- BootStrap css -->
+    <link rel="stylesheet" href="{% static 'assets/css/lib/bootstrap.min.css' %}">
+    <!-- Apex Chart css -->
+    <link rel="stylesheet" href="{% static 'assets/css/lib/apexcharts.css' %}">
+    <!-- Data Table css -->
+    <link rel="stylesheet" href="{% static 'assets/css/lib/dataTables.min.css' %}">
+    <!-- Date picker css -->
+    <link rel="stylesheet" href="{% static 'assets/css/lib/flatpickr.min.css' %}">
+    <!-- Calendar css -->
+    <link rel="stylesheet" href="{% static 'assets/css/lib/full-calendar.css' %}">
+    <!-- calendar -->
+    <link rel="stylesheet" href="{% static 'assets/css/lib/calendar.css' %}">
+    <!-- main css -->
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    {% block css %}{% endblock %}
+</head>
+
+<body>
+
+    <!-- Theme Customization Structure Start -->
+    {% include "edudash/layouts/theme.html" %}
+    <!-- Theme Customization Structure End -->
+
+    <div class="overlay bg-black bg-opacity-50 w-100 h-100 position-fixed z-9 visibility-hidden opacity-0 duration-300">
+    </div>
+
+    {% block layout %}
+    {% include "edudash/layouts/sidebar.html" %}
+
+    <main class="dashboard-main">
+        {% include "edudash/layouts/navbar.html" %}
+
+        <div class="dashboard-main-body">
+            {% block content %}{% endblock %}
+        </div>
+
+        {% include "edudash/layouts/footer.html" %}
+    </main>
+    {% endblock %}
+
+    <!-- jQuery library js -->
+    <script src="{% static 'assets/js/lib/jquery-3.7.1.min.js' %}"></script>
+    <!-- Bootstrap js -->
+    <script src="{% static 'assets/js/lib/bootstrap.bundle.min.js' %}"></script>
+    <!-- Apex Chart js -->
+    <script src="{% static 'assets/js/lib/apexcharts.min.js' %}"></script>
+    <!-- Iconify Font js -->
+    <script src="{% static 'assets/js/lib/iconify-icon.min.js' %}"></script>
+    <!-- Data Table js -->
+    <script src="{% static 'assets/js/lib/dataTables.min.js' %}"></script>
+
+    <!-- jQuery UI js -->
+    <script src="{% static 'assets/js/lib/jquery-ui.min.js' %}"></script>
+
+    <!-- main js -->
+    <script src="{% static 'assets/js/app.js' %}"></script>
+
+    {% block scripts %}{% endblock %}
+
+</body>
+
+</html>
