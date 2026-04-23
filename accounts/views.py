@@ -90,6 +90,7 @@ def profile(request):
             allocated_course__lecturer__pk=request.user.id, semester=current_semester
         )
         context["courses"] = courses
+        # return lecturer profile page
         return render(request, "accounts/profile.html", context)
 
     if request.user.is_student:
@@ -105,11 +106,14 @@ def profile(request):
                 "level": student.level,
             }
         )
+        # return student profile page
         return render(request, "accounts/profile.html", context)
+        # return render(request, "accounts/profile.html", context) 
 
     # For superuser or other staff
     staff = User.objects.filter(is_lecturer=True)
     context["staff"] = staff
+    # return Admin/Super User profile page
     return render(request, "accounts/profile.html", context)
 
 
@@ -167,6 +171,7 @@ def profile_single(request, user_id):
 @login_required
 @admin_required
 def admin_panel(request):
+    # the admin landing page. for admin user only.
     return render(request, "setting/admin_panel.html", {"title": "Admin Panel"})
 
 
@@ -201,6 +206,7 @@ def change_password(request):
         messages.error(request, "Please correct the error(s) below.")
     else:
         form = PasswordChangeForm(request.user)
+    # change password page.
     return render(request, "setting/password_change.html", {"form": form})
 
 
