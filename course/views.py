@@ -153,7 +153,8 @@ def course_add(request, pk):
         form = CourseAddForm(initial={"program": program})
     return render(
         request,
-        "course/course_add.html",
+        # "course/course_add.html",
+        'edudash/course_add.html',
         {"title": "Add Course", "form": form, "program": program},
     )
 

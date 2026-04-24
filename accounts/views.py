@@ -91,7 +91,8 @@ def profile(request):
         )
         context["courses"] = courses
         # return lecturer profile page
-        return render(request, "accounts/profile.html", context)
+        # return render(request, "accounts/profile.html", context)
+        return render(request, "edudash/teacher-details.html", context)
 
     if request.user.is_student:
         student = get_object_or_404(Student, student__pk=request.user.id)
@@ -107,8 +108,8 @@ def profile(request):
             }
         )
         # return student profile page
-        return render(request, "accounts/profile.html", context)
         # return render(request, "accounts/profile.html", context) 
+        return render(request, "edudash/student-details.html", context)
 
     # For superuser or other staff
     staff = User.objects.filter(is_lecturer=True)
@@ -233,7 +234,8 @@ def staff_add_view(request):
     else:
         form = StaffAddForm()
     return render(
-        request, "accounts/add_staff.html", {"title": "Add Lecturer", "form": form}
+        # request, "accounts/add_staff.html", {"title": "Add Lecturer", "form": form}
+        request, "edudash/add-new-teacher.html", {"title": "Add Lecturer", "form": form}
     )
 
 
@@ -252,7 +254,7 @@ def edit_staff(request, pk):
     else:
         form = ProfileUpdateForm(instance=lecturer)
     return render(
-        request, "accounts/edit_lecturer.html", {"title": "Edit Lecturer", "form": form}
+        request, "edudash/edit-staff.html", {"title": "Edit Lecturer", "form": form}
     )
 
 
@@ -260,7 +262,8 @@ def edit_staff(request, pk):
 class LecturerFilterView(FilterView):
     filterset_class = LecturerFilter
     queryset = User.objects.filter(is_lecturer=True)
-    template_name = "accounts/lecturer_list.html"
+    # template_name = "accounts/lecturer_list.html"
+    template_name = "edudash/teacher-list.html"
     paginate_by = 10
 
     def get_context_data(self, **kwargs):
@@ -319,7 +322,8 @@ def student_add_view(request):
     else:
         form = StudentAddForm()
     return render(
-        request, "accounts/add_student.html", {"title": "Add Student", "form": form}
+        # request, "accounts/add_student.html", {"title": "Add Student", "form": form}
+        request, "edudash/add-new-student.html", {"title": "Add Student", "form": form}
     )
 
 
@@ -338,7 +342,8 @@ def edit_student(request, pk):
     else:
         form = ProfileUpdateForm(instance=student_user)
     return render(
-        request, "accounts/edit_student.html", {"title": "Edit Student", "form": form}
+        # request, "accounts/edit_student.html", {"title": "Edit Student", "form": form}
+        request, "edudash/edit-student.html", {"title": "Edit Student", "form": form}
     )
 
 
@@ -346,7 +351,7 @@ def edit_student(request, pk):
 class StudentListView(FilterView):
     queryset = Student.objects.all()
     filterset_class = StudentFilter
-    template_name = "accounts/student_list.html"
+    template_name = "edudash/student-list.html"
     paginate_by = 10
 
     def get_context_data(self, **kwargs):
