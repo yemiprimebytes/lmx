@@ -57,3 +57,18 @@ Registration JSON schema
     "last_name": "Smith"
 }
 
+
+Side Bar
+=========
+
+ - Admin Panel
+ - Lecturers
+ - Students 
+ - Programs & Courses 
+ - Complete Exams 
+ - Quiz Progress Rec 
+ - Course Allocation
+ - Manage Session
+ - Manage Semester 
+ - Account Settings
+ - Change Password 

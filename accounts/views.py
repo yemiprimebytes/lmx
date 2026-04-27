@@ -115,7 +115,8 @@ def profile(request):
     staff = User.objects.filter(is_lecturer=True)
     context["staff"] = staff
     # return Admin/Super User profile page
-    return render(request, "accounts/profile.html", context)
+    # return render(request, "accounts/profile.html", context)
+    return render(request, "edudash/teacher-details.html", context)
 
 
 @login_required
@@ -167,6 +168,8 @@ def profile_single(request, user_id):
         return render_to_pdf("pdf/profile_single.html", context)
 
     return render(request, "accounts/profile_single.html", context)
+    # return render(request, "accounts/profile_single.html", context) # find out how?
+
 
 
 @login_required
