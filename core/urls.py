@@ -19,7 +19,9 @@ from .views import (
 
 urlpatterns = [
     # Accounts url
-    path("", home_view, name="home"),
+    path("", home_view, name="home"), # same as /news/
+    path("news/", home_view, name="news"),
+    path("news/add_item/", home_view, name="add_news"), # same as /add_item/
     path("add_item/", post_add, name="add_item"),
     path("item/<int:pk>/edit/", edit_post, name="edit_post"),
     path("item/<int:pk>/delete/", delete_post, name="delete_post"),

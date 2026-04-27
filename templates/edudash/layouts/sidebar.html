@@ -26,8 +26,8 @@
                     <img src="{% static 'assets/images/thumbs/leave-request-img2.png' %}" alt="Thumbnail"
                         class="w-40-px h-40-px rounded-circle object-fit-cover flex-shrink-0">
                     <span class="profile-dropdown__contents">
-                        <span class="h6 mb-0 text-md d-block text-primary-light">Jone Copper</span>
-                        <span class="text-secondary-light text-sm mb-0 d-block">Admin</span>
+                        <span class="h6 mb-0 text-md d-block text-primary-light">{{ request.user.get_full_name }}</span>
+                        <span class="text-secondary-light text-sm mb-0 d-block">{{ request.user.get_user_role }}</span>
                     </span>
                 </span>
                 <span class="profile-dropdown__icon pe-8 text-xl d-flex line-height-1">
@@ -36,14 +36,14 @@
             </button>
             <ul class="dropdown-menu dropdown-menu-lg-end border p-12">
                 <li>
-                    <a href="student-details"
+                    <a href="{% url 'profile' %}"
                         class="dropdown-item rounded text-secondary-light bg-hover-neutral-200 text-hover-neutral-900 d-flex align-items-center gap-2 py-6">
                         <i class="ri-user-3-line"></i>
                         My Profile
                     </a>
                 </li>
                 <li>
-                    <a href="general"
+                    <a href="{% url 'edit_profile' %}"
                         class="dropdown-item rounded text-secondary-light bg-hover-neutral-200 text-hover-neutral-900 d-flex align-items-center gap-2 py-6">
                         <i class="ri-settings-3-line"></i>
                         Setting
@@ -111,44 +111,6 @@
             {% endif %}
 
 
-            <li class="dropdown">
-                <a href="javascript:void(0)">
-                    <i class="ri-user-follow-line"></i>
-                    <span>Teachers</span>
-                </a>
-                <ul class="sidebar-submenu">
-                    <li>
-                        <a href="add-new-teacher">
-                            <i class="ri-circle-fill circle-icon w-auto"></i>
-                            Add New Teacher
-                        </a>
-                    </li>
-                    <li>
-                        <a href="teacher-list">
-                            <i class="ri-circle-fill circle-icon w-auto"></i>
-                            Teacher List
-                        </a>
-                    </li>
-                    <li>
-                        <a href="edit-teacher">
-                            <i class="ri-circle-fill circle-icon w-auto"></i>
-                            Edit Teacher
-                        </a>
-                    </li>
-                    <li>
-                        <a href="teacher-details">
-                            <i class="ri-circle-fill circle-icon w-auto"></i>
-                            Teacher Details
-                        </a>
-                    </li>
-                    <li>
-                        <a href="teacher-timetable">
-                            <i class="ri-circle-fill circle-icon w-auto"></i>
-                            Teacher Timetable
-                        </a>
-                    </li>
-                </ul>
-            </li>
             <li class="dropdown">
                 <a href="javascript:void(0)">
                     <i class="ri-account-circle-line"></i>
@@ -239,252 +201,36 @@
                     </li>
                 </ul>
             </li>
-            <li class="dropdown">
-                <a href="javascript:void(0)">
-                    <i class="ri-money-dollar-circle-line"></i>
-                    <span>Fees Collection</span>
-                </a>
-                <ul class="sidebar-submenu">
-                    <li>
-                        <a href="fees-collect">
-                            <i class="ri-circle-fill circle-icon w-auto"></i>
-                            Fees Collect
-                        </a>
-                    </li>
-                    <li>
-                        <a href="fees-type">
-                            <i class="ri-circle-fill circle-icon w-auto"></i>
-                            Fees Type
-                        </a>
-                    </li>
-                    <li>
-                        <a href="fees-group">
-                            <i class="ri-circle-fill circle-icon w-auto"></i>
-                            Fees Group
-                        </a>
-                    </li>
-                    <li>
-                        <a href="fees-discount">
-                            <i class="ri-circle-fill circle-icon w-auto"></i>
-                            Fees Discount
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <li class="dropdown">
-                <a href="javascript:void(0)">
-                    <i class="ri-calendar-check-line"></i>
-                    <span>Attendance</span>
-                </a>
-                <ul class="sidebar-submenu">
-                    <li>
-                        <a href="student-attendance">
-                            <i class="ri-circle-fill circle-icon w-auto"></i>
-                            Student Attendance
-                        </a>
-                    </li>
-                    <li>
-                        <a href="teacher-attendance">
-                            <i class="ri-circle-fill circle-icon w-auto"></i>
-                            Teacher Attendance
-                        </a>
-                    </li>
-                    <li>
-                        <a href="employee-attendance">
-                            <i class="ri-circle-fill circle-icon w-auto"></i>
-                            Employee Attendance
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <li class="dropdown">
-                <a href="javascript:void(0)">
-                    <i class="ri-time-line"></i>
-                    <span>Leaves</span>
-                </a>
-                <ul class="sidebar-submenu">
-                    <li>
-                        <a href="leave-types">
-                            <i class="ri-circle-fill circle-icon w-auto"></i>
-                            Leave Types
-                        </a>
-                    </li>
-                    <li>
-                        <a href="leave-request">
-                            <i class="ri-circle-fill circle-icon w-auto"></i>
-                            Leave Request
-                        </a>
-                    </li>
-                </ul>
-            </li>
+           
             <li>
-                <a href="certificate">
-                    <i class="ri-home-4-line"></i>
-                    <span>Certificate </span>
-                </a>
-            </li>
-            <li class="dropdown">
-                <a href="javascript:void(0)">
-                    <i class="ri-book-2-line"></i>
-                    <span>Library</span>
-                </a>
-                <ul class="sidebar-submenu">
-                    <li>
-                        <a href="books-list">
-                            <i class="ri-circle-fill circle-icon w-auto"></i>
-                            Books List
-                        </a>
-                    </li>
-                    <li>
-                        <a href="members-list">
-                            <i class="ri-circle-fill circle-icon w-auto"></i>
-                            Members List
-                        </a>
-                    </li>
-                    <li>
-                        <a href="member-details">
-                            <i class="ri-circle-fill circle-icon w-auto"></i>
-                            Members Details
-                        </a>
-                    </li>
-                    <li>
-                        <a href="issue-return">
-                            <i class="ri-circle-fill circle-icon w-auto"></i>
-                            Issue Return
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <li class="dropdown">
-                <a href="javascript:void(0)">
-                    <i class="ri-money-dollar-circle-line"></i>
-                    <span>Accounts</span>
-                </a>
-                <ul class="sidebar-submenu">
-                    <li>
-                        <a href="income-head">
-                            <i class="ri-circle-fill circle-icon w-auto"></i>
-                            Income Head
-                        </a>
-                    </li>
-                    <li>
-                        <a href="income-list">
-                            <i class="ri-circle-fill circle-icon w-auto"></i>
-                            Income List
-                        </a>
-                    </li>
-                    <li>
-                        <a href="expense-head">
-                            <i class="ri-circle-fill circle-icon w-auto"></i>
-                            Expense Head
-                        </a>
-                    </li>
-                    <li>
-                        <a href="expense-list">
-                            <i class="ri-circle-fill circle-icon w-auto"></i>
-                            Expense List
-                        </a>
-                    </li>
-                    <li>
-                        <a href="transaction">
-                            <i class="ri-circle-fill circle-icon w-auto"></i>
-                            Transaction
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <li class="dropdown">
-                <a href="javascript:void(0)">
-                    <i class="ri-user-settings-line"></i>
-                    <span>HRM</span>
-                </a>
-                <ul class="sidebar-submenu">
-                    <li>
-                        <a href="employee-list">
-                            <i class="ri-circle-fill circle-icon w-auto"></i>
-                            Employee List
-                        </a>
-                    </li>
-                    <li>
-                        <a href="employee-details">
-                            <i class="ri-circle-fill circle-icon w-auto"></i>
-                            Employee Details
-                        </a>
-                    </li>
-                    <li>
-                        <a href="add-new-employee">
-                            <i class="ri-circle-fill circle-icon w-auto"></i>
-                            Add New Employee
-                        </a>
-                    </li>
-                    <li>
-                        <a href="payroll">
-                            <i class="ri-circle-fill circle-icon w-auto"></i>
-                            Payroll
-                        </a>
-                    </li>
-                    <li>
-                        <a href="designation">
-                            <i class="ri-circle-fill circle-icon w-auto"></i>
-                            Designation
-                        </a>
-                    <li>
-                        <a href="department">
-                            <i class="ri-circle-fill circle-icon w-auto"></i>
-                            Department
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a href="notice-board">
-                    <i class="ri-booklet-line"></i>
-                    <span>Notice Board </span>
-                </a>
-            </li>
-            <li>
-                <a href="event">
+                <a href="{% url 'news' %}">
                     <i class="ri-calendar-event-line"></i>
-                    <span>Event </span>
+                    <span>News & Event </span>
                 </a>
             </li>
             <li>
-                <a href="assign-role-plan">
-                    <i class="ri-user-follow-line"></i>
-                    <span>Assign Role</span>
+                <a href="{% url 'session_list' %}">
+                    <i class="ri-calendar-event-line"></i>
+                    <span>manage Session </span>
                 </a>
             </li>
-            <li class="dropdown">
-                <a href="javascript:void(0)">
-                    <i class="ri-user-settings-line"></i>
-                    <span>Settings</span>
+            <li>
+                <a href="{% url 'semester_list' %}">
+                    <i class="ri-calendar-event-line"></i>
+                    <span>Manage Semester </span>
                 </a>
-                <ul class="sidebar-submenu">
-                    <li>
-                        <a href="general">
-                            <i class="ri-circle-fill circle-icon w-auto"></i>
-                            General
-                        </a>
-                    </li>
-                    <li>
-                        <a href="notification">
-                            <i class="ri-circle-fill circle-icon w-auto"></i>
-                            Notification
-                        </a>
-                    </li>
-                    <li>
-                        <a href="currencies">
-                            <i class="ri-circle-fill circle-icon w-auto"></i>
-                            Currencies
-                        </a>
-                    </li>
-                    <li>
-                        <a href="languages">
-                            <i class="ri-circle-fill circle-icon w-auto"></i>
-                            Languages
-                        </a>
-                    </li>
-                </ul>
+            </li>
+            <li>
+                <a href="{% url 'edit_profile' %}">
+                    <i class="ri-user-follow-line"></i>
+                    <span>Account Settings</span>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'change_password' %}">
+                    <i class="ri-user-follow-line"></i>
+                    <span>Change Password</span>
+                </a>
             </li>
         </ul>
     </div>
