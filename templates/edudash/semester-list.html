@@ -110,21 +110,18 @@
 
                             {% if request.user.is_superuser %}
                             <td>
-
                                 <div class="flex-align gap-12">
-                                    <button type="button" class="w-32-px h-32-px d-inline-flex justify-content-center align-items-center bg-success-100 text-success-600 bg-hover-success-600 text-hover-white text-md rounded-circle">
-                                        <i class="ri-edit-2-fill"></i>
-                                    </button>
-                                    <button type="button" class="w-32-px h-32-px d-inline-flex justify-content-center align-items-center bg-danger-100 text-danger-600 bg-hover-danger-600 text-hover-white text-md rounded-circle">
-                                        <i class="ri-delete-bin-5-line"></i>
-                                    </button>
-
+                                    <span class="bg-info-focus text-info-main px-20 py-4 rounded fw-medium text-sm">
+                                        <a href="{% url 'edit_semester' pk=semester.pk %}" class="update" title="Edit">
+                                            <i class="ri-edit-2-fill"></i>
+                                        </a>
+                                    </span>
+                                    <span class="bg-danger-focus text-danger-main px-20 py-4 rounded fw-medium text-sm">
+                                        <a href="{% url 'delete_semester' pk=semester.pk %}" class="update" title="Delete">
+                                            <i class="ri-delete-bin-5-line"></i>
+                                        </a>
+                                    </span>
                                 </div>
-
-                                 {% comment %} <div class="update-delete">
-                                    <a href="{% url 'edit_semester' pk=semester.pk %}" class="update text-success-600" title="Edit"><i class="ri-edit-line"></i></a>
-                                    <a href="{% url 'delete_semester' pk=semester.pk %}" class="delete text-danger-600" title="Delete"><i class="ri-delete-bin-6-line"></i></a>
-                                </div> {% endcomment %}
                             </td>
                             {% endif %}
                         </tr>
