@@ -1,0 +1,32 @@
+{% extends "edudash/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+{% include "edudash/layouts/breadcrumbs.html" with title="Add New Semester" parent_text="semester_list" parent_link="semester_list" active_page="Add New Semester" %}
+
+<form class="mt-24" method="POST">
+    {% csrf_token %}
+    <div class="row gy-3">
+        <div class="col-xl-12">
+            <div class="shadow-1 radius-12 bg-base h-100 overflow-hidden">
+                <div
+                    class="card-header border-bottom bg-base py-16 px-24 d-flex align-items-center justify-content-between">
+                    <h6 class="text-lg fw-semibold mb-0">Session Info</h6>
+                </div>
+                <div class="card-body p-20">
+                   {{ form|crispy }}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <div class="d-flex align-items-center justify-content-center gap-3 mt-8">
+                 <button type="submit" value="Save"
+                    class="btn btn-primary-600 border border-primary-600 text-md px-28 py-12 radius-8">
+                    Save Changes
+                </button>
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %}

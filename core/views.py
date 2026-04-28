@@ -105,7 +105,8 @@ def session_add_view(request):
             return redirect("session_list")
     else:
         form = SessionForm()
-    return render(request, "core/session_update.html", {"form": form})
+    # return render(request, "core/session_update.html", {"form": form})
+    return render(request, "edudash/add-new-session.html", {"form": form})
 
 
 @login_required
@@ -170,7 +171,8 @@ def semester_add_view(request):
             return redirect("semester_list")
     else:
         form = SemesterForm()
-    return render(request, "core/semester_update.html", {"form": form})
+    # return render(request, "core/semester_update.html", {"form": form})
+    return render(request, "edudash/add-new-semester.html", {"form": form})
 
 
 @login_required
