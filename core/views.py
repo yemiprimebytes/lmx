@@ -87,7 +87,8 @@ def delete_post(request, pk):
 def session_list_view(request):
     """Show list of all sessions"""
     sessions = Session.objects.all().order_by("-is_current_session", "-session")
-    return render(request, "core/session_list.html", {"sessions": sessions})
+    # return render(request, "core/session_list.html", {"sessions": sessions})
+    return render(request, "edudash/session-list.html", {"sessions": sessions})
 
 
 @login_required
@@ -151,7 +152,8 @@ def unset_current_session():
 @lecturer_required
 def semester_list_view(request):
     semesters = Semester.objects.all().order_by("-is_current_semester", "-semester")
-    return render(request, "core/semester_list.html", {"semesters": semesters})
+    # return render(request, "core/semester_list.html", {"semesters": semesters})
+    return render(request, "edudash/semester-list.html", {"semesters": semesters})
 
 
 @login_required
