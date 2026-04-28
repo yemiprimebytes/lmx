@@ -18,7 +18,8 @@ def home_view(request):
         "title": "News & Events",
         "items": items,
     }
-    return render(request, "core/index.html", context)
+    # return render(request, "core/index.html", context)
+    return render(request, "edudash/news-post-grid.html", context)
 
 
 @login_required
@@ -49,7 +50,8 @@ def post_add(request):
         messages.error(request, "Please correct the error(s) below.")
     else:
         form = NewsAndEventsForm()
-    return render(request, "core/post_add.html", {"title": "Add Post", "form": form})
+    # return render(request, "core/post_add.html", {"title": "Add Post", "form": form})
+    return render(request, "edudash/add-new-post.html", {"title": "Add Post", "form": form})
 
 
 @login_required

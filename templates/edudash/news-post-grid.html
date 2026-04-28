@@ -1,0 +1,93 @@
+{% extends "edudash/base.html" %}
+{% load static %}
+
+{% block content %}
+{% include "edudash/layouts/breadcrumbs.html" with title="News List" active_page="News/Events List" button_text="Add Posts" button_link="/en/session/add/"  %}
+
+<div class="mt-24">
+    {% if items %}
+    <div class="row gy-4">
+        {% for item in items %}
+        <div class="col-xxl-3 col-lg-4 col-sm-6">
+            <div class="card h-100 p-0 radius-12">
+                <div class="btn-group mt-10 mb-10 align-items-right"><!-- Pop-up button -->
+                    <button type="button" class="text-primary-light text-xl" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+                        <iconify-icon icon="tabler:dots-vertical"></iconify-icon>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-lg-end border p-12">
+                        <li>
+                            <button type="button" class="edit-sidebar-btn dropdown-item rounded text-secondary-light bg-hover-neutral-200 text-hover-neutral-900 d-flex align-items-center gap-2 py-6">
+                                <i class="ri-edit-2-line"></i>
+                                Edit
+                            </button>
+                        </li>
+                        <li>
+                            <button class="dropdown-item rounded text-secondary-light bg-hover-neutral-200 text-hover-neutral-900 d-flex align-items-center gap-2 py-6" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalDelete">
+                                <i class="ri-delete-bin-6-line"></i>
+                                Delete
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-body p-24">
+                    <a href="#" class="w-100 max-h-194-px radius-8 overflow-hidden">
+                        <img src="{% static 'assets/images/news.png' %}" alt="" class="w-100 h-100 object-fit-cover">                        
+                    </a>
+                    <div class="mt-20">
+                        <div class="d-flex align-items-center gap-6 justify-content-between flex-wrap mb-16">
+                            <div class="py-6 px-16 radius-4 bg-neutral-100 text-secondary-light fw-semibold bg-hover-primary-600 hover-text-white">
+                                {% if item.posted_as == 'News' %} News {% else %} Events {% endif %}
+                            </div>
+                            <div class="d-flex align-items-center gap-8 text-success-500 fw-medium">
+                                <i class="ri-calendar-2-line"></i>
+                                {{ item.updated_date|timesince }} ago
+                            </div>
+                        </div>
+                        <h6 class="mb-16">
+                            <a href="#" class="text-line-2 text-hover-primary-600 text-xl transition-2">                        
+                                {{ item.title|title }}
+                            </a>
+                        </h6>
+                        <p class="text-line-3 text-neutral-500">{{ item.summary }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <h4 class="text-center mt-5 py-5 text-muted">
+        <i class="fa-regular fa-folder-open me-2"></i>School news and events will appear here.
+    </h4>
+    {% endif %}
+
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+
+
+    // Sidebar js start
+    $('.my-sidebar-btn').on('click', function () {
+        $('.my-sidebar').addClass('active');
+        $('.overlay').addClass('active');
+    });
+    $('.close-my-sidebar, .overlay').on('click', function () {
+        $('.my-sidebar').removeClass('active');
+        $('.overlay').removeClass('active');
+    });
+
+
+    $('.edit-sidebar-btn').on('click', function () {
+        $('.edit-sidebar').addClass('active');
+        $('.overlay').addClass('active');
+    });
+    $('.close-edit-sidebar, .overlay').on('click', function () {
+        $('.edit-sidebar').removeClass('active');
+        $('.overlay').removeClass('active');
+    });
+    // Sidebar js end
+
+</script>
+{% endblock %}
