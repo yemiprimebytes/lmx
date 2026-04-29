@@ -101,9 +101,32 @@
                     <span>Students </span>
                 </a>
             </li>
-            {% endif %}
-            <li class="sidebar-menu-group-title">Courses And Programs</li>
-            
+            <li class="sidebar-menu-group-title">Programs And Courses</li>
+            <li>
+                <a href="{% url 'programs' %}">
+                    <i class="ri-home-4-line"></i>
+                    <span>Programs And Courses</span>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'quiz_marking' %}">
+                    <i class="ri-home-4-line"></i>
+                    <span>Complete Exams</span>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'quiz_progress' %}">
+                    <i class="ri-home-4-line"></i>
+                    <span>Quiz Progress Rec</span>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'course_allocation_view' %}">
+                    <i class="ri-home-4-line"></i>
+                    <span>Course Allocation</span>
+                </a>
+            </li>
+            {% endif %}            
             {% if request.user.is_lecturer or request.user.is_student %}
             <li>
                 <a href="{% url 'user_course_list' %}">

@@ -68,7 +68,9 @@ Side Bar
  - Complete Exams 
  - Quiz Progress Rec 
  - Course Allocation
- - Manage Session
- - Manage Semester 
- - Account Settings
- - Change Password 
+
+ - Manage Session -- DONE 
+ - Manage Semester  -- DONE 
+ - Account Settings -- DONE 
+ - Change Password  -- DONE
+ 
