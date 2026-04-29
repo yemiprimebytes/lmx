@@ -195,7 +195,8 @@ def profile_update(request):
         messages.error(request, "Please correct the error(s) below.")
     else:
         form = ProfileUpdateForm(instance=request.user)
-    return render(request, "setting/profile_info_change.html", {"form": form})
+    # return render(request, "setting/profile_info_change.html", {"form": form})
+    return render(request, "edudash/profile-update.html", {"form": form})
 
 
 @login_required

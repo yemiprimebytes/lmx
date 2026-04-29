@@ -62,6 +62,7 @@
     <!-- User Info end -->
     <div class="sidebar-menu-area">
         <ul class="sidebar-menu" id="sidebar-menu">
+            <li class="sidebar-menu-group-title">User Profile</li>
             <li>
                 <a href="{% url 'dashboard' %}">
                     <i class="ri-home-4-line"></i>
@@ -81,6 +82,7 @@
                 </a>
             </li>
             {% if request.user.is_superuser %}
+            <li class="sidebar-menu-group-title">LMS User Management</li>
             <li>
                 <a href="{% url 'admin_panel' %}">
                     <i class="ri-home-4-line"></i>
@@ -100,6 +102,7 @@
                 </a>
             </li>
             {% endif %}
+            <li class="sidebar-menu-group-title">Courses And Programs</li>
             
             {% if request.user.is_lecturer or request.user.is_student %}
             <li>
@@ -108,106 +111,14 @@
                     <span>My Courses </span>
                 </a>
             </li>
-            {% endif %}
-
-
-            <li class="dropdown">
-                <a href="javascript:void(0)">
-                    <i class="ri-account-circle-line"></i>
-                    <span>Guardian</span>
-                </a>
-                <ul class="sidebar-submenu">
-                    <li>
-                        <a href="add-new-guardian">
-                            <i class="ri-circle-fill circle-icon w-auto"></i>
-                            Add New Guardians
-                        </a>
-                    </li>
-                    <li>
-                        <a href="guardian-list">
-                            <i class="ri-circle-fill circle-icon w-auto"></i>
-                            Guardians List
-                        </a>
-                    </li>
-                    <li>
-                        <a href="edit-guardian">
-                            <i class="ri-circle-fill circle-icon w-auto"></i>
-                            Edit Guardian
-                        </a>
-                    </li>
-                    <li>
-                        <a href="guardian-details">
-                            <i class="ri-circle-fill circle-icon w-auto"></i>
-                            Guardian Details
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <li class="dropdown">
-                <a href="javascript:void(0)">
-                    <i class="ri-list-view"></i>
-                    <span>Classes</span>
-                </a>
-                <ul class="sidebar-submenu">
-                    <li>
-                        <a href="section-list">
-                            <i class="ri-circle-fill circle-icon w-auto"></i>
-                            Section
-                        </a>
-                    </li>
-                    <li>
-                        <a href="subject-list">
-                            <i class="ri-circle-fill circle-icon w-auto"></i>
-                            Subjects
-                        </a>
-                    </li>
-                    <li>
-                        <a href="class-list">
-                            <i class="ri-circle-fill circle-icon w-auto"></i>
-                            Class List
-                        </a>
-                    </li>
-                    <li>
-                        <a href="class-room-list">
-                            <i class="ri-circle-fill circle-icon w-auto"></i>
-                            Class Room
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <li class="dropdown">
-                <a href="javascript:void(0)">
-                    <i class="ri-file-edit-line"></i>
-                    <span>Examinations</span>
-                </a>
-                <ul class="sidebar-submenu">
-                    <li>
-                        <a href="exam">
-                            <i class="ri-circle-fill circle-icon w-auto"></i>
-                            Exam
-                        </a>
-                    </li>
-                    <li>
-                        <a href="exam-schedule">
-                            <i class="ri-circle-fill circle-icon w-auto"></i>
-                            Exam Schedule
-                        </a>
-                    </li>
-                    <li>
-                        <a href="exam-result">
-                            <i class="ri-circle-fill circle-icon w-auto"></i>
-                            Exam Result
-                        </a>
-                    </li>
-                </ul>
-            </li>
-           
+            {% endif %}         
             <li>
                 <a href="{% url 'news' %}">
                     <i class="ri-calendar-event-line"></i>
                     <span>News & Event </span>
                 </a>
             </li>
+            <li class="sidebar-menu-group-title">User Settings</li>
             <li>
                 <a href="{% url 'session_list' %}">
                     <i class="ri-calendar-event-line"></i>
@@ -224,12 +135,6 @@
                 <a href="{% url 'edit_profile' %}">
                     <i class="ri-user-follow-line"></i>
                     <span>Account Settings</span>
-                </a>
-            </li>
-            <li>
-                <a href="{% url 'change_password' %}">
-                    <i class="ri-user-follow-line"></i>
-                    <span>Change Password</span>
                 </a>
             </li>
         </ul>
