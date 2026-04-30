@@ -1,0 +1,42 @@
+{% extends "edudash/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+{% include "edudash/layouts/breadcrumbs.html" with title="Add New Student" parent_text="Students" parent_link="/accounts/students/" active_page="Add New Student" %}
+
+<div class="card h-100 p-0 radius-12">
+    <form method="POST">{% csrf_token %}
+        <div class="card-body p-24">
+        <div class="row mb-3">
+                <div class="col-md-6">
+                    <div class="card">
+                        <p class="form-title">Personal Info </p>
+                        <div class="card-body">
+                            {{ form.first_name|as_crispy_field }}
+                            {{ form.last_name|as_crispy_field }}
+                            {{ form.gender|as_crispy_field }}
+                            {{ form.email|as_crispy_field }}
+                            {{ form.address|as_crispy_field }}
+                            {{ form.phone|as_crispy_field }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 ms-auto">
+                    <div class="card">
+                        <p class="form-title">Others </p>
+                        <div class="card-body">
+                            {{ form.program|as_crispy_field }}
+                            {{ form.level|as_crispy_field }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex align-items-center justify-content-center gap-3">
+            <button type="submit" class="btn btn-primary border border-primary-600 text-md px-56 py-12 radius-8" value="Save">
+                Save
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}

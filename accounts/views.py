@@ -239,7 +239,7 @@ def staff_add_view(request):
         form = StaffAddForm()
     return render(
         # request, "accounts/add_staff.html", {"title": "Add Lecturer", "form": form}
-        request, "edudash/add-new-teacher.html", {"title": "Add Lecturer", "form": form}
+        request, "edudash/add-teacher.html", {"title": "Add Lecturer", "form": form}
     )
 
 
@@ -327,7 +327,7 @@ def student_add_view(request):
         form = StudentAddForm()
     return render(
         # request, "accounts/add_student.html", {"title": "Add Student", "form": form}
-        request, "edudash/add-new-student.html", {"title": "Add Student", "form": form}
+        request, "edudash/add-student.html", {"title": "Add Student", "form": form}
     )
 
 
