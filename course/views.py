@@ -60,7 +60,7 @@ def program_add(request):
     else:
         form = ProgramForm()
     return render(
-        request, "course/program_add.html", {"title": "Add Program", "form": form}
+        request, "edudash/add-program.html", {"title": "Add Program", "form": form}
     )
 
 
@@ -74,7 +74,8 @@ def program_detail(request, pk):
     courses = paginator.get_page(page)
     return render(
         request,
-        "course/program_single.html",
+        # "course/program_single.html",
+        "edudash/program-single.html",
         {
             "title": program.title,
             "program": program,
@@ -98,7 +99,7 @@ def program_edit(request, pk):
     else:
         form = ProgramForm(instance=program)
     return render(
-        request, "course/program_add.html", {"title": "Edit Program", "form": form}
+        request, "edudash/edit-program.html", {"title": "Edit Program", "form": form}
     )
 
 
@@ -155,7 +156,7 @@ def course_add(request, pk):
     return render(
         request,
         # "course/course_add.html",
-        'edudash/course_add.html',
+        'edudash/course-add.html',
         {"title": "Add Course", "form": form, "program": program},
     )
 
@@ -199,7 +200,8 @@ def course_delete(request, slug):
 @method_decorator([login_required, lecturer_required], name="dispatch")
 class CourseAllocationFormView(CreateView):
     form_class = CourseAllocationForm
-    template_name = "course/course_allocation_form.html"
+    # template_name = "course/course_allocation_form.html"
+    template_name = "edudash/course-allocation-add.html"
 
     def form_valid(self, form):
         lecturer = form.cleaned_data["lecturer"]
@@ -220,7 +222,8 @@ class CourseAllocationFormView(CreateView):
 @method_decorator([login_required, lecturer_required], name="dispatch")
 class CourseAllocationFilterView(FilterView):
     filterset_class = CourseAllocationFilter
-    template_name = "course/course_allocation_view.html"
+    template_name = "edudash/course-allocation-assign.html"
+    # template_name = "course/course_allocation_view.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -243,7 +246,8 @@ def edit_allocated_course(request, pk):
         form = EditCourseAllocationForm(instance=allocation)
     return render(
         request,
-        "course/course_allocation_form.html",
+        # "course/course_allocation_form.html",
+        "edudash/course-allocation-edit.html",
         {"title": "Edit Course Allocation", "form": form},
     )
 

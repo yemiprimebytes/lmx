@@ -189,17 +189,24 @@
                                     </button>
                                     <ul class="dropdown-menu dropdown-menu-lg-end border p-12">
                                         <li>
-                                            <a href="teacher-list.html"
+                                            <a href="{% url 'student_edit' student.student.pk %}"
                                                 class="dropdown-item rounded text-secondary-light bg-hover-neutral-200 text-hover-neutral-900 d-flex align-items-center gap-2 py-6">
                                                 <i class="ri-user-3-line"></i>
-                                                View Teacher
+                                                View Student
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="edit-student.html"
+                                            <a href="{% url 'student_edit' student.student.pk %}"
                                                 class="dropdown-item rounded text-secondary-light bg-hover-neutral-200 text-hover-neutral-900 d-flex align-items-center gap-2 py-6">
                                                 <i class="ri-edit-2-line"></i>
                                                 Edit
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a target="_blank" href="{% url 'profile_single' student.student.id %}?download_pdf=1"
+                                                class="dropdown-item rounded text-secondary-light bg-hover-neutral-200 text-hover-neutral-900 d-flex align-items-center gap-2 py-6">
+                                                <i class="ri-download-cloud-line"></i>
+                                                Download Profile
                                             </a>
                                         </li>
                                         <li>
@@ -209,18 +216,12 @@
                                                 Collect Fees
                                             </button>
                                         </li>
-                                        <li>
-                                            <button
+                                        <li>  
+                                            <a href="{% url 'student_delete' student.pk %}"
                                                 class="dropdown-item rounded text-secondary-light bg-hover-neutral-200 text-hover-neutral-900 d-flex align-items-center gap-2 py-6">
-                                                <i class="ri-error-warning-line"></i>
-                                                Inactive
-                                            </button>
-                                        </li>
-                                        <li>
-                                            <button
-                                                class="dropdown-item rounded text-secondary-light bg-hover-neutral-200 text-hover-neutral-900 d-flex align-items-center gap-2 py-6"
-                                                data-bs-toggle="modal" data-bs-target="#exampleModalDelete"><i
-                                                    class="ri-delete-bin-6-line"></i>Delete</button>
+                                                <i class="ri-delete-bin-line"></i>
+                                                Delete
+                                            </a>
                                         </li>
                                     </ul>
                                 </div>

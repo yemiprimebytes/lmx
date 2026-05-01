@@ -1,0 +1,203 @@
+{% extends "edudash/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="breadcrumb d-flex flex-wrap align-items-center justify-content-between gap-3 mb-24">
+    <div class="">
+
+        <h1 class="fw-semibold mb-4 h6 text-primary-light">{{ title }}</h1>
+        <div class="">
+            <a href="{% url 'dashboard' %}" class="text-secondary-light hover-text-primary hover-underline">Dashboard</a>
+            <a href="{% url 'programs' %}"
+                class="text-secondary-light hover-text-primary hover-underline"> / Programs List</a>
+            <span class="text-secondary-light">/ {{ program.title }}</span>
+        </div>
+    </div>
+    <a href="{% url 'course_add' pk=program.pk %}" class="btn btn-primary-600 d-flex align-items-center gap-6">
+        <span class="d-flex text-md"><i class="ri-add-large-line"></i></span>
+        Add Course
+    </a>
+</div>
+
+<div class="mt-24">
+    <div class="card h-100">
+        <div class="card-body p-0 dataTable-wrapper">
+
+            <div
+                class="d-flex align-items-center justify-content-between flex-wrap gap-16 px-20 py-12 border-bottom border-neutral-200">
+                <div class="d-flex flex-wrap align-items-center gap-16">
+                    <div class="dropdown">
+                        <button type="button"
+                            class="px-12 py-5-px border border-neutral-300 radius-8 d-flex align-items-center gap-20 "
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <span class="d-flex align-items-center gap-1 text-secondary-light text-sm">
+                                <i class="ri-file-upload-line text-md line-height-1"></i>
+                                Export
+                            </span>
+                            <span class="">
+                                <i class="ri-arrow-down-s-line"></i>
+                            </span>
+                        </button>
+                        <ul class="dropdown-menu p-12 border bg-base shadow">
+                            <li>
+                                <button type="button"
+                                    class="dropdown-item px-16 py-8 rounded text-secondary-light bg-hover-neutral-200 text-hover-neutral-900 d-flex align-items-center gap-10"
+                                    data-bs-toggle="modal" data-bs-target="#exampleModalView">
+                                    <i class="ri-file-3-line"></i>
+                                    PDF
+                                </button>
+                            </li>
+                            <li>
+                                <button type="button"
+                                    class="dropdown-item px-16 py-8 rounded text-secondary-light bg-hover-neutral-200 text-hover-neutral-900 d-flex align-items-center gap-10"
+                                    data-bs-toggle="modal" data-bs-target="#exampleModalEdit">
+                                    <i class="ri-file-excel-line"></i>
+                                    Excel
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                    <form class="navbar-search dt-search m-0">
+                        <input type="text" class="dt-input bg-transparent radius-4" aria-controls="dataTable"
+                            name="search" placeholder="Search...">
+                        <iconify-icon icon="ion:search-outline" class="icon"></iconify-icon>
+                    </form>
+                </div>
+                <div class="d-flex align-items-center gap-8 text-secondary-light">
+                    <span class="">
+                        Rows per page:
+                    </span>
+                    <div class="dt-length">
+                        <select name="dataTable_length" aria-controls="dataTable"
+                            class="dt-input form-control form-select">
+                            <option value="5">5</option>
+                            <option value="10" selected>10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-0">
+                <table class="table bordered-table mb-0 data-table" id="dataTable" data-page-length='10'>
+                    <thead>
+                        <tr>
+                            <th scope="col">
+                                <div class="form-check style-check d-flex align-items-center">
+                                    <input class="form-check-input" type="checkbox">
+                                    <label class="form-check-label">
+                                        S.L
+                                    </label>
+                                </div>
+                            </th>
+                            <th scope="col">Course Name</th>
+                            <th scope="col">Course Code</th>
+                            <th scope="col">Course Cr.Hr</th>
+                            <th scope="col">Level</th>
+                            <th scope="col">Year</th>
+                            <th scope="col">Semester</th>
+                            <th scope="col">Current Semester</th>
+                             {% if request.user.is_superuser %}
+                            <th scope="col">Action</th>
+                            {% endif %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for course in courses %}
+                        <tr>
+                            <td>
+                                <div class="form-check style-check d-flex align-items-center">
+                                    <input class="form-check-input" type="checkbox">
+                                    <label class="form-check-label">
+                                        {{ forloop.counter }}.
+                                    </label>
+                                </div>
+                            </td>
+                            <td><a href="{{ course.get_absolute_url }}">
+                            {{ course.title }}</a></td>
+                            <td>{{ course.code }}</td>
+                            <td>{{ course.credit }}</td>
+                            <td>{{ course.level }}</td>
+                            <td>{{ course.year }}</td>
+                            <td>{{ course.semester }}</td>
+                            <td>                              
+                                 {% if session.is_current_session == True %}
+                                 <i class="ri-checkbox-circle-line text-success-main" style="font-size: 20px;"></i>
+                                 {% else %}
+                                 <i class="ri-close-circle-fill text-danger-main" style="font-size: 20px;"></i>
+                                {% endif %}
+                            </td>
+                            {% if request.user.is_superuser %}
+                            <td> 
+                                 <div class="flex-align gap-12">
+                                    <span class="bg-info-focus text-info-main px-20 py-4 rounded fw-medium text-sm">
+                                        <a href="{% url 'edit_course' slug=course.slug %}" class="update" title="Edit">
+                                            <i class="ri-edit-2-fill"></i>
+                                        </a>
+                                    </span>
+                                    <span class="bg-danger-focus text-danger-main px-20 py-4 rounded fw-medium text-sm">
+                                        <a href="{% url 'delete_course' slug=course.slug %}" class="update" title="Delete">
+                                            <i class="ri-delete-bin-5-line"></i>
+                                        </a>
+                                    </span>
+                                </div>
+                            </td>
+                            {% endif %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    let table = new DataTable('#dataTable');
+
+    // âœ… Data Table start
+    $('.data-table').each(function () {
+        const $table = $(this);
+        const tableInstance = new DataTable(this);
+
+        // Handle search input (inside same wrapper)
+        $table.closest('.dataTable-wrapper').find('.dt-search .dt-input').on('keyup', function () {
+            tableInstance.search(this.value).draw();
+        });
+
+        // Handle page length change (inside same wrapper)
+        $table.closest('.dataTable-wrapper').find('.dt-length .dt-input').on('change', function () {
+            const value = $(this).val();
+            tableInstance.page.len(value).draw();
+        });
+    });
+    // âœ… Data Table end
+
+    // Sidebar js start
+    $('.my-sidebar-btn').on('click', function () {
+        $('.my-sidebar').addClass('active');
+        $('.overlay').addClass('active');
+    });
+    $('.close-my-sidebar, .overlay').on('click', function () {
+        $('.my-sidebar').removeClass('active');
+        $('.overlay').removeClass('active');
+    });
+
+
+    $('.edit-sidebar-btn').on('click', function () {
+        $('.edit-sidebar').addClass('active');
+        $('.overlay').addClass('active');
+    });
+    $('.close-edit-sidebar, .overlay').on('click', function () {
+        $('.edit-sidebar').removeClass('active');
+        $('.overlay').removeClass('active');
+    });
+    // Sidebar js end
+
+</script>
+{% endblock %}

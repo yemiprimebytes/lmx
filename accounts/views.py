@@ -258,7 +258,7 @@ def edit_staff(request, pk):
     else:
         form = ProfileUpdateForm(instance=lecturer)
     return render(
-        request, "edudash/edit-staff.html", {"title": "Edit Lecturer", "form": form}
+        request, "edudash/edit-teacher.html", {"title": "Edit Lecturer", "form": form}
     )
 
 

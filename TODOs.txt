@@ -74,3 +74,31 @@ Side Bar
  - Account Settings -- DONE 
  - Change Password  -- DONE
  
+
+-- Breadcrumb with multiple buttons 
+<div class="breadcrumb d-flex flex-wrap align-items-center justify-content-between gap-3 mb-24">
+    <div class="">
+
+        <h1 class="fw-semibold mb-4 h6 text-primary-light">{{ title }}</h1>
+        <div class="">
+            <a href="{% url 'dashboard' %}" class="text-secondary-light hover-text-primary hover-underline">Dashboard</a>
+            <a href="{% url 'programs' %}"
+                class="text-secondary-light hover-text-primary hover-underline"> / Programs List</a>
+            <span class="text-secondary-light">/ {{ program.title }}</span>
+        </div>
+    </div>
+    <div class="d-flex gap-3">
+        <a href="{% url 'course_add' pk=program.pk %}" class="btn btn-primary-600 d-flex align-items-center gap-6">
+            <span class="d-flex text-md"><i class="ri-add-large-line"></i></span>
+            Add Course
+        </a>
+        <a href="{% url 'course_add' pk=program.pk %}" class="btn btn-primary-600 d-flex align-items-center gap-6">
+            <span class="d-flex text-md"><i class="ri-add-large-line"></i></span>
+            Add Course
+        </a>
+        <a href="{% url 'course_add' pk=program.pk %}" class="btn btn-primary-600 d-flex align-items-center gap-6">
+            <span class="d-flex text-md"><i class="ri-add-large-line"></i></span>
+            Add Course
+        </a>
+    </div>
+</div>
