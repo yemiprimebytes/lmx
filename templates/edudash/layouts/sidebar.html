@@ -83,12 +83,12 @@
             </li>
             {% if request.user.is_superuser %}
             <li class="sidebar-menu-group-title">LMS User Management</li>
-            <li>
+            <!-- <li>
                 <a href="{% url 'admin_panel' %}">
                     <i class="ri-home-4-line"></i>
                     <span>Admin Panel </span>
                 </a>
-            </li>
+            </li> -->
             <li>
                 <a href="{% url 'lecturer_list' %}">
                     <i class="ri-home-4-line"></i>
@@ -108,7 +108,7 @@
                     <span>Programs And Courses</span>
                 </a>
             </li>
-            <li>
+            <!-- <li>
                 <a href="{% url 'quiz_marking' %}">
                     <i class="ri-home-4-line"></i>
                     <span>Complete Exams</span>
@@ -119,7 +119,7 @@
                     <i class="ri-home-4-line"></i>
                     <span>Quiz Progress Rec</span>
                 </a>
-            </li>
+            </li> -->
             <li>
                 <a href="{% url 'course_allocation_view' %}">
                     <i class="ri-home-4-line"></i>
