@@ -50,7 +50,7 @@ Registration JSON schema
     "username": "lecturer_smith",
     "password": "password123",
     "email": "tablebubble@gmail.com",
-    "phoneu_number": "6476316944",
+    "phone": "6476316944",
     "is_lecturer": true,
     "gender":"Male",
     "first_name": "Jane",
@@ -58,17 +58,18 @@ Registration JSON schema
 }
 
 
-Side Bar
+Side Bar 
 =========
 
  - Admin Panel
- - Lecturers
- - Students 
- - Programs & Courses 
+ - Programs & Courses  -- Almost
  - Complete Exams 
  - Quiz Progress Rec 
- - Course Allocation
+ - Attendance 
 
+ - Lecturers -- DONE
+ - Students -- DONE 
+ - Course Allocation -- DONE
  - Manage Session -- DONE 
  - Manage Semester  -- DONE 
  - Account Settings -- DONE 

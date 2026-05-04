@@ -177,7 +177,7 @@ def course_edit(request, slug):
     else:
         form = CourseAddForm(instance=course)
     return render(
-        request, "course/course_add.html", {"title": "Edit Course", "form": form}
+        request, "edudash/course-edit.html", {"title": "Edit Course", "form": form}
     )
 
 
