@@ -50,7 +50,11 @@
                     </a>
                 </li>
                 <li>
-                    <a href="login"
+                    <form id="logout-form" action="{% url 'logout' %}" method="post" style="display: none;">
+                        {% csrf_token %}
+                    </form>
+                    
+                    <a href="javascript:void(0)" onclick="document.getElementById('logout-form').submit();" 
                         class="dropdown-item rounded text-secondary-light bg-hover-neutral-200 text-hover-neutral-900 d-flex align-items-center gap-2 py-6">
                         <i class="ri-shut-down-line"></i>
                         Log Out
@@ -83,12 +87,12 @@
             </li>
             {% if request.user.is_superuser %}
             <li class="sidebar-menu-group-title">LMS User Management</li>
-            <!-- <li>
+            <li>
                 <a href="{% url 'admin_panel' %}">
                     <i class="ri-home-4-line"></i>
                     <span>Admin Panel </span>
                 </a>
-            </li> -->
+            </li>
             <li>
                 <a href="{% url 'lecturer_list' %}">
                     <i class="ri-home-4-line"></i>
@@ -108,7 +112,7 @@
                     <span>Programs And Courses</span>
                 </a>
             </li>
-            <!-- <li>
+            <li>
                 <a href="{% url 'quiz_marking' %}">
                     <i class="ri-home-4-line"></i>
                     <span>Complete Exams</span>
@@ -119,7 +123,7 @@
                     <i class="ri-home-4-line"></i>
                     <span>Quiz Progress Rec</span>
                 </a>
-            </li> -->
+            </li>
             <li>
                 <a href="{% url 'course_allocation_view' %}">
                     <i class="ri-home-4-line"></i>

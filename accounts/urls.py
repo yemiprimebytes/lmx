@@ -28,6 +28,7 @@ from .views import (
     register,
     render_lecturer_pdf_list,  # new
     render_student_pdf_list,  # new
+    logout_view
 )
 
 # from .forms import EmailValidationOnForgotPassword
@@ -70,7 +71,8 @@ urlpatterns = [
     # path('profile/<int:pk>/change-password/', changePasswordView, name='change_password'),
     # ################################################################
     # path('login/', LoginView.as_view(), name='login'),
-    # path('logout/', LogoutView.as_view(), name='logout', kwargs={'next_page': '/'}),
+    # path('logout/', LogoutView.as_view(), name='logout', kwargs={'next_page': '/'}), # original from skylearn
+    path('logout/', logout_view, name='logout', kwargs={'next_page': '/'}),
     # path('password-reset/', PasswordResetView.as_view(
     #     form_class=EmailValidationOnForgotPassword,
     #     template_name='registration/password_reset.html'
