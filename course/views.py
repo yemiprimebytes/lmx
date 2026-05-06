@@ -126,7 +126,8 @@ def course_single(request, slug):
     lecturers = CourseAllocation.objects.filter(courses__pk=course.id)
     return render(
         request,
-        "course/course_single.html",
+        # "course/course_single.html", # replace to edudash .
+        "edudash/course-single-details.html", # replace to edudash .
         {
             "title": course.title,
             "course": course,

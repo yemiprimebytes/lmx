@@ -2,6 +2,29 @@ API Endpoint Generation
 
 - Test the NewsAndEvents Endpoints very well. 
 
+Side Bar 
+=========
+
+ - Admin Panel
+ - Programs & Courses  -- Almost
+ - Complete Exams 
+ - Quiz Progress Rec 
+ - Attendance 
+
+ - Lecturers -- DONE
+ - Students -- DONE 
+ - Course Allocation -- DONE
+ - Manage Session -- DONE 
+ - Manage Semester  -- DONE 
+ - Account Settings -- DONE 
+ - Change Password  -- DONE
+
+
+Endpoints Todos
+===============
+- Dashboard - Add Stats for Programs/Courses on Programs and COurses.
+
+
 Registration JSON schema
 
 - Student 
@@ -58,24 +81,6 @@ Registration JSON schema
 }
 
 
-Side Bar 
-=========
-
- - Admin Panel
- - Programs & Courses  -- Almost
- - Complete Exams 
- - Quiz Progress Rec 
- - Attendance 
-
- - Lecturers -- DONE
- - Students -- DONE 
- - Course Allocation -- DONE
- - Manage Session -- DONE 
- - Manage Semester  -- DONE 
- - Account Settings -- DONE 
- - Change Password  -- DONE
- 
-
 -- Breadcrumb with multiple buttons 
 <div class="breadcrumb d-flex flex-wrap align-items-center justify-content-between gap-3 mb-24">
     <div class="">
@@ -105,7 +110,3 @@ Side Bar
 </div>
 
 
-Endpoints Todos
-===============
-- Dashboard - Add Stats for Programs/Courses on Programs and COurses.
-- Update student's program 
