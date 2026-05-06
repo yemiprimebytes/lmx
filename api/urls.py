@@ -24,4 +24,6 @@ urlpatterns = [
     path('', include(router.urls)),
     path('accounts/students/', StudentListView.as_view(), name='student-list'),
     path('accounts/lecturers/', LecturerListView.as_view(), name='lecturer-list'),
+    path('accounts/students/<int:id>/update-academic-info/', StudentProgramLevelUpdateView.as_view(), name='update-student-academic'),
+    path('activity-logs/', ActivityLogListView.as_view(), name='activity-log-list'),
 ]

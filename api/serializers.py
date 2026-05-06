@@ -117,7 +117,6 @@ class ResetPasswordConfirmSerializer(serializers.Serializer):
             
         return data
     
-
 # user list
 class StudentSerializer(serializers.ModelSerializer):
     # This includes the User details within the Student object
@@ -128,7 +127,23 @@ class StudentSerializer(serializers.ModelSerializer):
         model = Student
         fields = ['id', 'student', 'level', 'program', 'program_name']
 
+# Assign/Update a Student to a Program And/Or Level
+class StudentProgramLevelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Student
+        fields = ['program', 'level']
 
+    def update(self, instance, validated_data):
+        instance.program = validated_data.get('program', instance.program)
+        instance.level = validated_data.get('level', instance.level)
+        instance.save()
+        return instance
+
+# ActivityLog 
+class ActivityLogSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ActivityLog
+        fields = ['id', 'message', 'created_at']
 
 # News Serializers
 class NewsAndEventsSerializer(serializers.ModelSerializer):

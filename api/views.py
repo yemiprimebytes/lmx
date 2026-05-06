@@ -122,6 +122,27 @@ class LecturerListView(generics.ListAPIView):
     serializer_class = UserSerializer
     permission_classes = [IsAdminOrLecturer]
 
+# Change Student's Program/Level
+class StudentProgramLevelUpdateView(generics.UpdateAPIView):
+    """
+    Endpoint to update a student's program and academic level.
+    Only accessible by Admin/Superusers.
+    """
+    queryset = Student.objects.all()
+    serializer_class = StudentProgramLevelSerializer
+    permission_classes = [IsAdminOrLecturer]
+    lookup_field = 'id'  # Use the Student profile ID or user ID depending on your URL structure
+
+
+# ActivityLog Endpoint
+class ActivityLogListView(generics.ListAPIView):
+    """
+    Endpoint to fetch all activity logs.
+    Strictly accessible by Admin/Superusers.
+    """
+    queryset = ActivityLog.objects.all().order_by('-created_at')
+    serializer_class = ActivityLogSerializer
+    permission_classes = [IsAdminOrLecturer]
 
 # Create/Update/Delete must be for certain class of users 
 # Teachers, Admin only. 
