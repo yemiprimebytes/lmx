@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from django.contrib.auth import authenticate 
+from django.contrib.auth import authenticate, get_user_model 
 from django.db import transaction
 from accounts.models import *
 import random
@@ -7,7 +7,8 @@ from django.core.cache import cache
 from core.models import NewsAndEvents
 from course.models import *
 from quiz.models import *
- 
+from accounts.models import *
+
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -15,6 +16,7 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ('id', 'username', 'email', 'first_name', 'last_name', 
                   'is_student', 'is_lecturer', 'is_parent', 'is_dep_head', 
                   'gender', 'phone', 'address', 'picture')
+
 
 class RegistrationSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, style={'input_type': 'password'})
@@ -115,6 +117,18 @@ class ResetPasswordConfirmSerializer(serializers.Serializer):
             
         return data
     
+
+# user list
+class StudentSerializer(serializers.ModelSerializer):
+    # This includes the User details within the Student object
+    student = UserSerializer(read_only=True)
+    program_name = serializers.ReadOnlyField(source='program.title')
+
+    class Meta:
+        model = Student
+        fields = ['id', 'student', 'level', 'program', 'program_name']
+
+
 
 # News Serializers
 class NewsAndEventsSerializer(serializers.ModelSerializer):

@@ -6,6 +6,7 @@ from knox.models import AuthToken
 import random
 from django.core.mail import send_mail
 from django.core.cache import cache 
+from django.contrib.auth import get_user_model 
 from .permissions import *
 from core.models import NewsAndEvents
 from course.models import *
@@ -108,6 +109,20 @@ class ResetPasswordConfirmView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 
+# Retrieve list of users - teachers & students 
+User = get_user_model()
+
+class StudentListView(generics.ListAPIView):
+    queryset = Student.objects.all()
+    serializer_class = StudentSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+class LecturerListView(generics.ListAPIView):
+    queryset = User.objects.filter(is_lecturer=True)
+    serializer_class = UserSerializer
+    permission_classes = [IsAdminOrLecturer]
+
+
 # Create/Update/Delete must be for certain class of users 
 # Teachers, Admin only. 
 # Add to code.
@@ -168,3 +183,4 @@ class CourseDiscussionViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         # Automatically set the sender to the logged-in user
         serializer.save(sender=self.request.user)
+

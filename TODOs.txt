@@ -103,3 +103,11 @@ Side Bar
         </a>
     </div>
 </div>
+
+
+Endpoints Todos
+===============
+- Get User List endpoints (Teachers, student, admin )  -- DONE
+- Assign student to program ** Its done during signup
+- Dashboard - Add Stats for Programs/Courses on Programs and COurses.
+- 

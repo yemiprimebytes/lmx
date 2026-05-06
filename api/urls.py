@@ -22,4 +22,6 @@ urlpatterns = [
     path('auth/reset-password-confirm/', ResetPasswordConfirmView.as_view(), name='api_reset_password_confirm'),
     # News/Events Posting.
     path('', include(router.urls)),
+    path('accounts/students/', StudentListView.as_view(), name='student-list'),
+    path('accounts/lecturers/', LecturerListView.as_view(), name='lecturer-list'),
 ]
