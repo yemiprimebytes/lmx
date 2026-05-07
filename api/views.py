@@ -148,14 +148,16 @@ class SessionListCreateView(generics.ListCreateAPIView):
 
 
 class SessionDetailView(generics.RetrieveUpdateDestroyAPIView):
-    """
-    Endpoint to retrieve, update, or delete a specific session.
-    Strictly accessible by Admin/Superusers.
-    """
     queryset = Session.objects.all()
     serializer_class = SessionSerializer
     permission_classes = [IsSuperUserOrReadOnly]
     lookup_field = 'id' 
+
+
+class SessionDetailAPIView(generics.RetrieveAPIView):
+    # Optimization: prefetch_related reduces database hits for the nested semesters
+    queryset = Session.objects.prefetch_related('semesters').all()
+    serializer_class = SessionDetailSerializer
 
 
 class SemesterViewSet(viewsets.ModelViewSet):

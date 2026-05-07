@@ -32,4 +32,5 @@ urlpatterns = [
     path('sessions/<int:id>/', SessionDetailView.as_view(), name='session-detail'),
     path('program-details/<int:pk>/', ProgramDetailView.as_view(), name='program-details'),
     path('course-details/<int:pk>/', CourseDetailAPIView.as_view(), name='course-details'),
+    path('session-details/<int:pk>/', SessionDetailAPIView.as_view(), name='session-detail'),
 ]

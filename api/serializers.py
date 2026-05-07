@@ -149,8 +149,15 @@ class SessionSerializer(serializers.ModelSerializer):
 class SemesterSerializer(serializers.ModelSerializer):
     class Meta:
         model = Semester
-        fields = '__all__'
+        fields = ['id', 'semester', 'is_current_semester', 'next_semester_begins']
 
+class SessionDetailSerializer(serializers.ModelSerializer):
+    # This matches the reverse relationship from Session to Semester
+    semesters = SemesterSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Session
+        fields = ['id', 'session', 'is_current_session', 'next_session_begins', 'semesters']
 
 # ActivityLog 
 class ActivityLogSerializer(serializers.ModelSerializer):

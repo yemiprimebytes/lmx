@@ -77,7 +77,7 @@ class Semester(models.Model):
     semester = models.CharField(max_length=10, choices=SEMESTER, blank=True)
     is_current_semester = models.BooleanField(default=False, blank=True, null=True)
     session = models.ForeignKey(
-        Session, on_delete=models.CASCADE, blank=True, null=True
+        Session, on_delete=models.CASCADE, blank=True, null=True, related_name="semesters"
     )
     next_semester_begins = models.DateField(null=True, blank=True)
 
