@@ -284,7 +284,8 @@ def handle_file_upload(request, slug):
         form = UploadFormFile()
     return render(
         request,
-        "upload/upload_file_form.html",
+        # "upload/upload_file_form.html",
+        "edudash/upload-file-form.html",
         {"title": "File Upload", "form": form, "course": course},
     )
 
@@ -305,7 +306,7 @@ def handle_file_edit(request, slug, file_id):
         form = UploadFormFile(instance=upload)
     return render(
         request,
-        "upload/upload_file_form.html",
+        "edudash/upload-file-form.html",
         {"title": "Edit File", "form": form, "course": course},
     )
 
@@ -323,8 +324,6 @@ def handle_file_delete(request, slug, file_id):
 # ########################################################
 # Video Upload Views
 # ########################################################
-
-
 @login_required
 @lecturer_required
 def handle_video_upload(request, slug):
@@ -342,7 +341,8 @@ def handle_video_upload(request, slug):
         form = UploadFormVideo()
     return render(
         request,
-        "upload/upload_video_form.html",
+        # "upload/upload_video_form.html",
+        "edudash/upload-video-form.html",
         {"title": "Video Upload", "form": form, "course": course},
     )
 
@@ -353,7 +353,8 @@ def handle_video_single(request, slug, video_slug):
     video = get_object_or_404(UploadVideo, slug=video_slug)
     return render(
         request,
-        "upload/video_single.html",
+        # "upload/video_single.html",
+        "edudash/video-details.html",
         {"video": video, "course": course},
     )
 
@@ -374,7 +375,8 @@ def handle_video_edit(request, slug, video_slug):
         form = UploadFormVideo(instance=video)
     return render(
         request,
-        "upload/upload_video_form.html",
+        # "upload/upload_video_form.html",
+        "edudash/upload-video-form.html",
         {"title": "Edit Video", "form": form, "course": course},
     )
 

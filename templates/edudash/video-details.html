@@ -1,0 +1,46 @@
+{% extends "edudash/base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="breadcrumb d-flex flex-wrap align-items-center justify-content-between gap-3 mb-24">
+    <div class="">
+        <h1 class="fw-semibold mb-4 h6 text-primary-light">{{ title }}</h1>
+        <div class="">
+            <a href="{% url 'dashboard' %}" class="text-secondary-light hover-text-primary hover-underline">Dashboard</a>
+            {% if request.user.is_student %}
+            <a href="{% url 'user_course_list' %}" class="text-secondary-light hover-text-primary hover-underline">My courses</a>
+            {% else %}
+            <a href="{% url 'programs' %}" class="text-secondary-light hover-text-primary hover-underline"> / Programs List</a>
+            <a href="{% url 'course_detail' course.slug %}" class="text-secondary-light hover-text-primary hover-underline"> / {{ course  }}</a>
+            {% endif %}
+            <a href="{% url 'course_detail' course.slug %}" class="text-secondary-light hover-text-primary hover-underline"> / {{ course  }}</a>
+            <span class="text-secondary-light">/ {{ video.title }}</span>
+        </div>
+    </div>
+</div>
+
+<div class="mt-24">
+    <div class="col-xxl-12">
+        <div class="card h-100 p-0">
+            <div class="card-header border-bottom bg-base py-16 px-24">
+                <h6 class="text-lg fw-semibold mb-0">Video</h6>
+            </div>
+            <div class="card-body p-24">
+                <div class="position-relative">
+                    <video width="640" height="360"  src="{{ video.video.url }}" controls ></video>
+                </div>
+                <div class="p-16">
+                    <h6 class="text-xl mb-6 ">{{ video.title }}</h6>
+                    <p><i class="fas fa-calendar"></i> {{ video.timestamp|timesince }} ago</p>
+                    {% if video.summary %}
+                    <p class="text-secondary-light mb-0">{{ video.summary }}</p>
+                    {% else %}
+                    No video description set.
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

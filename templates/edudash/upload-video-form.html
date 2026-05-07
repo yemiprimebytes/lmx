@@ -1,0 +1,44 @@
+{% extends "edudash/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="breadcrumb d-flex flex-wrap align-items-center justify-content-between gap-3 mb-24">
+    <div class="">
+        <h1 class="fw-semibold mb-4 h6 text-primary-light">Video upload for {{ course|truncatechars:25 }}</h1>
+        <div class="">
+            <a href="{% url 'dashboard' %}" class="text-secondary-light hover-text-primary hover-underline">Dashboard</a>
+            {% if request.user.is_student %}
+            <a href="{% url 'user_course_list' %}" class="text-secondary-light hover-text-primary hover-underline">My courses</a>
+            {% else %}
+            <a href="{% url 'programs' %}" class="text-secondary-light hover-text-primary hover-underline"> / Programs List</a>
+            <a href="{% url 'course_detail' course.slug %}" class="text-secondary-light hover-text-primary hover-underline"> / {{ course  }}</a>
+            {% endif %}
+            <a href="{% url 'course_detail' course.slug %}" class="text-secondary-light hover-text-primary hover-underline"> / {{ course  }}</a>
+            <span class="text-secondary-light">/ Video upload</span>
+        </div>
+    </div>
+</div>
+
+
+<div class="card h-100 p-0 radius-12">
+    <div class="card-body p-24">
+        <div class="row justify-content-center">
+            <div class="col-xxl-6 col-xl-8 col-lg-10">
+                <div class="card border">
+                    <div class="card-body">
+                        <form action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
+                            {{ form|crispy }}
+                            
+                            <div class="form-group">
+                                <button class="btn btn-primary" type="submit">Upload</button>
+                                <a class="btn btn-danger" href="{% url 'course_detail' course.slug %}" style="float: right;">Cancel</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

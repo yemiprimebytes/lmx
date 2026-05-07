@@ -5,33 +5,28 @@
 
 <div class="breadcrumb d-flex flex-wrap align-items-center justify-content-between gap-3 mb-24">
     <div class="">
-
         <h1 class="fw-semibold mb-4 h6 text-primary-light">{{ title }}</h1>
         <div class="">
             <a href="{% url 'dashboard' %}" class="text-secondary-light hover-text-primary hover-underline">Dashboard</a>
-            <a href="{% url 'programs' %}"
-                class="text-secondary-light hover-text-primary hover-underline"> / Programs List</a>
-            <span class="text-secondary-light">/ {{ program.title }}</span>
+            {% if request.user.is_student %}
+            <a href="{% url 'user_course_list' %}" class="text-secondary-light hover-text-primary hover-underline">My courses</a>
+            {% else %}
+            <a href="{% url 'programs' %}" class="text-secondary-light hover-text-primary hover-underline"> / Programs List</a>
+            <a href="{% url 'programs' %}" class="text-secondary-light hover-text-primary hover-underline"> / {{ course.program  }}</a>
+            {% endif %}
+            <span class="text-secondary-light">/ {{ course }}</span>
         </div>
     </div>
     <div class="d-flex gap-3">
-        <a href="#" class="btn btn-primary-600 d-flex align-items-center gap-6">
+        <a href="{% url 'quiz_index' course.slug %}" class="btn btn-primary-600 d-flex align-items-center gap-6">
             <span class="d-flex text-md"><i class="ri-add-large-line"></i></span>
-            Add Course
-        </a>
-        <a href="#" class="btn btn-primary-600 d-flex align-items-center gap-6">
-            <span class="d-flex text-md"><i class="ri-add-large-line"></i></span>
-            Add Course
-        </a>
-        <a href="#" class="btn btn-primary-600 d-flex align-items-center gap-6">
-            <span class="d-flex text-md"><i class="ri-add-large-line"></i></span>
-            Add Course
+            Add Quiz
         </a>
     </div>
 </div>
 
 
-<div class="card h-100 p-0 radius-12">
+<div class="h-100 p-0 radius-12">
     <div class="mt-16">
         <div class="row gy-4">
              <div class="col-xxl-4">
@@ -87,11 +82,15 @@
                 </div>
             </div>
             <div class="col-xxl-8">
-                <div class="row gy-4 gap-2">
+                <div class="row gy-4 gap-10">
                     <!-- Static Card Start -->
                     <div class="col-12">
                         <div class="card h-100">
                             <div class="card-body p-0 dataTable-wrapper">
+                                <div class="d-flex flex-wrap align-items-center justify-content-between px-20 py-16 border-bottom border-neutral-200">
+                                    <h6 class="text-lg mb-0">Videos List</h6>
+                                    <a href="{% url 'upload_video' course.slug %}" class="badge text-sm fw-semibold bg-info-600 px-20 py-9 radius-4 text-white">+ Add Video</a>
+                                </div>
                                 <div class="p-0">
                                     <table class="table bordered-table mb-0 data-table" id="dataTable" data-page-length='10'>
                                         <thead>
@@ -163,10 +162,14 @@
                     <!-- Static Card End -->
                 </div>
 
-                <div class="row gy-4 mt-20">
+                <div class="row gy-4 mt-20 gap-10">
                     <!-- Static Card Start -->
                     <div class="col-12">
                         <div class="card h-100">
+                            <div class="d-flex flex-wrap align-items-center justify-content-between px-20 py-16 border-bottom border-neutral-200">
+                                <h6 class="text-lg mb-0">Documents List</h6>
+                                <a href="{% url 'upload_file_view' course.slug %}" class="badge text-sm fw-semibold bg-info-600 px-20 py-9 radius-4 text-white">+ Add Document</a>
+                            </div>
                             <div class="card-body p-0 dataTable-wrapper">
                                 <div class="p-0">
                                     <table class="table bordered-table mb-0 data-table" id="dataTable" data-page-length='10'>

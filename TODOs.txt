@@ -6,10 +6,12 @@ Side Bar
 =========
 
  - Admin Panel
- - Programs & Courses  -- Almost
+ - Programs & Courses  -- Almost - Add/Edit Video/Document
+ - Quiz Progress Rec  -- OnGoing 
+ 
  - Complete Exams 
- - Quiz Progress Rec 
  - Attendance 
+
 
  - Lecturers -- DONE
  - Students -- DONE 
