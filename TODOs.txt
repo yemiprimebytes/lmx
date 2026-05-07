@@ -4,11 +4,7 @@ API Endpoint Generation
 
 Side Bar 
 =========
-
- - Admin Panel
- - Programs & Courses  -- Almost - Add/Edit Video/Document
  - Quiz Progress Rec  -- OnGoing 
- 
  - Complete Exams 
  - Attendance 
 
@@ -16,6 +12,7 @@ Side Bar
  - Lecturers -- DONE
  - Students -- DONE 
  - Course Allocation -- DONE
+ - Programs & Courses  -- DONE
  - Manage Session -- DONE 
  - Manage Semester  -- DONE 
  - Account Settings -- DONE 

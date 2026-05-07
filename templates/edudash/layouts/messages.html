@@ -1,0 +1,32 @@
+
+{% if messages %}
+    {% for message in messages %}
+        {% if message.tags == 'error' %}
+            <div class="alert alert-danger bg-danger-100 text-danger-600 border-danger-100 px-24 py-11 mb-0 fw-semibold text-lg radius-8 d-flex align-items-center justify-content-between" role="alert">
+                <div class="d-flex align-items-center gap-2">
+                    <iconify-icon icon="mingcute:delete-2-line" class="icon text-xl"></iconify-icon>
+                    This is a Danger alert 
+                </div>
+                <button class="remove-button text-danger-600 text-xxl line-height-1"> <iconify-icon icon="iconamoon:sign-times-light" class="icon"></iconify-icon></button>
+            </div>
+        {% elif message.tags == 'warning' %}
+            <div class="alert alert-warning bg-warning-100 text-warning-600 border-warning-100 px-24 py-11 mb-0 fw-semibold text-lg radius-8 d-flex align-items-center justify-content-between" role="alert">
+                <div class="d-flex align-items-center gap-2">
+                    <iconify-icon icon="mdi:alert-circle-outline" class="icon text-xl"></iconify-icon>
+                    This is a Warning alert 
+                </div>
+                <button class="remove-button text-warning-600 text-xxl line-height-1"> <iconify-icon icon="iconamoon:sign-times-light" class="icon"></iconify-icon></button>
+            </div>
+        {% else %}
+            <div class="alert alert-success bg-success-100 text-success-600 border-success-100 px-24 py-11 mb-0 fw-semibold text-lg radius-8 d-flex align-items-center justify-content-between" role="alert">
+                <div class="d-flex align-items-center gap-2">
+                    <iconify-icon icon="akar-icons:double-check" class="icon text-xl"></iconify-icon>
+                    {{ message }} 
+                </div>
+                <button class="remove-button text-success-600 text-xxl line-height-1"> <iconify-icon icon="iconamoon:sign-times-light" class="icon"></iconify-icon></button>
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+
