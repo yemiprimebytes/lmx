@@ -4,7 +4,7 @@ from django.db import transaction
 from accounts.models import *
 import random
 from django.core.cache import cache
-from core.models import NewsAndEvents
+from core.models import *
 from course.models import *
 from quiz.models import *
 from accounts.models import *
@@ -139,11 +139,25 @@ class StudentProgramLevelSerializer(serializers.ModelSerializer):
         instance.save()
         return instance
 
+
+class SessionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Session
+        fields = '__all__'
+
+
+class SemesterSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Semester
+        fields = '__all__'
+
+
 # ActivityLog 
 class ActivityLogSerializer(serializers.ModelSerializer):
     class Meta:
         model = ActivityLog
         fields = ['id', 'message', 'created_at']
+
 
 # News Serializers
 class NewsAndEventsSerializer(serializers.ModelSerializer):
@@ -155,6 +169,14 @@ class NewsAndEventsSerializer(serializers.ModelSerializer):
         model = NewsAndEvents
         fields = '__all__' 
 
+
+#Session Serializers
+class SessionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Session
+        fields = ['id', 'session', 'is_current_session', 'next_session_begins'] 
+    
+
 # Programs & Courses 
 class ProgramSerializer(serializers.ModelSerializer):
     class Meta:
@@ -162,10 +184,27 @@ class ProgramSerializer(serializers.ModelSerializer):
         fields = '__all__' 
 
 # Courses
+# class CourseSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Course
+#         fields = '__all__' 
+
+
 class CourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
-        fields = '__all__' 
+        fields = ['id', 'title', 'code', 'credit', 'summary', 'level', 'year', 'semester', 'is_elective']
+
+
+class ProgramDetailSerializer(serializers.ModelSerializer):
+    # 'course_set' is the default related name Django uses 
+    # since you didn't specify a related_name in the ForeignKey
+    courses = CourseSerializer(source='course_set', many=True, read_only=True)
+
+    class Meta:
+        model = Program
+        fields = ['id', 'title', 'summary', 'courses']
+
 
 # Course Allocations
 class CourseAllocationSerializer(serializers.ModelSerializer):
@@ -180,6 +219,7 @@ class QuizSerializer(serializers.ModelSerializer):
         fields = '__all__'
         read_only_fields = ('slug', 'timestamp')
 
+
 class CourseAnnouncementSerializer(serializers.ModelSerializer):
     # User is read-only because we set it automatically from the request
     user = serializers.StringRelatedField(read_only=True)
@@ -188,6 +228,7 @@ class CourseAnnouncementSerializer(serializers.ModelSerializer):
         model = CourseAnnouncement
         fields = ['id', 'course', 'user', 'content', 'timestamp']
 
+
 class CourseDiscussionSerializer(serializers.ModelSerializer):
     sender_name = serializers.ReadOnlyField(source='sender.get_full_name')
 
@@ -195,3 +236,30 @@ class CourseDiscussionSerializer(serializers.ModelSerializer):
         model = CourseDiscussion
         fields = ['id', 'course', 'sender', 'sender_name', 'content', 'timestamp']
         read_only_fields = ['sender', 'timestamp']
+
+
+class UploadSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Upload
+        fields = ['id', 'title', 'file', 'updated_date']
+
+
+class UploadVideoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UploadVideo
+        fields = ['id', 'title', 'video', 'summary', 'timestamp']
+
+
+class CourseDetailSerializer(serializers.ModelSerializer):
+    # These names match the default 'related_name' (modelname_set)
+    files = UploadSerializer(source='upload_set', many=True, read_only=True)
+    videos = UploadVideoSerializer(source='uploadvideo_set', many=True, read_only=True)
+
+    class Meta:
+        model = Course
+        fields = [
+            'id', 'title', 'code', 'slug', 'credit', 
+            'summary', 'level', 'year', 'semester', 
+            'files', 'videos'
+        ]
+

@@ -11,6 +11,7 @@ router.register(r'course-allocations', CourseAllocationViewSet, basename='course
 router.register(r'quizzes', QuizViewSet, basename='quizzes')
 router.register(r'course-announcements', CourseAnnouncementViewSet, basename='course-announcements')
 router.register(r'discussions', CourseDiscussionViewSet, basename='course-discussions')
+router.register(r'semesters', SemesterViewSet)
 
 urlpatterns = [
     # User Story
@@ -26,4 +27,9 @@ urlpatterns = [
     path('accounts/lecturers/', LecturerListView.as_view(), name='lecturer-list'),
     path('accounts/students/<int:id>/update-academic-info/', StudentProgramLevelUpdateView.as_view(), name='update-student-academic'),
     path('activity-logs/', ActivityLogListView.as_view(), name='activity-log-list'),
+    #session  & Sementer URLs
+    path('sessions/', SessionListCreateView.as_view(), name='session-list-create'),
+    path('sessions/<int:id>/', SessionDetailView.as_view(), name='session-detail'),
+    path('program-details/<int:pk>/', ProgramDetailView.as_view(), name='program-details'),
+    path('course-details/<int:pk>/', CourseDetailAPIView.as_view(), name='course-details'),
 ]

@@ -117,10 +117,12 @@ class StudentListView(generics.ListAPIView):
     serializer_class = StudentSerializer
     permission_classes = [permissions.IsAuthenticated]
 
+
 class LecturerListView(generics.ListAPIView):
     queryset = User.objects.filter(is_lecturer=True)
     serializer_class = UserSerializer
     permission_classes = [IsAdminOrLecturer]
+
 
 # Change Student's Program/Level
 class StudentProgramLevelUpdateView(generics.UpdateAPIView):
@@ -134,6 +136,35 @@ class StudentProgramLevelUpdateView(generics.UpdateAPIView):
     lookup_field = 'id'  # Use the Student profile ID or user ID depending on your URL structure
 
 
+# Session management
+class SessionListCreateView(generics.ListCreateAPIView):
+    """
+    Endpoint to list all sessions or create a new one.
+    Strictly accessible by Admin/Superusers.
+    """
+    queryset = Session.objects.all().order_by('-id')
+    serializer_class = SessionSerializer
+    permission_classes = [IsSuperUserOrReadOnly]
+
+
+class SessionDetailView(generics.RetrieveUpdateDestroyAPIView):
+    """
+    Endpoint to retrieve, update, or delete a specific session.
+    Strictly accessible by Admin/Superusers.
+    """
+    queryset = Session.objects.all()
+    serializer_class = SessionSerializer
+    permission_classes = [IsSuperUserOrReadOnly]
+    lookup_field = 'id' 
+
+
+class SemesterViewSet(viewsets.ModelViewSet):
+    queryset = Semester.objects.all()
+    serializer_class = SemesterSerializer
+    # Restrict access to Admin users only
+    permission_classes = [IsSuperUserOrReadOnly] 
+
+
 # ActivityLog Endpoint
 class ActivityLogListView(generics.ListAPIView):
     """
@@ -143,6 +174,7 @@ class ActivityLogListView(generics.ListAPIView):
     queryset = ActivityLog.objects.all().order_by('-created_at')
     serializer_class = ActivityLogSerializer
     permission_classes = [IsAdminOrLecturer]
+
 
 # Create/Update/Delete must be for certain class of users 
 # Teachers, Admin only. 
@@ -158,6 +190,7 @@ class NewsAndEventsViewSet(viewsets.ModelViewSet):
             return [permissions.AllowAny()]
         return [IsAdminOrLecturer()]
 
+
 # Programs & Courses Views
 class ProgramViewSet(viewsets.ModelViewSet):
     queryset = Program.objects.all()
@@ -166,12 +199,18 @@ class ProgramViewSet(viewsets.ModelViewSet):
     permission_classes = [IsSuperUserOrReadOnly] 
 
 
+class ProgramDetailView(generics.RetrieveAPIView):
+    queryset = Program.objects.all()
+    serializer_class = ProgramDetailSerializer
+    # lookup_field defaults to 'pk' (ID), which matches your requirement
+
 # Courses 
 class CourseViewSet(viewsets.ModelViewSet):
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
     permission_classes = [IsSuperUserOrReadOnly]
     lookup_field = 'slug'  # Uses slug instead of ID for detailed retrieval 
+
 
 class CourseAllocationViewSet(viewsets.ModelViewSet):
     queryset = CourseAllocation.objects.all()
@@ -205,3 +244,8 @@ class CourseDiscussionViewSet(viewsets.ModelViewSet):
         # Automatically set the sender to the logged-in user
         serializer.save(sender=self.request.user)
 
+
+class CourseDetailAPIView(generics.RetrieveAPIView):
+    queryset = Course.objects.all()
+    serializer_class = CourseDetailSerializer
+    # lookup_field defaults to 'pk' (ID), so no extra config needed

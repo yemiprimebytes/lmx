@@ -1,6 +1,9 @@
 API Endpoint Generation
 
-- Test the NewsAndEvents Endpoints very well. 
+API Todos
+========
+- Add provision for Admin Staffs with multi-Role access control 
+- Add Parent access privilege to project.
 
 Side Bar 
 =========
