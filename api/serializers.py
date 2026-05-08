@@ -200,7 +200,7 @@ class ProgramSerializer(serializers.ModelSerializer):
 class CourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
-        fields = ['id', 'title', 'code', 'credit', 'summary', 'level', 'year', 'semester', 'is_elective']
+        fields = ['id', 'title', 'code', 'credit', 'summary', 'level', 'year', 'semester', 'is_elective', 'program']
 
 
 class ProgramDetailSerializer(serializers.ModelSerializer):
