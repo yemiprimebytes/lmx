@@ -40,7 +40,8 @@ from .models import (
 class QuizCreateView(CreateView):
     model = Quiz
     form_class = QuizAddForm
-    template_name = "quiz/quiz_form.html"
+    # template_name = "quiz/quiz_form.html"
+    template_name = "edudash/quizzes-add-form.html"
 
     def get_initial(self):
         initial = super().get_initial()
@@ -66,7 +67,8 @@ class QuizCreateView(CreateView):
 class QuizUpdateView(UpdateView):
     model = Quiz
     form_class = QuizAddForm
-    template_name = "quiz/quiz_form.html"
+    # template_name = "quiz/quiz_form.html"
+    template_name = "edudash/quizzes-add-form.html"
 
     def get_object(self, queryset=None):
         return get_object_or_404(Quiz, pk=self.kwargs["pk"])
@@ -96,7 +98,9 @@ def quiz_list(request, slug):
     course = get_object_or_404(Course, slug=slug)
     quizzes = Quiz.objects.filter(course=course).order_by("-timestamp")
     return render(
-        request, "quiz/quiz_list.html", {"quizzes": quizzes, "course": course}
+        request, 
+        "quiz/quiz_list.html", 
+        {"quizzes": quizzes, "course": course}
     )
 
 
