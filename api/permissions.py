@@ -1,4 +1,5 @@
 from rest_framework import permissions
+from course.models import CourseAllocation
 
 class IsAdminOrLecturer(permissions.BasePermission):
     """
@@ -47,3 +48,19 @@ class IsLecturerOrReadOnly(permissions.BasePermission):
 
         # Allow access if the user is a Lecturer or an Admin
         return bool(request.user.is_lecturer)
+    
+
+class IsAssignedLecturer(permissions.BasePermission):
+    message = "You are not authorized to upload content for this course."
+
+    def has_permission(self, request, view):
+        # We need the course ID from the request data to verify assignment
+        course_id = request.data.get('course')
+        if not course_id:
+            return False
+        
+        # Check if the current user is allocated to this specific course
+        return CourseAllocation.objects.filter(
+            lecturer=request.user, 
+            courses__id=course_id
+        ).exists()

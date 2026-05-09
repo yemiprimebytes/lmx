@@ -118,7 +118,18 @@ class StudentListView(generics.ListAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
 
+class StudentDetailView(generics.RetrieveUpdateAPIView):
+    queryset = Student.objects.all()
+    serializer_class = StudentSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+
 class LecturerListView(generics.ListAPIView):
+    queryset = User.objects.filter(is_lecturer=True)
+    serializer_class = UserSerializer
+    permission_classes = [IsAdminOrLecturer]
+
+class LecturerDetailsView(generics.RetrieveUpdateAPIView):
     queryset = User.objects.filter(is_lecturer=True)
     serializer_class = UserSerializer
     permission_classes = [IsAdminOrLecturer]
@@ -251,3 +262,34 @@ class CourseDetailAPIView(generics.RetrieveAPIView):
     queryset = Course.objects.all()
     serializer_class = CourseDetailSerializer
     # lookup_field defaults to 'pk' (ID), so no extra config needed
+
+class CourseFileUploadAPIView(generics.CreateAPIView):
+    queryset = Upload.objects.all()
+    serializer_class = FileUploadSerializer
+    permission_classes = [permissions.IsAuthenticated, IsAssignedLecturer]
+
+    def perform_create(self, serializer):
+        # Additional logic if you want to link the lecturer's ID to the upload
+        serializer.save()
+
+class CourseVideoUploadAPIView(generics.CreateAPIView):
+    queryset = UploadVideo.objects.all()
+    serializer_class = VideoUploadSerializer
+    permission_classes = [permissions.IsAuthenticated, IsAssignedLecturer]
+
+
+class LecturerCourseViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+    API endpoint that allows lecturer course allocations to be viewed.
+    """
+    queryset = CourseAllocation.objects.select_related('lecturer', 'session').prefetch_related('courses').all()
+    serializer_class = LecturerAllocationSerializer
+
+    # Optional: Filter by lecturer ID if passed in query params
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        lecturer_id = self.request.query_params.get('lecturer_id')
+        if lecturer_id:
+            queryset = queryset.filter(lecturer_id=lecturer_id)
+        return queryset
+

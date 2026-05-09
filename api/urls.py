@@ -12,6 +12,7 @@ router.register(r'quizzes', QuizViewSet, basename='quizzes')
 router.register(r'course-announcements', CourseAnnouncementViewSet, basename='course-announcements')
 router.register(r'discussions', CourseDiscussionViewSet, basename='course-discussions')
 router.register(r'semesters', SemesterViewSet)
+router.register(r'lecturer-courses', LecturerCourseViewSet, basename='lecturer-courses')
 
 urlpatterns = [
     # User Story
@@ -25,6 +26,7 @@ urlpatterns = [
     path('', include(router.urls)),
     path('accounts/students/', StudentListView.as_view(), name='student-list'),
     path('accounts/lecturers/', LecturerListView.as_view(), name='lecturer-list'),
+    path('accounts/students/<int:pk>/', StudentDetailView.as_view(), name='student-detail'),
     path('accounts/students/<int:id>/update-academic-info/', StudentProgramLevelUpdateView.as_view(), name='update-student-academic'),
     path('activity-logs/', ActivityLogListView.as_view(), name='activity-log-list'),
     #session  & Sementer URLs
@@ -33,4 +35,6 @@ urlpatterns = [
     path('program-details/<int:pk>/', ProgramDetailView.as_view(), name='program-details'),
     path('course-details/<int:pk>/', CourseDetailAPIView.as_view(), name='course-details'),
     path('session-details/<int:pk>/', SessionDetailAPIView.as_view(), name='session-detail'),
+    path('upload/file/', CourseFileUploadAPIView.as_view(), name='api-file-upload'),
+    path('upload/video/', CourseVideoUploadAPIView.as_view(), name='api-video-upload'),
 ]
