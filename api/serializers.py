@@ -318,9 +318,9 @@ class CourseDetailSerializer(serializers.ModelSerializer):
 class FileUploadSerializer(serializers.ModelSerializer):
     class Meta:
         model = Upload
-        fields = ['id', 'title', 'course', 'file', 'upload_time']
+        fields = ['title', 'course', 'file']
 
 class VideoUploadSerializer(serializers.ModelSerializer):
     class Meta:
         model = UploadVideo
-        fields = ['id', 'title', 'course', 'video', 'summary', 'timestamp']
+        fields = ['title', 'course', 'video', 'summary']
