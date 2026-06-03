@@ -39,7 +39,7 @@ urlpatterns = [
     path('upload/video/', CourseVideoUploadAPIView.as_view(), name='api-video-upload'),
 
     # List and Create: {{base_url}}/course/<course_id>/announcement/
-    path('course/<int:course_id>/announcement/', CourseAnnouncementListCreateView.as_view(), name='course-announcement-list-create'),
+    path('courses/<int:course_id>/announcements/', CourseAnnouncementListCreateView.as_view(), name='course-announcement-list-create'),
     # Retrieve, Update, and Delete: {{base_url}}/course/<course_id>/announcement/<id>/
-    path('course/<int:course_id>/announcement/<int:id>/', CourseAnnouncementDetailView.as_view(), name='course-announcement-detail'),
+    path('courses/<int:course_id>/announcements/<int:id>/', CourseAnnouncementDetailView.as_view(), name='course-announcement-detail'),
 ]
