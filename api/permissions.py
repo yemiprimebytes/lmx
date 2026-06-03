@@ -38,16 +38,17 @@ class IsLecturerOrReadOnly(permissions.BasePermission):
     to Create, Update, or Delete.
     """
     def has_permission(self, request, view):
+        # Check if the user is logged in
+        if not request.user or not request.user.is_authenticated:
+            return False
+        
         # Allow anyone to view the list or details
         if request.method in permissions.SAFE_METHODS:
             return True
 
-        # Check if the user is logged in
-        if not request.user or not request.user.is_authenticated:
-            return False
-
         # Allow access if the user is a Lecturer or an Admin
-        return bool(request.user.is_lecturer)
+        # return bool(request.user.is_lecturer)
+        return bool(request.user.is_lecturer) or request.user.is_staff
     
 
 class IsAssignedLecturer(permissions.BasePermission):
