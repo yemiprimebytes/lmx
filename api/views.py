@@ -239,13 +239,43 @@ class QuizViewSet(viewsets.ModelViewSet):
     lookup_field = 'slug'
 
 # CourseAnnouncements/ News
-class CourseAnnouncementViewSet(viewsets.ModelViewSet):
+# class CourseAnnouncementViewSet(viewsets.ModelViewSet):
+#     serializer_class = CourseAnnouncementSerializer
+#     permission_classes = [IsLecturerOrReadOnly]
+
+#     def get_queryset(self):
+#         # Returns all announcements ordered by newest first
+#         return CourseAnnouncement.objects.all().order_by('-id')
+
+#     def perform_create(self, serializer):
+#         # Automatically set the current user as the announcement creator
+#         serializer.save(user=self.request.user)
+
+class CourseAnnouncementListCreateView(generics.ListCreateAPIView):
     serializer_class = CourseAnnouncementSerializer
     permission_classes = [IsLecturerOrReadOnly]
 
+    def get_queryset(self):
+        # Filters announcements strictly belonging to the course ID in the URL
+        course_id = self.kwargs.get('course_id')
+        return CourseAnnouncement.objects.filter(course_id=course_id).order_by('-timestamp')
+
     def perform_create(self, serializer):
-        # Automatically set the current user as the announcement creator
-        serializer.save(user=self.request.user)
+        # Automatically attach the course from URL and current logged-in user
+        course_id = self.kwargs.get('course_id')
+        course = generics.get_object_or_404(Course, id=course_id)
+        serializer.save(user=self.request.user, course=course)
+
+
+class CourseAnnouncementDetailView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = CourseAnnouncementSerializer
+    permission_classes = [IsLecturerOrReadOnly]
+    lookup_field = 'id'
+
+    def get_queryset(self):
+        course_id = self.kwargs.get('course_id')
+        return CourseAnnouncement.objects.filter(course_id=course_id)
+
 
 
 class CourseDiscussionViewSet(viewsets.ModelViewSet):

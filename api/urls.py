@@ -9,7 +9,7 @@ router.register(r'programs', ProgramViewSet, basename='programs')
 router.register(r'courses', CourseViewSet, basename='courses')
 router.register(r'course-allocations', CourseAllocationViewSet, basename='course-allocations')
 router.register(r'quizzes', QuizViewSet, basename='quizzes')
-router.register(r'course-announcements', CourseAnnouncementViewSet, basename='course-announcements')
+# router.register(r'course-announcements', CourseAnnouncementViewSet, basename='course-announcements')
 router.register(r'discussions', CourseDiscussionViewSet, basename='course-discussions')
 router.register(r'semesters', SemesterViewSet)
 router.register(r'lecturer-courses', LecturerCourseViewSet, basename='lecturer-courses')
@@ -37,4 +37,9 @@ urlpatterns = [
     path('session-details/<int:pk>/', SessionDetailAPIView.as_view(), name='session-detail'),
     path('upload/file/', CourseFileUploadAPIView.as_view(), name='api-file-upload'),
     path('upload/video/', CourseVideoUploadAPIView.as_view(), name='api-video-upload'),
+
+    # List and Create: {{base_url}}/course/<course_id>/announcement/
+    path('course/<int:course_id>/announcement/', CourseAnnouncementListCreateView.as_view(), name='course-announcement-list-create'),
+    # Retrieve, Update, and Delete: {{base_url}}/course/<course_id>/announcement/<id>/
+    path('course/<int:course_id>/announcement/<int:id>/', CourseAnnouncementDetailView.as_view(), name='course-announcement-detail'),
 ]
