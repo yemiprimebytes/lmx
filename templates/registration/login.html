@@ -52,8 +52,8 @@
                         <input class="form-check-input border border-neutral-400" type="checkbox" value="" id="remeber">
                         <label class="form-check-label" for="remeber">Remember me </label>
                     </div>
-                    <a href="javascript:void(0)" class="text-primary-600 fw-medium text-decoration-underline">Forgot
-                        Password?</a>
+                    {% comment %} <a href="javascript:void(0)" class="text-primary-600 fw-medium text-decoration-underline">Forgot
+                        Password?</a> {% endcomment %}
                 </div>
                 <div class="">
                     <button type="submit"
@@ -62,12 +62,12 @@
                 </div>
 
             </form>
-            <div class="mt-32 text-center text-sm">
+            {% comment %} <div class="mt-32 text-center text-sm">
                 Don't have an account?
                 <a href="{% url 'register' %}" class="text-primary-600 fw-semibold text-decoration-underline">
                     Create an account
                 </a>
-            </div>
+            </div> {% endcomment %}
         </div>
     </div>
 </div>
