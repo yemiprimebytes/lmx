@@ -9,6 +9,7 @@ from course.models import *
 from quiz.models import *
 from accounts.models import *
 
+User = get_user_model()
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -190,23 +191,12 @@ class ProgramSerializer(serializers.ModelSerializer):
         model = Program
         fields = '__all__' 
 
-# Courses
-# class CourseSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Course
-#         fields = '__all__' 
-
 
 class CourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
-        fields = ['id', 'title', 'code', 'credit', 'summary', 'level', 'year', 'semester', 'is_elective', 'program', 'summary', 'year', 'credit']
+        fields = ['id', 'title', 'slug', 'code', 'credit', 'summary', 'level', 'year', 'semester', 'is_elective', 'program', 'summary', 'year', 'credit']
 
-
-# class CourseSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Course
-#         fields = ['id', 'title', 'code', 'credit', 'semester', 'level']
 
 class LecturerAllocationSerializer(serializers.ModelSerializer):
     # This nested serializer fetches the details of the courses from the M2M field
@@ -273,27 +263,13 @@ class UploadVideoSerializer(serializers.ModelSerializer):
         fields = ['id', 'title', 'video', 'summary', 'timestamp']
 
 
-# class CourseDetailSerializer(serializers.ModelSerializer):
-#     # These names match the default 'related_name' (modelname_set)
-#     files = UploadSerializer(source='upload_set', many=True, read_only=True)
-#     videos = UploadVideoSerializer(source='uploadvideo_set', many=True, read_only=True)
-
-#     class Meta:
-#         model = Course
-#         fields = [
-#             'id', 'title', 'code', 'slug', 'credit', 
-#             'summary', 'level', 'year', 'semester', 
-#             'files', 'videos'
-#         ]
-
-User = get_user_model()
-
 class LecturerSerializer(serializers.ModelSerializer):
     full_name = serializers.ReadOnlyField(source='get_full_name')
 
     class Meta:
         model = User
         fields = ['id', 'username', 'first_name', 'last_name', 'full_name', 'email']
+
 
 class CourseDetailSerializer(serializers.ModelSerializer):
     # We use the related_name 'allocated_course' defined in the CourseAllocation model
@@ -315,12 +291,24 @@ class CourseDetailSerializer(serializers.ModelSerializer):
         lecturers = [alloc.lecturer for alloc in allocations]
         return LecturerSerializer(lecturers, many=True).data
 
+
 class FileUploadSerializer(serializers.ModelSerializer):
     class Meta:
         model = Upload
         fields = ['title', 'course', 'file']
 
+
 class VideoUploadSerializer(serializers.ModelSerializer):
     class Meta:
         model = UploadVideo
         fields = ['title', 'course', 'video', 'summary']
+
+
+class LecturerAssignedCoursesSerializer(serializers.ModelSerializer):
+    # Nesting the CourseSerializer to return detailed course objects rather than just IDs
+    courses = CourseSerializer(many=True, read_only=True)
+    session_name = serializers.CharField(source='session.session', read_only=True)  # Assuming session has a 'session' name field
+
+    class Meta:
+        model = CourseAllocation
+        fields = ['id', 'session', 'session_name', 'courses']

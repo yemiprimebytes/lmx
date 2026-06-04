@@ -7,6 +7,7 @@ import random
 from django.core.mail import send_mail
 from django.core.cache import cache 
 from django.contrib.auth import get_user_model 
+from rest_framework.exceptions import PermissionDenied
 from .permissions import *
 from core.models import NewsAndEvents
 from course.models import *
@@ -323,3 +324,42 @@ class LecturerCourseViewSet(viewsets.ReadOnlyModelViewSet):
             queryset = queryset.filter(lecturer_id=lecturer_id)
         return queryset
 
+
+class LecturerAssignedCoursesView(generics.ListAPIView):
+    serializer_class = LecturerAssignedCoursesSerializer
+    permission_classes = [IsLecturerUser]
+
+    def get_queryset(self):
+        # request.user is automatically derived from the authorization headers (Token/JWT/Session)
+        user = self.request.user
+        
+        # Double-check safety constraints before querying allocations
+        if not user.is_lecturer:
+            raise PermissionDenied("Access restricted to lecturer accounts only.")
+            
+        # Filter CourseAllocation mapping by the logged-in lecturer
+        return CourseAllocation.objects.filter(lecturer=user).select_related('session').prefetch_related('courses')
+
+
+class StudentAssignedCoursesListView(generics.ListAPIView):
+    serializer_class = CourseSerializer
+    permission_classes = [permissions.IsAuthenticated, IsStudentUser]
+
+    def get_queryset(self):
+        user = self.request.user
+        
+        try:
+            # Access the student instance from the user model via one-to-one relationship
+            student_profile = user.student
+        except AttributeError:
+            raise ValidationError({"detail": "No student profile found associated with this user account."})
+        
+        # Guard clause in case program or level is missing from student record
+        if not student_profile.program or not student_profile.level:
+            return Course.objects.none()
+
+        # Fetch courses that match the student's current program and level
+        return Course.objects.filter(
+            program=student_profile.program,
+            level=student_profile.level
+        )

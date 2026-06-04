@@ -37,6 +37,9 @@ urlpatterns = [
     path('session-details/<int:pk>/', SessionDetailAPIView.as_view(), name='session-detail'),
     path('upload/file/', CourseFileUploadAPIView.as_view(), name='api-file-upload'),
     path('upload/video/', CourseVideoUploadAPIView.as_view(), name='api-video-upload'),
+    
+    path('lecturer/assigned-courses/', LecturerAssignedCoursesView.as_view(), name='lecturer-assigned-courses'),
+    path('student/my-courses/', StudentAssignedCoursesListView.as_view(), name='student-assigned-courses'),
 
     # List and Create: {{base_url}}/course/<course_id>/announcement/
     path('courses/<int:course_id>/announcements/', CourseAnnouncementListCreateView.as_view(), name='course-announcement-list-create'),

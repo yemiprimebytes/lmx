@@ -51,6 +51,16 @@ class IsLecturerOrReadOnly(permissions.BasePermission):
         return bool(request.user.is_lecturer) or request.user.is_staff
     
 
+class IsLecturerUser(permissions.BasePermission):
+    def has_permission(self, request, view):
+        return request.user and request.user.is_authenticated and getattr(request.user, 'is_lecturer', False)
+
+
+class IsStudentUser(permissions.BasePermission):
+    def has_permission(self, request, view):
+        return bool(request.user and request.user.is_authenticated and request.user.is_student)
+
+
 class IsAssignedLecturer(permissions.BasePermission):
     message = "You are not authorized to upload content for this course."
 
