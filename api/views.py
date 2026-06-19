@@ -324,7 +324,16 @@ class CourseDetailAPIView(generics.RetrieveAPIView):
     # lookup_field defaults to 'pk' (ID), so no extra config needed
 
 
-class CourseFileUploadAPIView(generics.CreateAPIView):
+# class CourseFileUploadAPIView(generics.CreateAPIView):
+#     queryset = Upload.objects.all()
+#     serializer_class = FileUploadSerializer
+#     permission_classes = [permissions.IsAuthenticated, IsAssignedLecturer]
+
+#     def perform_create(self, serializer):
+#         # Additional logic if you want to link the lecturer's ID to the upload
+#         serializer.save()
+
+class CourseFileUploadAPIView(generics.CreateAPIView, generics.DestroyAPIView):
     queryset = Upload.objects.all()
     serializer_class = FileUploadSerializer
     permission_classes = [permissions.IsAuthenticated, IsAssignedLecturer]
@@ -333,12 +342,28 @@ class CourseFileUploadAPIView(generics.CreateAPIView):
         # Additional logic if you want to link the lecturer's ID to the upload
         serializer.save()
 
+    def perform_destroy(self, instance):
+        # Optional: Delete the actual file from disk/storage before removing the database row
+        if instance.file:  # Assuming your field name is 'file'
+            instance.file.delete(save=False)
+        instance.delete()
 
-class CourseVideoUploadAPIView(generics.CreateAPIView):
+
+
+class CourseVideoUploadAPIView(generics.CreateAPIView, generics.DestroyAPIView):
     queryset = UploadVideo.objects.all()
     serializer_class = VideoUploadSerializer
     permission_classes = [permissions.IsAuthenticated, IsAssignedLecturer]
 
+    def perform_create(self, serializer):
+        # Additional logic if you want to link the lecturer's ID to the upload
+        serializer.save()
+
+    def perform_destroy(self, instance):
+        # Optional: Delete the actual file from disk/storage before removing the database row
+        if instance.file:  # Assuming your field name is 'file'
+            instance.file.delete(save=False)
+        instance.delete()
 
 class LecturerCourseViewSet(viewsets.ReadOnlyModelViewSet):
     """
