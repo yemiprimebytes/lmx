@@ -65,6 +65,11 @@ class IsAssignedLecturer(permissions.BasePermission):
     message = "You are not authorized to upload content for this course."
 
     def has_permission(self, request, view):
+        # Allow access immediately if the user is an admin or staff member
+        if request.user and (request.user.is_staff or request.user.is_superuser):
+            return True
+
+
         # We need the course ID from the request data to verify assignment
         course_id = request.data.get('course')
         if not course_id:
