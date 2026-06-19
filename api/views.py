@@ -12,6 +12,8 @@ from .permissions import *
 from core.models import NewsAndEvents
 from course.models import *
 
+# Retrieve list of users - teachers & students 
+User = get_user_model()
 
 class RegisterView(generics.CreateAPIView):
     serializer_class = RegistrationSerializer
@@ -69,6 +71,36 @@ class UserAPI(generics.RetrieveAPIView):
         return self.request.user
 
 
+class ChangePasswordView(APIView):
+    permission_classes = (permissions.IsAuthenticated,)
+
+    # If you are calling this via PATCH, use the patch() method
+    def patch(self, request, *args, **kwargs):
+        # MANUALLY instantiate the serializer
+        serializer = ChangeUserPasswordSerializer(data=request.data)
+
+        if serializer.is_valid():
+            user = request.user
+            old_password = serializer.validated_data.get("old_password")
+            new_password = serializer.validated_data.get("new_password")
+
+            if not user.check_password(old_password):
+                return Response(
+                    {"old_password": ["Wrong password."]}, 
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+
+            user.set_password(new_password)
+            user.save()
+            
+            return Response(
+                {'message': 'Password updated successfully'}, 
+                status=status.HTTP_200_OK
+            )
+            
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
 class ForgotPasswordView(APIView):
     def post(self, request):
         serializer = ForgotPasswordSerializer(data=request.data)
@@ -110,9 +142,6 @@ class ResetPasswordConfirmView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 
-# Retrieve list of users - teachers & students 
-User = get_user_model()
-
 class StudentListView(generics.ListAPIView):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
@@ -129,6 +158,7 @@ class LecturerListView(generics.ListAPIView):
     queryset = User.objects.filter(is_lecturer=True)
     serializer_class = UserSerializer
     permission_classes = [IsAdminOrLecturer]
+
 
 class LecturerDetailsView(generics.RetrieveUpdateAPIView):
     queryset = User.objects.filter(is_lecturer=True)
@@ -278,7 +308,6 @@ class CourseAnnouncementDetailView(generics.RetrieveUpdateDestroyAPIView):
         return CourseAnnouncement.objects.filter(course_id=course_id)
 
 
-
 class CourseDiscussionViewSet(viewsets.ModelViewSet):
     queryset = CourseDiscussion.objects.all().order_by('timestamp')
     serializer_class = CourseDiscussionSerializer
@@ -294,6 +323,7 @@ class CourseDetailAPIView(generics.RetrieveAPIView):
     serializer_class = CourseDetailSerializer
     # lookup_field defaults to 'pk' (ID), so no extra config needed
 
+
 class CourseFileUploadAPIView(generics.CreateAPIView):
     queryset = Upload.objects.all()
     serializer_class = FileUploadSerializer
@@ -302,6 +332,7 @@ class CourseFileUploadAPIView(generics.CreateAPIView):
     def perform_create(self, serializer):
         # Additional logic if you want to link the lecturer's ID to the upload
         serializer.save()
+
 
 class CourseVideoUploadAPIView(generics.CreateAPIView):
     queryset = UploadVideo.objects.all()

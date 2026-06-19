@@ -20,6 +20,7 @@ urlpatterns = [
     path('auth/login/', LoginAPI.as_view(), name='api_login'),
     path('auth/logout/', LogoutAPI.as_view(), name='api_logout'),
     path('auth/user/', UserAPI.as_view(), name='api_user_detail'),
+    path('auth/change-password/', ChangePasswordView.as_view(), name='change_user_password'),
     path('auth/forgot-password/', ForgotPasswordView.as_view(), name='api_forgot_password'),
     path('auth/reset-password-confirm/', ResetPasswordConfirmView.as_view(), name='api_reset_password_confirm'),
     # News/Events Posting.

@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth import authenticate, get_user_model 
+from django.contrib.auth.password_validation import validate_password
 from django.db import transaction
 from accounts.models import *
 import random
@@ -90,6 +91,18 @@ class LoginSerializer(serializers.Serializer):
         raise serializers.ValidationError("Incorrect Credentials")
 
 
+# Change user Password
+class ChangeUserPasswordSerializer(serializers.Serializer):
+    model = User
+    old_password = serializers.CharField(required=True)
+    new_password = serializers.CharField(required=True)
+
+    def validate_new_password(self, value):
+        # This will run Django's built-in password validators
+        validate_password(value)
+        return value
+
+
 class ForgotPasswordSerializer(serializers.Serializer):
     email = serializers.EmailField()
 
@@ -151,6 +164,7 @@ class SemesterSerializer(serializers.ModelSerializer):
     class Meta:
         model = Semester
         fields = ['id', 'semester', 'is_current_semester', 'next_semester_begins']
+
 
 class SessionDetailSerializer(serializers.ModelSerializer):
     # This matches the reverse relationship from Session to Semester
