@@ -23,6 +23,7 @@ urlpatterns = [
     path('auth/change-password/', ChangePasswordView.as_view(), name='change_user_password'),
     path('auth/forgot-password/', ForgotPasswordView.as_view(), name='api_forgot_password'),
     path('auth/reset-password-confirm/', ResetPasswordConfirmView.as_view(), name='api_reset_password_confirm'),
+
     # News/Events Posting.
     path('', include(router.urls)),
     path('accounts/students/', StudentListView.as_view(), name='student-list'),
@@ -30,6 +31,7 @@ urlpatterns = [
     path('accounts/students/<int:pk>/', StudentDetailView.as_view(), name='student-detail'),
     path('accounts/students/<int:id>/update-academic-info/', StudentProgramLevelUpdateView.as_view(), name='update-student-academic'),
     path('activity-logs/', ActivityLogListView.as_view(), name='activity-log-list'),
+
     #session  & Sementer URLs
     path('sessions/', SessionListCreateView.as_view(), name='session-list-create'),
     path('sessions/<int:id>/', SessionDetailView.as_view(), name='session-detail'),
@@ -38,7 +40,9 @@ urlpatterns = [
     path('session-details/<int:pk>/', SessionDetailAPIView.as_view(), name='session-detail'),
     path('upload/file/', CourseFileUploadAPIView.as_view(), name='api-file-upload'),
     path('upload/video/', CourseVideoUploadAPIView.as_view(), name='api-video-upload'),
-    
+    path('delete/file/<int:pk>/', CourseFileUploadAPIView.as_view(), name='api-file-upload'),
+    path('delete/video/<int:pk>/', CourseVideoUploadAPIView.as_view(), name='api-video-upload'),
+
     path('lecturer/assigned-courses/', LecturerAssignedCoursesView.as_view(), name='lecturer-assigned-courses'),
     path('student/my-courses/', StudentAssignedCoursesListView.as_view(), name='student-assigned-courses'),
 
