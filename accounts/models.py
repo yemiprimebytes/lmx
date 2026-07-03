@@ -3,7 +3,7 @@ from django.urls import reverse
 from django.contrib.auth.models import AbstractUser, UserManager
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
-from django.db.models import Q
+from django.db.models import Q, Count
 from PIL import Image
 import string, secrets
 
@@ -169,10 +169,15 @@ class Student(models.Model):
 
     @classmethod
     def get_gender_count(cls):
-        males_count = Student.objects.filter(student__gender="M").count()
-        females_count = Student.objects.filter(student__gender="F").count()
+        # males_count = Student.objects.filter(student__gender="M").count()
+        # females_count = Student.objects.filter(student__gender="F").count()
+        counts = Student.objects.aggregate(
+            M=Count('id', filter=Q(student__gender="M")),
+            F=Count('id', filter=Q(student__gender="F"))
+        )
 
-        return {"M": males_count, "F": females_count}
+
+        return counts # {"M": males_count, "F": females_count}
 
     def get_absolute_url(self):
         return reverse("profile_single", kwargs={"user_id": self.id})

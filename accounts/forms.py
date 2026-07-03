@@ -139,7 +139,7 @@ class StudentAddForm(UserCreationForm):
         required=False,
     )
     address = forms.CharField(
-        max_length=30,
+        max_length=60,
         widget=forms.TextInput(
             attrs={
                 "type": "text",
