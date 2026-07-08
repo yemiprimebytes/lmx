@@ -24,7 +24,7 @@ from core.models import Semester, Session
 from course.models import Course
 from result.models import TakenCourse
 
-from course.models import CourseAllocation
+from course.models import CourseAllocation, Upload
 
 # ########################################################
 # Utility Functions
@@ -98,6 +98,14 @@ def profile(request):
             allocated_course__lecturer__pk=request.user.id, semester=current_semester
         )
         context["courses"] = courses
+
+        allocated_courses = Course.objects.filter(allocated_course__lecturer=request.user).prefetch_related(
+                'upload_set',       # Reverse relation to the Upload model
+                'uploadvideo_set'  # Reverse relation to the UploadVideo model
+            ).distinct()
+        
+        context["notes"] = allocated_courses
+
         # return lecturer profile page
         # return render(request, "accounts/profile.html", context)
         return render(request, "edudash/teacher-details.html", context)
