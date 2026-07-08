@@ -24,7 +24,24 @@ Side Bar
 
 Endpoints Todos
 ===============
-- Dashboard - Add Stats for Programs/Courses on Programs and COurses.
+- Dashboard - Add Stats for Programs/Courses on Programs and Courses.
+
+
+URGENT TODOs
+===========
+Teachers Profile Page, Bottom
+    - Teacher Details
+    - Assign Courses 
+    - Course Notes 
+    - Quizzes Lists
+
+Students Profile Page, Bottom 
+    -
+
+Parents Profile Page, Bottom
+    - 
+
+
 
 
 Registration JSON schema

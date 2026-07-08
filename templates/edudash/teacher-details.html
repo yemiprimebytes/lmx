@@ -2,7 +2,20 @@
 {% load static %}
 
 {% block content %}
-{% include "edudash/layouts/breadcrumbs.html" with title="Teacher Details" parent_text="Teacher" parent_link="teacher-list.html" active_page="Teacher Details" %}
+<div class="breadcrumb d-flex flex-wrap align-items-center justify-content-between gap-3 mb-24">
+    <div class="">
+
+        <h1 class="fw-semibold mb-4 h6 text-primary-light">{{ title }}</h1>
+        <div class="">
+            <a href="{% url 'dashboard' %}" class="text-secondary-light hover-text-primary hover-underline">Dashboard</a>
+            <a href="{% url 'profile' %}"
+                class="text-secondary-light hover-text-primary hover-underline"> / Profile</a>
+            <span class="text-secondary-light">/ {{ role }}</span>
+        </div>
+    </div>
+</div>
+
+
 {% include 'edudash/layouts/messages.html' %}
 
 <div class="mt-24">
@@ -14,8 +27,8 @@
                         <img src="{% static 'assets/images/thumbs/teacher-details-img.png' %}" alt="teacher Image"
                             class="w-100 h-100 object-fit-cover">
                     </figure>
-                    <h2 class="h6 text-primary-light mb-16 fw-semibold">Marvin McKinney</h2>
-                    <p class="mb-0">ID: <span class="text-primary-600 fw-semibold"> AD1256589</span>
+                    <h2 class="h6 text-primary-light mb-16 fw-semibold">{{ title }}</h2>
+                    <p class="mb-0">ID: <span class="text-primary-600 fw-semibold"> {{ user.username }}</span>
                     </p>
                     <p class="mb-0">Subject: <span class="text-primary-light fw-semibold">Mathematics</span>
                     </p>

@@ -24,6 +24,8 @@ from core.models import Semester, Session
 from course.models import Course
 from result.models import TakenCourse
 
+from course.models import CourseAllocation
+
 # ########################################################
 # Utility Functions
 # ########################################################
@@ -85,6 +87,8 @@ def profile(request):
 
     context = {
         "title": request.user.get_full_name,
+        "user": request.user,
+        "role": request.user.get_user_role,
         "current_session": current_session,
         "current_semester": current_semester,
     }
@@ -112,15 +116,14 @@ def profile(request):
             }
         )
         # return student profile page
-        # return render(request, "accounts/profile.html", context) 
-        return render(request, "edudash/student-details.html", context)
+        return render(request, "accounts/profile.html", context) 
+        # return render(request, "edudash/student-details.html", context)
 
-    # For superuser or other staff
-    staff = User.objects.filter(is_lecturer=True)
-    context["staff"] = staff
-    # return Admin/Super User profile page
-    # return render(request, "accounts/profile.html", context)
-    return render(request, "edudash/teacher-details.html", context)
+    # retrieve     * Teacher Details  * Assign Courses     * Course Notes 
+    #
+
+    # Fetch allocations for the signed-in user
+    return render(request, "edudash/admin-details.html", context)
 
 
 @login_required

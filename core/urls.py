@@ -4,6 +4,7 @@ from .views import (
     home_view,
     post_add,
     edit_post,
+    post_details,
     delete_post,
     session_list_view,
     session_add_view,
@@ -23,6 +24,7 @@ urlpatterns = [
     path("news/", home_view, name="news"),
     path("news/add_item/", post_add, name="add_news"), # same as /add_item/
     path("add_item/", post_add, name="add_item"),
+    path("news/details/<int:pk>/", post_details, name="post_details"),
     path("item/<int:pk>/edit/", edit_post, name="edit_post"),
     path("item/<int:pk>/delete/", delete_post, name="delete_post"),
     path("session/", session_list_view, name="session_list"),

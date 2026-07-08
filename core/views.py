@@ -72,6 +72,13 @@ def edit_post(request, pk):
 
 
 @login_required
+def post_details(request, pk):
+    instance = get_object_or_404(NewsAndEvents, pk=pk)
+    newslist = NewsAndEvents.objects.exclude(pk=pk).order_by('-updated_date')[:10] 
+    return render(request, "edudash/news_details.html", {"title": "Edit Post", "news": instance, "newslist":newslist} )
+
+
+@login_required
 @lecturer_required
 def delete_post(request, pk):
     post = get_object_or_404(NewsAndEvents, pk=pk)

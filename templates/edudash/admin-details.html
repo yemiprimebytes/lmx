@@ -1,0 +1,70 @@
+{% extends "edudash/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="breadcrumb d-flex flex-wrap align-items-center justify-content-between gap-3 mb-24">
+    <div class="">
+
+        <h1 class="fw-semibold mb-4 h6 text-primary-light">{{ title }}</h1>
+        <div class="">
+            <a href="{% url 'dashboard' %}" class="text-secondary-light hover-text-primary hover-underline">Dashboard</a>
+            <a href="{% url 'profile' %}"
+                class="text-secondary-light hover-text-primary hover-underline"> / Profile</a>
+            <span class="text-secondary-light">/ {{ role }}</span>
+        </div>
+    </div>
+</div>
+
+{% include 'edudash/layouts/messages.html' %}
+
+<div class="mt-24">
+    <div class="card h-100">
+        <div class="card-body p-24">
+            <div class="d-flex gap-32 flex-md-row flex-column">
+                <div class="max-w-300-px w-100 text-center">
+                    <figure class="mb-24 w-120-px h-120-px mx-auto rounded-circle overflow-hidden">
+                        <img src="{% static 'assets/images/thumbs/teacher-details-img.png' %}" alt="teacher Image"
+                            class="w-100 h-100 object-fit-cover">
+                    </figure>
+                    <h2 class="h6 text-primary-light mb-16 fw-semibold">{{ title }}</h2>
+                    <p class="mb-0">ID: <span class="text-primary-600 fw-semibold"> {{ user.username }}</span>
+                    </p>
+                </div>
+                <div class="">
+                    <span class="h-100 w-1-px bg-neutral-200"></span>
+                </div>
+                <div class="flex-grow-1">
+                    <div class="pb-16 border-bottom d-flex align-items-center justify-content-between gap-20">
+                        <h3 class="h6 text-primary-light text-lg mb-0 fw-semibold">Personal Info</h3>
+                        <span
+                            class="bg-success-100 text-success-600 px-16 py-4 radius-4 fw-medium text-sm">Active</span>
+                    </div>
+                    <div class="mt-16 d-flex flex-column gap-8">
+                        <div class="d-flex gap-4">
+                            <span class="fw-semibold text-sm text-primary-light w-110-px">Address</span>
+                            <span class="fw-normal text-sm text-secondary-light">: {{ user.address }}</span>
+                        </div>
+                        <div class="d-flex gap-4">
+                            <span class="fw-semibold text-sm text-primary-light w-110-px">Gender</span>
+                            <span class="fw-normal text-sm text-secondary-light">: {{ user.gender }}</span>
+                        </div>
+                        <div class="d-flex gap-4">
+                            <span class="fw-semibold text-sm text-primary-light w-110-px">Join Date</span>
+                            <span class="fw-normal text-sm text-secondary-light">: {{ user.date_joined }}</span>
+                        </div>
+                        <div class="d-flex gap-4">
+                            <span class="fw-semibold text-sm text-primary-light w-110-px">Phone Number</span>
+                            <span class="fw-normal text-sm text-primary-600">: {{ user.phone }}</span>
+                        </div>
+                        <div class="d-flex gap-4">
+                            <span class="fw-semibold text-sm text-primary-light w-110-px">Email</span>
+                            <span class="fw-normal text-sm text-primary-600">: {{ user.email }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

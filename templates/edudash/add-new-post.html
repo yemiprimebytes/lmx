@@ -1,0 +1,77 @@
+{% extends "edudash/base.html" %}
+{% load static %}
+
+{% block content %}
+{% include "edudash/layouts/breadcrumbs.html" with title="Add News & Events" parent_text="News & Events" parent_link="#" active_page="Add News" %}
+
+<form method="POST" class="mt-24">
+    {% csrf_token %}
+    <div class="row gy-3">
+        <div class="col-lg-12">
+            <div class="shadow-1 radius-12 bg-base h-100 overflow-hidden">
+                <div class="card-header border-bottom bg-base py-16 px-24 d-flex align-items-center justify-content-between">
+                    <h6 class="text-lg fw-semibold mb-0">News and Events Details</h6>
+                </div>
+                <div class="card-body p-20">
+                    
+                    {% if form.non_field_errors %}
+                        <div class="alert alert-danger">
+                            {{ form.non_field_errors }}
+                        </div>
+                    {% endif %}
+
+                    <div class="row gy-3">
+                        <div class="col-sm-12">
+                            <div class="">
+                                <label for="{{ form.title.id_for_label }}" class="text-sm fw-semibold text-primary-light d-inline-block mb-8">
+                                    Title <span class="text-danger-600">*</span>
+                                </label>
+                                {{ form.title }}
+                                {% if form.title.errors %}
+                                    <div class="text-danger text-sm mt-1">{{ form.title.errors|join:", " }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <div class="">
+                                <label for="{{ form.posted_as.id_for_label }}" class="text-sm fw-semibold text-primary-light d-inline-block mb-8">
+                                    Posted As <span class="text-danger-600">*</span>
+                                </label>
+                                {{ form.posted_as }}
+                                {% if form.posted_as.errors %}
+                                    <div class="text-danger text-sm mt-1">{{ form.posted_as.errors|join:", " }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <div class="">
+                                <label for="{{ form.summary.id_for_label }}" class="text-sm fw-semibold text-primary-light d-inline-block mb-8">
+                                    Summary <span class="text-danger-600">*</span>
+                                </label>
+                                {{ form.summary }}
+                                {% if form.summary.errors %}
+                                    <div class="text-danger text-sm mt-1">{{ form.summary.errors|join:", " }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <div class="d-flex align-items-center justify-content-center gap-3 mt-8">
+                <button type="reset" class="border border-danger-600 bg-hover-danger-200 text-danger-600 text-md px-50 py-11 radius-8">
+                    Reset
+                </button>
+                <button type="submit" class="btn btn-primary-600 border border-primary-600 text-md px-28 py-12 radius-8">
+                    Save
+                </button>
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %}
