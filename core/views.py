@@ -41,7 +41,7 @@ def dashboard_view(request):
 @login_required
 def post_add(request):
     if request.method == "POST":
-        form = NewsAndEventsForm(request.POST)
+        form = NewsAndEventsForm(request.POST, request.FILES)
         title = form.cleaned_data.get("title", "Post") if form.is_valid() else None
         if form.is_valid():
             form.save()

@@ -138,7 +138,7 @@ def profile(request):
 @admin_required
 def profile_single(request, user_id):
     """Show profile of any selected user."""
-    if request.user.id == user_id:
+    if request.user.id == user_id: #use the self page
         return redirect("profile")
 
     current_session = Session.objects.filter(is_current_session=True).first()
@@ -181,8 +181,10 @@ def profile_single(request, user_id):
 
     if request.GET.get("download_pdf"):
         return render_to_pdf("pdf/profile_single.html", context)
+    
 
-    return render(request, "accounts/profile_single.html", context)
+
+    return render(request, "edudash/teacher-profile-single.html", context)
     # return render(request, "accounts/profile_single.html", context) # find out how?
 
 

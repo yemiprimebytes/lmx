@@ -1,6 +1,7 @@
 from django.db import models
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
+from django.core.validators import FileExtensionValidator
 
 
 NEWS = _("News")
@@ -57,7 +58,14 @@ class NewsAndEvents(models.Model):
     posted_as = models.CharField(choices=POST, max_length=10)
     updated_date = models.DateTimeField(auto_now=True, auto_now_add=False, null=True)
     upload_time = models.DateTimeField(auto_now=False, auto_now_add=True, null=True)
-
+    # add media to post. 
+    media = models.FileField(
+        upload_to="news_events_media/",
+        default="news_events_media/news.png",
+        validators=[
+            FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png', 'pdf'])
+        ]
+    )
     objects = NewsAndEventsManager()
 
     def __str__(self):

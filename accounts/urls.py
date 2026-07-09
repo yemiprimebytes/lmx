@@ -1,13 +1,5 @@
 from django.urls import path, include
 
-# from django.contrib.auth.views import (
-#     PasswordResetView,
-#     PasswordResetDoneView,
-#     PasswordResetConfirmView,
-#     PasswordResetCompleteView,
-#     LoginView,
-#     LogoutView,
-# )
 from .views import (
     profile,
     profile_single,
@@ -30,9 +22,6 @@ from .views import (
     render_student_pdf_list,  # new
     logout_view
 )
-
-# from .forms import EmailValidationOnForgotPassword
-
 
 urlpatterns = [
     path("", include("django.contrib.auth.urls")),

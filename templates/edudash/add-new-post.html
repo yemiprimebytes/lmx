@@ -4,7 +4,7 @@
 {% block content %}
 {% include "edudash/layouts/breadcrumbs.html" with title="Add News & Events" parent_text="News & Events" parent_link="#" active_page="Add News" %}
 
-<form method="POST" class="mt-24">
+<form method="POST" enctype="multipart/form-data" class="mt-24">
     {% csrf_token %}
     <div class="row gy-3">
         <div class="col-lg-12">
@@ -54,6 +54,18 @@
                                 {% if form.summary.errors %}
                                     <div class="text-danger text-sm mt-1">{{ form.summary.errors|join:", " }}</div>
                                 {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <div class="">
+                                <label class="text-sm fw-semibold text-primary-light d-inline-block mb-8">
+                                    Attach Media <span class="text-secondary-light text-xs">(JPG, PNG, PDF)</span>
+                                </label>
+                                <div class="drop-zone height-44-px p-4 d-flex justify-content-center align-items-center text-center fw-medium text-md cursor-pointer border border-neutral-400 radius-8 border-dashed bg-hover-neutral-200">
+                                    <span class="drop-zone__prompt">Drag & drop files here or click to upload</span>
+                                    <input type="file" name="media_files" class="drop-zone__input" accept=".jpg,.jpeg,.png,.pdf" multiple>
+                                </div>
                             </div>
                         </div>
 

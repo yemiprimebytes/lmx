@@ -177,43 +177,7 @@
   );
   // =========================== Theme Customization Show Hide js End ================================
 
-  // =========================== RTL Mode js Start ================================
-  $(".ltr-mode-btn").on("click", function () {
-    $("html").attr("dir", "ltr");
-    localStorage.setItem("direction", "ltr");
-
-    // Toggle active state
-    $(".theme-setting-item__btn").removeClass("active");
-    $(this).addClass("active");
-  });
-
-  // RTL button
-  $(".rtl-mode-btn").on("click", function () {
-    $("html").attr("dir", "rtl");
-    localStorage.setItem("direction", "rtl");
-
-    // Toggle active state
-    $(".theme-setting-item__btn").removeClass("active");
-    $(this).addClass("active");
-  });
-
-  // Load saved direction from localStorage on page load
-  $(document).ready(function () {
-    const savedDir = localStorage.getItem("direction");
-    if (savedDir) {
-      $("html").attr("dir", savedDir);
-
-      // Keep correct button active
-      if (savedDir === "rtl") {
-        $(".rtl-mode-btn").addClass("active");
-      } else {
-        $(".ltr-mode-btn").addClass("active");
-      }
-    }
-  });
-  // =========================== RTL Mode js End ================================
-
-  // =========================== Color Schema js Start ================================
+   // =========================== Color Schema js Start ================================
   const colorPickerButtons = document.querySelectorAll(".color-picker-btn");
 
   const colors = {
@@ -246,18 +210,18 @@
   });
 
   // Load saved color on refresh
-  const savedColor = localStorage.getItem("templateColor");
-  if (savedColor && colors[savedColor]) {
-    applyColor(savedColor);
-    document
-      .querySelector(`.color-picker-btn[data-color="${savedColor}"]`)
-      .classList.add("active");
-  } else {
-    // Default (base)
-    document
-      .querySelector(`.color-picker-btn[data-color="base"]`)
-      .classList.add("active");
-  }
+  // const savedColor = localStorage.getItem("templateColor");
+  // if (savedColor && colors[savedColor]) {
+  //   applyColor(savedColor);
+  //   document
+  //     .querySelector(`.color-picker-btn[data-color="${savedColor}"]`)
+  //     .classList.add("active");
+  // } else {
+  //   // Default (base)
+  //   document
+  //     .querySelector(`.color-picker-btn[data-color="base"]`)
+  //     .classList.add("active");
+  // }
   // =========================== Color Schema js End ================================
 
   // ================== Password Show Hide Js Start ==========
