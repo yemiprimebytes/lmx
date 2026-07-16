@@ -33,15 +33,34 @@
                     <p class="mb-0">Role: <span class="text-primary-light fw-semibold">{{ user_type }}</span></p>
                     <div class="mt-32 d-flex gap-16 w-100">
                         {% if user.is_active %}
-                        <button type="button" class="btn border fw-medium border-danger-600 bg-hover-danger-200 text-danger-600 text-md d-flex ustify-content-center align-items-center gap-8 flex-grow-1 px-12 py-8 radius-8" data-bs-toggle="modal" data-bs-target="#suspendAccountModal">
-                            <span class="d-flex text-lg"><i class="ri-delete-bin-2-line"></i></span>
+                        <button type="button" class="btn border fw-medium border-danger-600 bg-hover-danger-200 text-danger-600 text-md d-flex ustify-content-center align-items-center gap-8 flex-grow-1 px-12 py-8 radius-8" 
+                            hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+                            hx-post="{% url 'suspend_user' %}" 
+                            hx-confirm="Are you sure you want to restore account?"
+                            hx-vals='{"user_id": {{ user.id }} }'
+                            hx-target=".account-status"
+                            hx-swap="outerHTML"
+                            hx-on::after-request="window.location.reload()">
+                            <span class="d-flex text-lg"><i class="ri-checkbox-circle-line"></i></span>
                             Suspend
                         </button>
                         {% else %}
-                        <button type="button" class="btn border fw-medium border-success-600 bg-hover-danger-200 text-success-600 text-md d-flex ustify-content-center align-items-center gap-8 flex-grow-1 px-12 py-8 radius-8" data-bs-toggle="modal" data-bs-target="#restoreAccountModal">
+
+                        <button type="button" 
+                            class="btn border fw-medium border-success-600 bg-hover-danger-200 text-success-600 text-md d-flex ustify-content-center align-items-center gap-8 flex-grow-1 px-12 py-8 radius-8" 
+                            data-bs-toggle="modal" 
+                            data-bs-target="#restoreAccountModal"
+                            hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+                            hx-post="{% url 'restore_user' %}" 
+                            hx-confirm="Are you sure you want to restore account?"
+                            hx-vals='{"user_id": {{ user.id }} }'
+                            hx-target=".account-status"
+                            hx-swap="outerHTML"
+                            hx-on::after-request="window.location.reload()">
                             <span class="d-flex text-lg"><i class="ri-checkbox-circle-line"></i></span>
                             Restore
                         </button>
+
                         {% endif %}
                         <a href="edit-teacher.html" class="btn btn-primary-600 border fw-medium border-primary-600 text-md d-flex justify-content-center align-items-center gap-8 flex-grow-1 px-12 py-8 radius-8">
                             <span class="d-flex text-lg"><i class="ri-edit-line"></i></span>Edit
@@ -55,9 +74,9 @@
                     <div class="pb-16 border-bottom d-flex align-items-center justify-content-between gap-20">
                         <h3 class="h6 text-primary-light text-lg mb-0 fw-semibold">Personal Info</h3>
                         {% if user.is_active %}
-                        <span class="bg-success-100 text-success-600 px-16 py-4 radius-4 fw-medium text-sm">Account - Active</span>
+                        <span class="bg-success-100 text-success-600 px-16 py-4 radius-4 fw-medium text-sm account-status">Account - Active</span>
                         {% else %}
-                         <span class="bg-danger-100 text-danger-600 px-16 py-4 radius-4 fw-medium text-sm">Account - Suspended</span>
+                        <span class="bg-danger-100 text-danger-600 px-16 py-4 radius-4 fw-medium text-sm account-status">Account - Suspended</span>
                         {% endif %}
                     </div>
                     <div class="mt-16 d-flex flex-column gap-8">
@@ -182,7 +201,6 @@
         $('.my-sidebar').removeClass('active');
         $('.overlay').removeClass('active');
     });
-
 
 </script>
 {% endblock %}

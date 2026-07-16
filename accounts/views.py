@@ -76,7 +76,7 @@ def register(request):
 # Profile Views
 # ########################################################
 
-
+# Current user's profile
 @login_required
 def profile(request):
     """Show profile of the current user."""
@@ -134,6 +134,7 @@ def profile(request):
     return render(request, "edudash/admin-details.html", context)
 
 
+# Others' profile detail page.
 @login_required
 @admin_required
 def profile_single(request, user_id):
@@ -186,7 +187,6 @@ def profile_single(request, user_id):
 
     return render(request, "edudash/teacher-profile-single.html", context)
     # return render(request, "accounts/profile_single.html", context) # find out how?
-
 
 
 @login_required
@@ -443,3 +443,36 @@ class ParentAdd(CreateView):
     def form_valid(self, form):
         messages.success(self.request, "Parent added successfully.")
         return super().form_valid(form)
+
+
+# HTMx restore account endpoint
+# HTMx Endpoint Added
+@login_required
+@admin_required
+def restore_profile(request):
+    if request.method == "POST":
+        # process request here.
+        user_id = request.POST.get('user_id')
+        # disable the user account
+        # Disables the user immediately in the database
+        User.objects.filter(id=user_id).update(is_active=True)
+        new_badge = """ 
+        <span class="bg-success-100 text-success-600 px-16 py-4 radius-4 fw-medium text-sm">Account - Active</span>
+        """
+        return HttpResponse(new_badge)
+
+
+@login_required
+@admin_required
+def suspend_profile(request):
+    if request.method == "POST":
+        # process request here.
+        user_id = request.POST.get('user_id')
+        # disable the user account
+        # Disables the user immediately in the database
+        User.objects.filter(id=user_id).update(is_active=False)
+        new_badge = """ 
+        <span class="bg-danger-100 text-danger-600 px-16 py-4 radius-4 fw-medium text-sm">Account - Suspended</span>
+        """
+        return HttpResponse(new_badge)
+

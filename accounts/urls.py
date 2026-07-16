@@ -20,7 +20,9 @@ from .views import (
     register,
     render_lecturer_pdf_list,  # new
     render_student_pdf_list,  # new
-    logout_view
+    logout_view,
+    suspend_profile,
+    restore_profile,
 )
 
 urlpatterns = [
@@ -54,4 +56,8 @@ urlpatterns = [
         "create_students_pdf_list/", render_student_pdf_list, name="student_list_pdf"
     ),  # new
     path('logout/', logout_view, name='logout', kwargs={'next_page': '/'}),
+    # endpoints due to HTMx
+    path('profile/suspend/', suspend_profile, name='suspend_user'),
+    path('profile/restore/', restore_profile, name='restore_user'),
+
 ]
