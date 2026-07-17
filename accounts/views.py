@@ -49,8 +49,6 @@ def render_to_pdf(template_name, context):
 # ########################################################
 # Authentication and Registration
 # ########################################################
-
-
 def validate_username(request):
     username = request.GET.get("username", None)
     data = {"is_taken": User.objects.filter(username__iexact=username).exists()}
@@ -235,8 +233,6 @@ def change_password(request):
 # ########################################################
 # Staff (Lecturer) Views
 # ########################################################
-
-
 @login_required
 @admin_required
 def staff_add_view(request):
@@ -432,8 +428,6 @@ def edit_student_program(request, pk):
 # ########################################################
 # Parent Views
 # ########################################################
-
-
 @method_decorator([login_required, admin_required], name="dispatch")
 class ParentAdd(CreateView):
     model = Parent

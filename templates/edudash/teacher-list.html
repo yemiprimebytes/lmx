@@ -133,10 +133,10 @@
                             <th scope="col">ID No.</th>
                             <th scope="col">Full Name</th>
                             <th scope="col">Email Address</th>
-                            <th scope="col">Mob. Number</th>
+                            <th scope="col">Phone Number</th>
                             <th scope="col">Address/City</th>
                             <th scope="col">Last Login</th>
-                            <th scope="col">Join Date</th>
+                            <th scope="col">Status</th>
                             {% if request.user.is_superuser %}
                             <th scope="col">Action</th>
                             {% endif %}
@@ -167,7 +167,12 @@
                             <td>{{ lecturer.phone }}</td>
                             <td>{{ lecturer.address }}</td>
                             <td>{{ lecturer.last_login }}</td>
-                            <td>{{ lecturer.date_joined }}</td>
+                            <td>{% if lecturer.is_active %}
+                                <span class="bg-success-100 text-success-600 px-24 py-4 radius-4 fw-medium text-sm">Active</span>
+                                {% else %}
+                                <span class="bg-danger-100 text-danger-600 px-24 py-4 radius-4 fw-medium text-sm">Suspended</span>
+                                {% endif %}
+                            </td>
                             {% if request.user.is_superuser %}
                             <td>
                                 <div class="btn-group">
