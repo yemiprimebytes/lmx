@@ -21,6 +21,7 @@ Side Bar
  - Account Settings -- DONE 
  - Change Password  -- DONE
 
+-- Edit Student causing Error ** URGENT fix required
 
 Endpoints Todos
 ===============
