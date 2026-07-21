@@ -18,6 +18,7 @@ from accounts.forms import (
     ProgramUpdateForm,
     StaffAddForm,
     StudentAddForm,
+    StudentEditForm,
 )
 from accounts.models import Parent, Student, User
 from core.models import Semester, Session
@@ -119,11 +120,14 @@ def profile(request):
                 "parent": parent,
                 "courses": courses,
                 "level": student.level,
+                "program": student.program,
             }
         )
+        for c in courses:
+            print(c)
         # return student profile page
-        return render(request, "accounts/profile.html", context) 
-        # return render(request, "edudash/student-details.html", context)
+        # return render(request, "accounts/profile.html", context) 
+        return render(request, "edudash/student-details.html", context)
 
     # retrieve     * Teacher Details  * Assign Courses     * Course Notes 
     #
@@ -183,7 +187,7 @@ def profile_single(request, user_id):
     
 
 
-    return render(request, "edudash/teacher-profile-single.html", context)
+    return render(request, "edudash/single-profile.html", context)
     # return render(request, "accounts/profile_single.html", context) # find out how?
 
 
@@ -343,7 +347,7 @@ def student_add_view(request):
         request, "edudash/add-student.html", {"title": "Add Student", "form": form}
     )
 
-
+''' 
 @login_required
 @admin_required
 def edit_student(request, pk):
@@ -362,6 +366,29 @@ def edit_student(request, pk):
         # request, "accounts/edit_student.html", {"title": "Edit Student", "form": form}
         request, "edudash/edit-student.html", {"title": "Edit Student", "form": form}
     )
+''' 
+@login_required
+@admin_required
+def edit_student(request, pk):
+    student_user = get_object_or_404(User, is_student=True, pk=pk)
+    
+    if request.method == "POST":
+        # Use the new StudentEditForm here
+        form = StudentEditForm(request.POST, request.FILES, instance=student_user)
+        if form.is_valid():
+            form.save()
+            full_name = student_user.get_full_name
+            messages.success(request, f"Student {full_name} has been updated.")
+            return redirect("student_list")
+        messages.error(request, "Please correct the error below.")
+    else:
+        # And use it here for the GET request
+        form = StudentEditForm(instance=student_user)
+        
+    return render(
+        request, "edudash/edit-student.html", {"title": "Edit Student", "form": form}
+    )
+
 
 
 @method_decorator([login_required, admin_required], name="dispatch")

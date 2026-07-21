@@ -1,0 +1,219 @@
+{% extends "edudash/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="breadcrumb d-flex flex-wrap align-items-center justify-content-between gap-3 mb-24">
+    <div class="">
+
+        <h1 class="fw-semibold mb-4 h6 text-primary-light">{{ title }}</h1>
+        <div class="">
+            <a href="{% url 'dashboard' %}" class="text-secondary-light hover-text-primary hover-underline">Dashboard</a>
+            {% if user.is_lecturer %}
+            <a href="{% url 'lecturer_list' %}"
+                class="text-secondary-light hover-text-primary hover-underline"> / Lecturers</a>
+            {% else %}
+                        <a href="{% url 'student_list' %}"
+                class="text-secondary-light hover-text-primary hover-underline"> / Students</a>
+            {% endif %}
+            <span class="text-secondary-light">/ {{ title }}</span>
+        </div>
+    </div>
+</div>
+
+
+{% include 'edudash/layouts/messages.html' %}
+
+<div class="mt-24">
+    <div class="card h-100">
+        <div class="card-body p-24">
+            <div class="d-flex gap-32 flex-md-row flex-column">
+                <div class="max-w-300-px w-100 text-center">
+                    <figure class="mb-24 w-120-px h-120-px mx-auto rounded-circle overflow-hidden">
+                        <img src="{% static 'assets/images/thumbs/teacher-details-img.png' %}" alt="teacher Image"
+                            class="w-100 h-100 object-fit-cover">
+                    </figure>
+                    <h2 class="h6 text-primary-light mb-16 fw-semibold">{{ title }}</h2>
+                    <p class="mb-0">ID: <span class="text-primary-600 fw-semibold"> {{ user.username }}</span></p>
+                    <p class="mb-0">Last Login: <span class="text-primary-light fw-semibold">{{ user.last_login }}</span></p>
+                    <p class="mb-0">Role: <span class="text-primary-light fw-semibold">{{ user_type }}</span></p>
+                    <div class="mt-32 d-flex gap-16 w-100">
+
+                        {% if user.is_active %}
+                        <button type="button" class="btn border fw-medium border-danger-600 bg-hover-danger-200 text-danger-600 text-md d-flex ustify-content-center align-items-center gap-8 flex-grow-1 px-12 py-8 radius-8" 
+                            hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+                            hx-post="{% url 'suspend_user' %}" 
+                            hx-confirm="Are you sure you want to restore account?"
+                            hx-vals='{"user_id": {{ user.id }} }'
+                            hx-target=".account-status"
+                            hx-swap="outerHTML"
+                            hx-on::after-request="window.location.reload()">
+                            <span class="d-flex text-lg"><i class="ri-checkbox-circle-line"></i></span>
+                            Suspend
+                        </button>
+                        {% else %}
+
+                        <button type="button" 
+                            class="btn border fw-medium border-success-600 bg-hover-danger-200 text-success-600 text-md d-flex ustify-content-center align-items-center gap-8 flex-grow-1 px-12 py-8 radius-8" 
+                            data-bs-toggle="modal" 
+                            data-bs-target="#restoreAccountModal"
+                            hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+                            hx-post="{% url 'restore_user' %}" 
+                            hx-confirm="Are you sure you want to restore account?"
+                            hx-vals='{"user_id": {{ user.id }} }'
+                            hx-target=".account-status"
+                            hx-swap="outerHTML"
+                            hx-on::after-request="window.location.reload()">
+                            <span class="d-flex text-lg"><i class="ri-checkbox-circle-line"></i></span>
+                            Restore
+                        </button>
+
+                        {% endif %}
+                        {% if user.is_student %}
+                        <a href="{% url 'student_edit' pk=user.pk %}" class="btn btn-primary-600 border fw-medium border-primary-600 text-md d-flex justify-content-center align-items-center gap-8 flex-grow-1 px-12 py-8 radius-8">
+                            <span class="d-flex text-lg"><i class="ri-edit-line"></i></span>Edit
+                        </a>
+                        {% endif %}
+                        {% if user.is_lecturer %}
+                        <a href="{% url 'staff_edit' pk=user.pk %}" class="btn btn-primary-600 border fw-medium border-primary-600 text-md d-flex justify-content-center align-items-center gap-8 flex-grow-1 px-12 py-8 radius-8">
+                            <span class="d-flex text-lg"><i class="ri-edit-line"></i></span>Edit
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="">
+                    <span class="h-100 w-1-px bg-neutral-200"></span>
+                </div>
+                <div class="flex-grow-1">
+                    <div class="pb-16 border-bottom d-flex align-items-center justify-content-between gap-20">
+                        <h3 class="h6 text-primary-light text-lg mb-0 fw-semibold">Personal Info</h3>
+                        {% if user.is_active %}
+                        <span class="bg-success-100 text-success-600 px-16 py-4 radius-4 fw-medium text-sm account-status">Account - Active</span>
+                        {% else %}
+                        <span class="bg-danger-100 text-danger-600 px-16 py-4 radius-4 fw-medium text-sm account-status">Account - Suspended</span>
+                        {% endif %}
+                    </div>
+                    <div class="mt-16 d-flex flex-column gap-8">
+                        <div class="d-flex gap-4">
+                            <span class="fw-semibold text-sm text-primary-light w-110-px">First Name</span>
+                            <span class="fw-normal text-sm text-secondary-light">: {{ user.first_name }}</span>
+                        </div>
+                        <div class="d-flex gap-4">
+                            <span class="fw-semibold text-sm text-primary-light w-110-px">Last Name</span>
+                            <span class="fw-normal text-sm text-secondary-light">: {{ user.last_name }}</span>
+                        </div>
+                        <div class="d-flex gap-4">
+                            <span class="fw-semibold text-sm text-primary-light w-110-px">User ID</span>
+                            <span class="fw-normal text-sm text-secondary-light">: {{ user.username }}</span>
+                        </div>
+                        <div class="d-flex gap-4">
+                            <span class="fw-semibold text-sm text-primary-light w-110-px">Address</span>
+                            <span class="fw-normal text-sm text-secondary-light">: {{ user.address }}</span>
+                        </div>
+                        <div class="d-flex gap-4">
+                            <span class="fw-semibold text-sm text-primary-light w-110-px">Gender</span>
+                            <span class="fw-normal text-sm text-secondary-light">: {{ user.gender }}</span>
+                        </div>
+                        <div class="d-flex gap-4">
+                            <span class="fw-semibold text-sm text-primary-light w-110-px">Phone Number</span>
+                            <span class="fw-normal text-sm text-primary-600">: {{ user.phone }}</span>
+                        </div>
+                        <div class="d-flex gap-4">
+                            <span class="fw-semibold text-sm text-primary-light w-110-px">Email</span>
+                            <span class="fw-normal text-sm text-primary-600">: {{ user.email }}</span>
+                        </div>
+                        <div class="d-flex gap-4">
+                            <span class="fw-semibold text-sm text-primary-light w-110-px">Role</span>
+                            <span class="fw-normal text-sm text-primary-600">: {{ user_type }}</span>
+                        </div>
+                        <div class="d-flex gap-4">
+                            <span class="fw-semibold text-sm text-primary-light w-110-px">Date Join</span>
+                            <span class="fw-normal text-sm text-secondary-light">: {{ user.date_joined }}</span>
+                        </div>
+                        <div class="d-flex gap-4">
+                            <span class="fw-semibold text-sm text-primary-light w-110-px">Last Login</span>
+                            <span class="fw-normal text-sm text-secondary-light">: {{ user.last_login }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="my-16">
+        <ul class="nav nav-pills bordered-tab mb-3" id="pills-tab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button
+                    class="nav-link d-flex align-items-center gap-8 text-secondary-light fw-medium text-sm text-hover-primary-600 text-capitalize bg-transparent px-20 py-12 active"
+                    id="pills-class-routine-tab" data-bs-toggle="pill" data-bs-target="#pills-class-routine"
+                    type="button" role="tab" aria-controls="pills-class-routine" aria-selected="false">
+                    <span class="d-flex tab-icon line-height-1 text-md">
+                        <i class="ri-file-edit-line"></i>
+                    </span>
+                    Assigned Courses
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button
+                    class="nav-link d-flex align-items-center gap-8 text-secondary-light fw-medium text-sm text-hover-primary-600 text-capitalize bg-transparent px-20 py-12 "
+                    id="pills-attendance-tab" data-bs-toggle="pill" data-bs-target="#pills-attendance" type="button"
+                    role="tab" aria-controls="pills-attendance" aria-selected="false">
+                    <span class="d-flex tab-icon line-height-1 text-md">
+                        <i class="ri-file-text-line"></i>
+                    </span>
+                    Course Notes
+                </button>
+            </li>
+        </ul>
+
+
+        <div class="tab-content" id="pills-tabContent">
+
+            <!-- Assigned Courses tab start -->
+            <div class="tab-pane show active fade" id="pills-class-routine" role="tabpanel"
+                aria-labelledby="pills-class-routine-tab" tabindex="0">
+                <div class="shadow-1 radius-12 bg-base h-100 overflow-hidden">
+                    <div
+                        class="card-header border-bottom bg-base py-16 px-24 d-flex align-items-center justify-content-between">
+                        <h6 class="text-lg fw-semibold mb-0">Class Routine </h6>
+                    </div>
+                    <div class="card-body p-20 d-flex flex-column gap-20">
+                        <!-- Place table here. -->
+                    </div>
+                </div>
+            </div>
+            <!-- Assigned Courses tab start -->
+
+            <!-- Course Notes tab start -->
+            <div class="tab-pane fade" id="pills-attendance" role="tabpanel" aria-labelledby="pills-attendance-tab"
+                tabindex="0">
+                <div class="shadow-1 radius-12 bg-base h-100 overflow-hidden">
+                    <div
+                        class="card-header border-bottom bg-base py-16 px-24 d-flex align-items-center justify-content-between">
+                        <h6 class="text-lg fw-semibold mb-0">Course Notes</h6>
+                    </div>
+                    <div class="card-body p-20 d-flex flex-column gap-20">
+                       <!-- Course Notes Table here -->
+                    </div>
+                </div>
+            </div>
+            <!-- Course Notes tab end -->
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  
+    // Sidebar js start
+    $('.my-sidebar-btn').on('click', function () {
+        $('.my-sidebar').addClass('active');
+        $('.overlay').addClass('active');
+    });
+    $('.close-my-sidebar, .overlay').on('click', function () {
+        $('.my-sidebar').removeClass('active');
+        $('.overlay').removeClass('active');
+    });
+
+</script>
+{% endblock %}

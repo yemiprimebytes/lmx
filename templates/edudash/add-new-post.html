@@ -3,7 +3,7 @@
 
 {% block content %}
 {% include "edudash/layouts/breadcrumbs.html" with title="Add News & Events" parent_text="News & Events" parent_link="#" active_page="Add News" %}
-
+{% include 'edudash/layouts/messages.html' %}
 <form method="POST" enctype="multipart/form-data" class="mt-24">
     {% csrf_token %}
     <div class="row gy-3">

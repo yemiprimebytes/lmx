@@ -498,3 +498,96 @@ class ParentAddForm(UserCreationForm):
         )
         parent.save()
         return user
+
+
+class StudentEditForm(UserChangeForm):
+    first_name = forms.CharField(
+        widget=forms.TextInput(
+            attrs={"type": "text", "class": "form-control"}
+        ),
+        label="First Name",
+    )
+
+    last_name = forms.CharField(
+        widget=forms.TextInput(
+            attrs={"type": "text", "class": "form-control"}
+        ),
+        label="Last Name",
+    )
+
+    gender = forms.CharField(
+        widget=forms.Select(
+            choices=GENDERS,
+            attrs={"class": "browser-default custom-select form-control"},
+        ),
+    )
+    
+    email = forms.EmailField(
+        widget=forms.TextInput(
+            attrs={"type": "email", "class": "form-control"}
+        ),
+        label="Email Address",
+    )
+
+    address = forms.CharField(
+        widget=forms.TextInput(
+            attrs={"type": "text", "class": "form-control"}
+        ),
+        label="Address",
+    )
+    
+    phone = forms.CharField(
+        widget=forms.TextInput(
+            attrs={"type": "text", "class": "form-control"}
+        ),
+        label="Phone No.",
+    )
+
+    # --- Student Model Fields ---
+    level = forms.CharField(
+        widget=forms.Select(
+            choices=LEVEL,
+            attrs={"class": "browser-default custom-select form-control"},
+        ),
+    )
+
+    program = forms.ModelChoiceField(
+        queryset=Program.objects.all(),
+        widget=forms.Select(
+            attrs={"class": "browser-default custom-select form-control"}
+        ),
+        label="Program",
+    )
+
+    class Meta:
+        model = User
+        fields = [
+            "first_name",
+            "last_name",
+            "gender",
+            "email",
+            "address",
+            "phone",
+        ]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Pre-populate the form with the related Student model data
+        if self.instance and hasattr(self.instance, 'student'):
+            self.fields['level'].initial = self.instance.student.level
+            self.fields['program'].initial = self.instance.student.program
+
+    @transaction.atomic()
+    def save(self, commit=True):
+        # Save the base User instance
+        user = super().save(commit=commit)
+        
+        # Save the related Student instance
+        if hasattr(user, 'student'):
+            student = user.student
+            student.level = self.cleaned_data.get('level')
+            student.program = self.cleaned_data.get('program')
+            if commit:
+                student.save()
+                
+        return user
