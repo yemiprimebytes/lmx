@@ -44,6 +44,10 @@ def post_add(request):
         form = NewsAndEventsForm(request.POST, request.FILES)
         title = form.cleaned_data.get("title", "Post") if form.is_valid() else None
         if form.is_valid():
+            if 'media' in request.FILES:
+                print(f"File uploaded: {request.FILES['media'].name}")
+            else:
+                print("No file uploaded. Falling back to default.")
             form.save()
             messages.success(request, f"{title} has been uploaded.")
             return redirect("home")
