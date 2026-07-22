@@ -10,8 +10,6 @@ Side Bar
  - Quiz Progress Rec  -- OnGoing 
  - Complete Exams 
  - Attendance 
-
-
  - Lecturers -- DONE
  - Students -- DONE 
  - Course Allocation -- DONE
@@ -21,12 +19,10 @@ Side Bar
  - Account Settings -- DONE 
  - Change Password  -- DONE
 
--- Edit Student causing Error ** URGENT fix required
 
 Endpoints Todos
 ===============
 - Dashboard - Add Stats for Programs/Courses on Programs and Courses.
-
 
 URGENT TODOs
 ===========
@@ -37,13 +33,12 @@ Teachers Profile Page, Bottom
     - Quizzes Lists
 
 Students Profile Page, Bottom 
-    -
+    - Parent Information
+    -  Courses 
+    - Attendance ( if possible )
 
 Parents Profile Page, Bottom
     - 
-
-
-
 
 Registration JSON schema
 
@@ -128,5 +123,3 @@ Registration JSON schema
         </a>
     </div>
 </div>
-
-
