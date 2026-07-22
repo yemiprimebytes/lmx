@@ -112,9 +112,10 @@ def profile(request):
     if request.user.is_student:
         student = get_object_or_404(Student, student__pk=request.user.id)
         parent = Parent.objects.filter(student=student).first()
-        courses = TakenCourse.objects.filter(
-            student__student__id=request.user.id, course__level=student.level
-        )
+        # courses = TakenCourse.objects.filter(
+        #     student__student__id=request.user.id, course__level=student.level
+        # )
+        courses = Course.objects.filter(program__student__student=request.user)
         context.update(
             {
                 "parent": parent,
@@ -123,8 +124,8 @@ def profile(request):
                 "program": student.program,
             }
         )
-        for c in courses:
-            print(c)
+        # for c in courses:
+        #     print(f"course - {c}")
         # return student profile page
         # return render(request, "accounts/profile.html", context) 
         return render(request, "edudash/student-details.html", context)

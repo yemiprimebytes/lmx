@@ -34,7 +34,7 @@ Teachers Profile Page, Bottom
 
 Students Profile Page, Bottom 
     - Parent Information
-    -  Courses 
+    - Courses 
     - Attendance ( if possible )
 
 Parents Profile Page, Bottom

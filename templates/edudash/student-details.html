@@ -1004,50 +1004,61 @@
                                             </label>
                                         </div>
                                     </th>
-                                    <th scope="col">Leave Type</th>
-                                    <th scope="col">Date</th>
-                                    <th scope="col">Duration</th>
-                                    <th scope="col">Apply Date</th>
-                                    <th scope="col">Status</th>
+                                    <th scope="col">Course Name</th>
+                                    <th scope="col">Course Code</th>
+                                    <th scope="col">Course Cr.Hr</th>
+                                    <th scope="col">Level</th>
+                                    <th scope="col">Year</th>
+                                    <th scope="col">Semester</th>
+                                    <th scope="col">Current Semester</th>
+                                    {% if request.user.is_superuser %}
+                                    <th scope="col">Action</th>
+                                    {% endif %}
                                 </tr>
                             </thead>
                             <tbody>
+                                {% for course in courses %}
                                 <tr>
                                     <td>
                                         <div class="form-check style-check d-flex align-items-center">
                                             <input class="form-check-input" type="checkbox">
                                             <label class="form-check-label">
-                                                01
+                                                {{ forloop.counter }}.
                                             </label>
                                         </div>
                                     </td>
-                                    <td>Medical Leave</td>
-                                    <td>07 May 2025 - 08 may 2025</td>
-                                    <td>1</td>
-                                    <td>07 May 2025 </td>
-                                    <td>
-                                        <span
-                                            class="bg-success-100 text-success-600 px-20 py-4 radius-4 fw-medium text-sm">Approved</span>
+                                    <td><a href="{{ course.get_absolute_url }}">
+                                    {{ course.title }}</a></td>
+                                    <td>{{ course.code }}</td>
+                                    <td>{{ course.credit }}</td>
+                                    <td>{{ course.level }}</td>
+                                    <td>{{ course.year }}</td>
+                                    <td>{{ course.semester }}</td>
+                                    <td>                              
+                                        {% if session.is_current_session == True %}
+                                        <i class="ri-checkbox-circle-line text-success-main" style="font-size: 20px;"></i>
+                                        {% else %}
+                                        <i class="ri-close-circle-fill text-danger-main" style="font-size: 20px;"></i>
+                                        {% endif %}
                                     </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="form-check style-check d-flex align-items-center">
-                                            <input class="form-check-input" type="checkbox">
-                                            <label class="form-check-label">
-                                                02
-                                            </label>
+                                    {% if request.user.is_superuser %}
+                                    <td> 
+                                        <div class="flex-align gap-12">
+                                            <span class="bg-info-focus text-info-main px-20 py-4 rounded fw-medium text-sm">
+                                                <a href="{% url 'edit_course' slug=course.slug %}" class="update" title="Edit">
+                                                    <i class="ri-edit-2-fill"></i>
+                                                </a>
+                                            </span>
+                                            <span class="bg-danger-focus text-danger-main px-20 py-4 rounded fw-medium text-sm">
+                                                <a href="{% url 'delete_course' slug=course.slug %}" class="update" title="Delete">
+                                                    <i class="ri-delete-bin-5-line"></i>
+                                                </a>
+                                            </span>
                                         </div>
                                     </td>
-                                    <td>Special Leave</td>
-                                    <td>07 May 2025 - 08 may 2025</td>
-                                    <td>3</td>
-                                    <td>07 May 2025 </td>
-                                    <td>
-                                        <span
-                                            class="bg-warning-100 text-warning-600 px-20 py-4 radius-4 fw-medium text-sm">Pending</span>
-                                    </td>
+                                    {% endif %}
                                 </tr>
+                                {% endfor %}
                             </tbody>
                         </table>
                     </div>

@@ -146,18 +146,21 @@
                 </a>
             </li>
             <li class="sidebar-menu-group-title">User Settings</li>
+            {% if request.user.is_superuser %}
             <li>
                 <a href="{% url 'session_list' %}">
                     <i class="ri-shield-check-line"></i>
                     <span>manage Session </span>
                 </a>
             </li>
+
             <li>
                 <a href="{% url 'semester_list' %}">
                     <i class="ri-booklet-line"></i>
                     <span>Manage Semester </span>
                 </a>
             </li>
+            {% endif %}
             <li>
                 <a href="{% url 'edit_profile' %}">
                     <i class="ri-user-settings-line"></i>
