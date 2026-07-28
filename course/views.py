@@ -414,6 +414,7 @@ def course_registration(request):
         return redirect("course_registration")
     else:
         current_semester = Semester.objects.filter(is_current_semester=True).first()
+        # print(current_semester.query)
         if not current_semester:
             messages.error(request, "No active semester found.")
             return render(request, "course/course_registration.html")

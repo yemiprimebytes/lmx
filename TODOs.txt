@@ -10,6 +10,7 @@ Side Bar
  - Quiz Progress Rec  -- OnGoing 
  - Complete Exams 
  - Attendance 
+ 
  - Lecturers -- DONE
  - Students -- DONE 
  - Course Allocation -- DONE
