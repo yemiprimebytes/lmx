@@ -186,8 +186,6 @@ def profile_single(request, user_id):
     if request.GET.get("download_pdf"):
         return render_to_pdf("pdf/profile_single.html", context)
     
-
-
     return render(request, "edudash/single-profile.html", context)
     # return render(request, "accounts/profile_single.html", context) # find out how?
 

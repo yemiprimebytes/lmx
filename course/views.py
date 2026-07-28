@@ -72,6 +72,7 @@ def program_detail(request, pk):
     paginator = Paginator(courses, 10)
     page = request.GET.get("page")
     courses = paginator.get_page(page)
+    
     return render(
         request,
         # "course/program_single.html",

@@ -124,11 +124,11 @@
                             <td>{{ course.level }}</td>
                             <td>{{ course.year }}</td>
                             <td>{{ course.semester }}</td>
-                            <td>                              
-                                 {% if session.is_current_session == True %}
-                                 <i class="ri-checkbox-circle-line text-success-main" style="font-size: 20px;"></i>
-                                 {% else %}
+                            <td>
+                                {% if course.is_current_semester == False %}
                                  <i class="ri-close-circle-fill text-danger-main" style="font-size: 20px;"></i>
+                                {% elif course.is_current_semester == True %}
+                                    <i class="ri-checkbox-circle-line text-success-main" style="font-size: 20px;"></i>
                                 {% endif %}
                             </td>
                             {% if request.user.is_superuser %}
