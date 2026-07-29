@@ -504,10 +504,12 @@ def user_course_list(request):
     if request.user.is_student:
         student = get_object_or_404(Student, student__pk=request.user.id)
         taken_courses = TakenCourse.objects.filter(student=student)
+        # print(taken_courses)
         courses = Course.objects.filter(program__student__student=request.user)
         return render(
             request,
-            "course/user_course_list.html",
+            # "course/user_course_list.html",
+            "edudash/student-mycourses.html",
             {"student": student, "taken_courses": taken_courses, 'courses':courses},
         )
 

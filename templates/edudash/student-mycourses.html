@@ -1,0 +1,232 @@
+{% extends "edudash/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="breadcrumb d-flex flex-wrap align-items-center justify-content-between gap-3 mb-24">
+    <div class="">
+        <h1 class="fw-semibold mb-4 h6 text-primary-light">{{ title }}</h1>
+        <div class="">
+            <a href="{% url 'dashboard' %}" class="text-secondary-light hover-text-primary hover-underline">Dashboard</a>
+            <span class="text-secondary-light">/ My Courses </span>
+        </div>
+    </div>
+</div>
+{% include 'edudash/layouts/messages.html' %}
+
+<div class="mt-24">
+    <div class="card h-100">
+        <div class="card-body p-0 dataTable-wrapper">
+            <div class="card-header border-bottom bg-base py-10 px-20 d-flex align-items-center justify-content-between">
+                <h6 class="text-lg fw-semibold mb-0">Taken </h6>
+            </div>
+            <div class="p-0">
+                <table class="table bordered-table mb-0 data-table" id="dataTable" data-page-length='10'>
+                    <thead>
+                        <tr>
+                            <th scope="col">
+                                <div class="form-check style-check d-flex align-items-center">
+                                    <input class="form-check-input" type="checkbox">
+                                    <label class="form-check-label">
+                                        S.L
+                                    </label>
+                                </div>
+                            </th>
+                            <th scope="col">Course Name</th>
+                            <th scope="col">Course Code</th>
+                            <th scope="col">Course Cr.Hr</th>
+                            <th scope="col">Level</th>
+                            <th scope="col">Year</th>
+                            <th scope="col">Semester</th>
+                            <th scope="col">Current Semester</th>
+                            <th scope="col">Taken</th>
+                             {% if request.user.is_superuser %}
+                            <th scope="col">Action</th>
+                            {% endif %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for course in taken_courses %}
+                        <tr>
+                            <td>
+                                <div class="form-check style-check d-flex align-items-center">
+                                    <input class="form-check-input" type="checkbox">
+                                    <label class="form-check-label">
+                                        {{ forloop.counter }}.
+                                    </label>
+                                </div>
+                            </td>
+                            <td><a href="{{ course.get_absolute_url }}">
+                            {{ course.course.title }}</a></td>
+                            <td>{{ course.course.code }}</td>
+                            <td>{{ course.course.credit }}</td>
+                            <td>{{ course.course.level }}</td>
+                            <td>{{ course.course.year }}</td>
+                            <td>{{ course.course.semester }}</td>
+
+                            <td>
+                                {% if course.course.is_current_semester == False %}
+                                 <i class="ri-close-circle-fill text-danger-main" style="font-size: 20px;"></i>
+                                {% elif course.course.is_current_semester == True %}
+                                    <i class="ri-checkbox-circle-line text-success-main" style="font-size: 20px;"></i>
+                                {% endif %}
+                            </td>
+                            <td> <i class="fas fa-check-circle"></i> Taken</td>
+                            {% if request.user.is_superuser %}
+                            <td> 
+                                 <div class="flex-align gap-12">
+                                    <span class="bg-info-focus text-info-main px-20 py-4 rounded fw-medium text-sm">
+                                        <a href="{% url 'edit_course' slug=course.slug %}" class="update" title="Edit">
+                                            <i class="ri-edit-2-fill"></i>
+                                        </a>
+                                    </span>
+                                    <span class="bg-danger-focus text-danger-main px-20 py-4 rounded fw-medium text-sm">
+                                        <a href="{% url 'delete_course' slug=course.slug %}" class="update" title="Delete">
+                                            <i class="ri-delete-bin-5-line"></i>
+                                        </a>
+                                    </span>
+                                </div>
+                            </td>
+                            {% endif %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mt-24">
+    <div class="card h-100">
+        <div class="card-body p-0 dataTable-wrapper">
+            <div class="card-header border-bottom bg-base py-10 px-20 d-flex align-items-center justify-content-between">
+                <h6 class="text-lg fw-semibold mb-0">My Courses </h6>
+                <a href="{% url 'user_course_list' %}" class="apply-leave-btn btn btn-primary-600 d-flex align-items-center gap-6 py-8 text-sm">
+                    <span class="d-flex text-sm">
+                        <i class="ri-calendar-close-line"></i>
+                    </span>
+                    My Courses
+                </a>
+            </div>
+            <div class="p-0">
+                <table class="table bordered-table mb-0 data-table" id="dataTable" data-page-length='10'>
+                    <thead>
+                        <tr>
+                            <th scope="col">
+                                <div class="form-check style-check d-flex align-items-center">
+                                    <input class="form-check-input" type="checkbox">
+                                    <label class="form-check-label">
+                                        S.L
+                                    </label>
+                                </div>
+                            </th>
+                            <th scope="col">Course Name</th>
+                            <th scope="col">Course Code</th>
+                            <th scope="col">Course Cr.Hr</th>
+                            <th scope="col">Level</th>
+                            <th scope="col">Year</th>
+                            <th scope="col">Semester</th>
+                            <th scope="col">Current Semester</th>
+                             {% if request.user.is_superuser %}
+                            <th scope="col">Action</th>
+                            {% endif %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for course in courses %}
+                        <tr>
+                            <td>
+                                <div class="form-check style-check d-flex align-items-center">
+                                    <input class="form-check-input" type="checkbox">
+                                    <label class="form-check-label">
+                                        {{ forloop.counter }}.
+                                    </label>
+                                </div>
+                            </td>
+                            <td><a href="{{ course.get_absolute_url }}">
+                            {{ course.title }}</a></td>
+                            <td>{{ course.code }}</td>
+                            <td>{{ course.credit }}</td>
+                            <td>{{ course.level }}</td>
+                            <td>{{ course.year }}</td>
+                            <td>{{ course.semester }}</td>
+                            <td>
+                                {% if course.is_current_semester == False %}
+                                 <i class="ri-close-circle-fill text-danger-main" style="font-size: 20px;"></i>
+                                {% elif course.is_current_semester == True %}
+                                    <i class="ri-checkbox-circle-line text-success-main" style="font-size: 20px;"></i>
+                                {% endif %}
+                            </td>
+                            {% if request.user.is_superuser %}
+                            <td> 
+                                 <div class="flex-align gap-12">
+                                    <span class="bg-info-focus text-info-main px-20 py-4 rounded fw-medium text-sm">
+                                        <a href="{% url 'edit_course' slug=course.slug %}" class="update" title="Edit">
+                                            <i class="ri-edit-2-fill"></i>
+                                        </a>
+                                    </span>
+                                    <span class="bg-danger-focus text-danger-main px-20 py-4 rounded fw-medium text-sm">
+                                        <a href="{% url 'delete_course' slug=course.slug %}" class="update" title="Delete">
+                                            <i class="ri-delete-bin-5-line"></i>
+                                        </a>
+                                    </span>
+                                </div>
+                            </td>
+                            {% endif %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    let table = new DataTable('#dataTable');
+
+    // âœ… Data Table start
+    $('.data-table').each(function () {
+        const $table = $(this);
+        const tableInstance = new DataTable(this);
+
+        // Handle search input (inside same wrapper)
+        $table.closest('.dataTable-wrapper').find('.dt-search .dt-input').on('keyup', function () {
+            tableInstance.search(this.value).draw();
+        });
+
+        // Handle page length change (inside same wrapper)
+        $table.closest('.dataTable-wrapper').find('.dt-length .dt-input').on('change', function () {
+            const value = $(this).val();
+            tableInstance.page.len(value).draw();
+        });
+    });
+    // âœ… Data Table end
+
+    // Sidebar js start
+    $('.my-sidebar-btn').on('click', function () {
+        $('.my-sidebar').addClass('active');
+        $('.overlay').addClass('active');
+    });
+    $('.close-my-sidebar, .overlay').on('click', function () {
+        $('.my-sidebar').removeClass('active');
+        $('.overlay').removeClass('active');
+    });
+
+
+    $('.edit-sidebar-btn').on('click', function () {
+        $('.edit-sidebar').addClass('active');
+        $('.overlay').addClass('active');
+    });
+    $('.close-edit-sidebar, .overlay').on('click', function () {
+        $('.edit-sidebar').removeClass('active');
+        $('.overlay').removeClass('active');
+    });
+    // Sidebar js end
+
+</script>
+{% endblock %}
