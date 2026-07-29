@@ -415,7 +415,6 @@ def course_registration(request):
         return redirect("course_registration")
     else:
         current_semester = Semester.objects.filter(is_current_semester=True).first()
-        # print(current_semester.query)
         if not current_semester:
             messages.error(request, "No active semester found.")
             return render(request, "course/course_registration.html")
@@ -439,7 +438,7 @@ def course_registration(request):
         all_courses = Course.objects.filter(
             level=student.level, program__pk=student.program.id
         )
-
+        # print(all_courses)
         no_course_is_registered = False  # Check if no course is registered
         all_courses_are_registered = False
 
@@ -505,10 +504,11 @@ def user_course_list(request):
     if request.user.is_student:
         student = get_object_or_404(Student, student__pk=request.user.id)
         taken_courses = TakenCourse.objects.filter(student=student)
+        courses = Course.objects.filter(program__student__student=request.user)
         return render(
             request,
             "course/user_course_list.html",
-            {"student": student, "taken_courses": taken_courses},
+            {"student": student, "taken_courses": taken_courses, 'courses':courses},
         )
 
     # For other users

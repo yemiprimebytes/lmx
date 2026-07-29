@@ -173,6 +173,79 @@
                     </table>
                 </div>
             </div>
+            <!-- Third Semester -->
+            <div class="table-responsive p-0 px-2 mt-2">
+                <div class="table-title"><u>Third Semester:</u></div>
+                <div class="table-shadow">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>{% trans 'Mark' %}</th>
+                                <th>{% trans 'Course Code' %}</th>
+                                <th>{% trans 'Course Title' %}</th>
+                                <th>{% trans 'Cr.Hr(s)' %}</th>
+                                <th>{% trans 'Year' %}</th>
+                                <th>{% trans 'Classification' %}</th>
+                                <th>{% trans 'Elective Group' %}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for course in courses %}
+                            {% if course.semester == "Third" %}
+                            <tr>
+                                <th scope="row">
+                                    <input name="{{ course.pk }}" value="{{ course.courseUnit }}" type="checkbox">
+                                </th>
+                                <td>{{ course.code }}</td>
+                                <td>{{ course.title }}</td>
+                                <td>{{ course.credit }}</td>
+                                <td>{{ course.year }}</td>
+                                {% if course.is_elective %}
+                                <td>{% trans 'Elective' %}</td>
+                                {% else %}
+                                <td>{% trans 'Core' %}</td>
+                                {% endif %}
+                                <th>-</th>
+                            </tr>
+                            {% endif %}
+                            {% empty %}
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <span class="text-danger">
+                                        {% trans 'No Course.' %}
+                                    </span>
+                                </td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            {% endfor %}
+                            <tr>
+                                <th></th>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td><b>{% trans 'Second semester credit(s):' %}</b> {{ total_sec_semester_credit }} </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th scope="row"></th>
+                                <td><b>{% trans 'Registerd course credit(s):' %}' <a id="units">{{ total_registered_credit }}</a></b>
+                                </td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td><b>{% trans 'Total credit(s):' %}</b> {{ total_sec_semester_credit|add:total_first_semester_credit }} </td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 </form>
