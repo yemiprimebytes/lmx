@@ -25,8 +25,7 @@
                     <thead>
                         <tr>
                             <th scope="col">
-                                <div class="form-check style-check d-flex align-items-center">
-                                    <input class="form-check-input" type="checkbox">
+                                <div class="d-flex align-items-center">
                                     <label class="form-check-label">
                                         S.L
                                     </label>
@@ -49,8 +48,7 @@
                         {% for course in taken_courses %}
                         <tr>
                             <td>
-                                <div class="form-check style-check d-flex align-items-center">
-                                    <input class="form-check-input" type="checkbox">
+                                <div class="d-flex align-items-center">
                                     <label class="form-check-label">
                                         {{ forloop.counter }}.
                                     </label>
@@ -97,17 +95,12 @@
     </div>
 </div>
 
+<!-- My Courses -->
 <div class="mt-24">
     <div class="card h-100">
         <div class="card-body p-0 dataTable-wrapper">
             <div class="card-header border-bottom bg-base py-10 px-20 d-flex align-items-center justify-content-between">
                 <h6 class="text-lg fw-semibold mb-0">My Courses </h6>
-                <a href="{% url 'user_course_list' %}" class="apply-leave-btn btn btn-primary-600 d-flex align-items-center gap-6 py-8 text-sm">
-                    <span class="d-flex text-sm">
-                        <i class="ri-calendar-close-line"></i>
-                    </span>
-                    My Courses
-                </a>
             </div>
             <div class="p-0">
                 <table class="table bordered-table mb-0 data-table" id="dataTable" data-page-length='10'>
@@ -138,7 +131,6 @@
                         <tr>
                             <td>
                                 <div class="form-check style-check d-flex align-items-center">
-                                    <input class="form-check-input" type="checkbox">
                                     <label class="form-check-label">
                                         {{ forloop.counter }}.
                                     </label>
@@ -187,25 +179,6 @@
 
 {% block scripts %}
 <script>
-    let table = new DataTable('#dataTable');
-
-    // âœ… Data Table start
-    $('.data-table').each(function () {
-        const $table = $(this);
-        const tableInstance = new DataTable(this);
-
-        // Handle search input (inside same wrapper)
-        $table.closest('.dataTable-wrapper').find('.dt-search .dt-input').on('keyup', function () {
-            tableInstance.search(this.value).draw();
-        });
-
-        // Handle page length change (inside same wrapper)
-        $table.closest('.dataTable-wrapper').find('.dt-length .dt-input').on('change', function () {
-            const value = $(this).val();
-            tableInstance.page.len(value).draw();
-        });
-    });
-    // âœ… Data Table end
 
     // Sidebar js start
     $('.my-sidebar-btn').on('click', function () {
